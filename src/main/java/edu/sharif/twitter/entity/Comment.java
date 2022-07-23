@@ -38,7 +38,7 @@ public class Comment extends BaseEntity<Long> {
     * Tweet -> have many Comments
     * */
 
-
+// hello
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
