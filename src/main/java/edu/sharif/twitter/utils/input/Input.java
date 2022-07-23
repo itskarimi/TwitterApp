@@ -85,7 +85,7 @@ public class Input {
     }
 
     public boolean validateTextString() {
-        floorInt = 10;
+        floorInt = 0;
         ceilInt = 280;
         return inputString.length() >= floorInt && inputString.length()<=ceilInt && !isUnAllowedValues(unAllowedValues);
     }

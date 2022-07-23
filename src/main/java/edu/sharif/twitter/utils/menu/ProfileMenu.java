@@ -18,7 +18,7 @@ public class ProfileMenu extends Menu{
     private static final TweetService tweetService = ApplicationContext.getTweetService();
     private static final CommentService commentService = ApplicationContext.getCommentService();
     public ProfileMenu(User user) {
-        super(new String[]{"Edit Profile","Delete Account","Tweet","Comment","like","Show Tweet Of All Users","Explore","Log out"});
+        super(new String[]{"Edit Profile","Delete Account","Tweet","Comment","like","Show Tweet Of All Users","Explore", "follow", "Log out"});
         this.user = user;
         System.out.println("Welcome to your work bench... \n"
                 +user.getUserProfile().getFirstName() +"  "
@@ -54,6 +54,8 @@ public class ProfileMenu extends Menu{
                     search();
                     break;
                 case 8:
+                    new FollowMenu(user).runMenu();
+                case 9:
                     return;
 
 

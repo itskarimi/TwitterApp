@@ -11,7 +11,7 @@ import edu.sharif.twitter.utils.input.Input;
 import java.util.List;
 
 
-public class UserServiceImpl extends BaseEntityServiceImpl<User, Long , UserRepository>
+public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepository>
     implements UserService {
     public UserServiceImpl(UserRepository repository) {
         super(repository);
@@ -32,7 +32,6 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long , UserRepo
         }
         return null;
     }
-
     @Override
     public void signUp() {
         User user = new User();
@@ -49,10 +48,9 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long , UserRepo
         }
 
         user.setUsername(username);
+        user.setIsDeleted(false);
 
         user.setPassword(new Input("Enter your password").getInputString());
-
-        user.setIsDeleted(false);
 
         user.getUserProfile().setPhoneNumber(InputInformation.getPhoneNumber());
 
@@ -72,6 +70,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long , UserRepo
         System.out.println("You are signup successfully...");
 
     }
+
 
     @Override
     public User editUsername(User user) {
@@ -96,5 +95,35 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long , UserRepo
         return repository.findByUsername(searchUserDto);
     }
 
+    @Override
+    public void follow(User user) {
+        String username = new Input("Enter username :").getInputTextString();
+        User following = findByUsername(new SearchUserDto(username));
+        if (following == null) {
+            System.out.println("no such user found");
+            return;
+        }
+        if (user.getFollowings().contains(following)) {
+            System.out.printf("%s is already among your followings\n", username);
+            return;
+        }
+        user.getFollowings().add(following);
+        System.out.printf("%s was successfully followed\n", username);
+    }
 
+    @Override
+    public void unfollow(User user) {
+        String username = new Input("Enter username :").getInputTextString();
+        User following = findByUsername(new SearchUserDto(username));
+        if (following == null) {
+            System.out.println("no such user found");
+            return;
+        }
+        if (!user.getFollowings().contains(following)) {
+            System.out.printf("%s isn't among your followings\n", username);
+            return;
+        }
+        user.getFollowings().remove(following);
+        System.out.printf("%s was successfully unfollowed\n", username);
+    }
 }

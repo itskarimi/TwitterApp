@@ -17,28 +17,33 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User extends BaseEntity<Long> {
-   public final static String TABLE_NAME = "user_table";
-   public static final String USER_ID = "user_id";
+    public final static String TABLE_NAME = "user_table";
 
 
-   private String username;
+    private String username;
+    private String password;
 
-   private String password;
+    @OneToOne(mappedBy = "user" ,cascade = CascadeType.ALL)
+    private UserProfile userProfile = new UserProfile();
 
-   @OneToOne(mappedBy = "user" ,cascade = CascadeType.ALL)
-   private UserProfile userProfile = new UserProfile();
+    @OneToMany(mappedBy = "user"  ,cascade = CascadeType.ALL)
+    private List<Tweet> tweets = new ArrayList<>();
 
-   @OneToMany(mappedBy = "user"  ,cascade = CascadeType.ALL)
-   private List<Tweet> tweets = new ArrayList<>();
+    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
-   @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
-   private List<Comment> comments = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "follow_pattern",
+            joinColumns = @JoinColumn(name = "follower"),
+            inverseJoinColumns =@JoinColumn(name = "following"))
+    private List<User> followings = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "followings")
+    private List<User> followers = new ArrayList<>();
 
-   @Override
-   public String toString() {
-      return userProfile.getFirstName() + " " + userProfile.getLastName() + "\n"
-              + username + "\n" + userProfile.getBio();
-   }
-
+    @Override
+    public String toString() {
+        return userProfile.getFirstName() + " " + userProfile.getLastName() + "\n"
+                + username + "\n" + userProfile.getBio();
+    }
 }
