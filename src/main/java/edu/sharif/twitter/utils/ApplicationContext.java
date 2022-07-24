@@ -1,17 +1,9 @@
 package edu.sharif.twitter.utils;
 
-import edu.sharif.twitter.repository.CommentRepository;
-import edu.sharif.twitter.repository.TweetRepository;
-import edu.sharif.twitter.repository.UserRepository;
-import edu.sharif.twitter.repository.impl.CommentRepositoryImpl;
-import edu.sharif.twitter.repository.impl.TweetRepositoryImpl;
-import edu.sharif.twitter.repository.impl.UserRepositoryImpl;
-import edu.sharif.twitter.service.CommentService;
-import edu.sharif.twitter.service.TweetService;
-import edu.sharif.twitter.service.UserService;
-import edu.sharif.twitter.service.impl.CommentServiceImpl;
-import edu.sharif.twitter.service.impl.TweetServiceImpl;
-import edu.sharif.twitter.service.impl.UserServiceImpl;
+import edu.sharif.twitter.repository.*;
+import edu.sharif.twitter.repository.impl.*;
+import edu.sharif.twitter.service.*;
+import edu.sharif.twitter.service.impl.*;
 
 import javax.persistence.EntityManager;
 
@@ -30,6 +22,14 @@ public class ApplicationContext {
     private static final CommentService commentService;
 
 
+    private static final DMRepository dmRepository;
+
+    private static final DMService dmService;
+
+    private static final MessageRepository messageRepository;
+    private static final MessageService messageService;
+
+
 
 
     static {
@@ -43,6 +43,11 @@ public class ApplicationContext {
         commentRepository = new CommentRepositoryImpl(entityManager);
         commentService = new CommentServiceImpl(commentRepository);
 
+        dmRepository = new DMRepositoryImpl(entityManager);
+        dmService = new DMServiceImpl(dmRepository);
+
+        messageRepository = new MessageRepositoryImpl(entityManager);
+        messageService = new MessageServiceImpl(messageRepository);
     }
 
     public static UserService getUserService() {
@@ -57,4 +62,11 @@ public class ApplicationContext {
         return commentService;
     }
 
+    public static DMService getDmService() {
+        return dmService;
+    }
+
+    public static MessageService getMessageService() {
+        return messageService;
+    }
 }
