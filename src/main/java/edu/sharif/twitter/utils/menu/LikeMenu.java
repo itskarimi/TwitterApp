@@ -1,5 +1,6 @@
 package edu.sharif.twitter.utils.menu;
 
+import edu.sharif.twitter.entity.Like;
 import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.service.TweetService;
@@ -27,21 +28,22 @@ public class LikeMenu extends Menu{
             print();
             switch (chooseOperation()) {
                 case 1:
-                    Tweet tweet = addLike();
-                    if (!Objects.isNull(tweet)) {
-                        List<User> likes = tweet.getLikes();
-                        boolean isLiked = isIn(user, likes);
-                        if (isLiked){
-                            tweet.getLikes().remove(user);
-                            System.out.println("you disliked this tweet/before you disliked this tweet");
-
-                        }
-                        else {
-                            tweet.getLikes().add(user);
-                            System.out.println("you liked this tweet");
-                        }
-                        tweetService.save(tweet);
-                    }
+//                    Tweet tweet = addLike();
+//                    if (!Objects.isNull(tweet)) {
+//                        List<Like> likes = tweet.getLikes();
+//
+//                        boolean isLiked = isIn(user, likes);
+//                        if (isLiked){
+//                            tweet.getLikes().remove(user);
+//                            System.out.println("you disliked this tweet/before you disliked this tweet");
+//
+//                        }
+//                        else {
+//                            tweet.getLikes().add(user);
+//                            System.out.println("you liked this tweet");
+//                        }
+//                        tweetService.save(tweet);
+//                    }
                     break;
 
                 case 2:

@@ -25,10 +25,10 @@ public class CommentServiceImpl extends BaseEntityServiceImpl<Comment, Long , Co
     @Override
     public void addComment(Tweet tweet , User user) {
         Comment comment = new Comment();
-        comment.setTextComment(new Input("Enter your comment :").getInputString());
+        comment.setText(new Input("Enter your comment :").getInputString());
         comment.setCreateDateTime(LocalDateTime.now());
         comment.setLastUpdateDateTime(LocalDateTime.now());
-        comment.setTweet(tweet);
+        comment.setRepliedTo(tweet);
         comment.setUser(user);
         user.getComments().add(comment);
 
@@ -39,7 +39,7 @@ public class CommentServiceImpl extends BaseEntityServiceImpl<Comment, Long , Co
 
     @Override
     public void editComment(Comment comment) {
-        comment.setTextComment(
+        comment.setText(
                 new Input("Enter your comment text :").getInputString()
         );
         comment.setLastUpdateDateTime(LocalDateTime.now());

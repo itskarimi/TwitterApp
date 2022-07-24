@@ -65,7 +65,7 @@ public class CommentMenu extends Menu {
         List<Comment> comments = user1.getComments();
         List<String> commentText = new ArrayList<>();
         for (Comment comment : comments) {
-            commentText.add(comment.getTextComment());
+            commentText.add(comment.getText());
         }
         commentText.add("Back");
 
