@@ -20,26 +20,32 @@ public class User extends BaseEntity<Long> {
     public final static String TABLE_NAME = "user_table";
 
 
-    private String username;
-    private String password;
+    protected String username;
+    protected String password;
 
     @OneToOne(mappedBy = "user" ,cascade = CascadeType.ALL)
-    private UserProfile userProfile = new UserProfile();
+    protected UserProfile userProfile = new UserProfile();
 
     @OneToMany(mappedBy = "user"  ,cascade = CascadeType.ALL)
-    private List<Tweet> tweets = new ArrayList<>();
+    protected List<Tweet> tweets = new ArrayList<>();
 
     @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
-    private List<Comment> comments = new ArrayList<>();
+    protected List<Comment> comments = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "follow_pattern",
             joinColumns = @JoinColumn(name = "follower"),
             inverseJoinColumns =@JoinColumn(name = "following"))
-    private List<User> followings = new ArrayList<>();
+    protected List<User> followings = new ArrayList<>();
 
     @ManyToMany(mappedBy = "followings")
-    private List<User> followers = new ArrayList<>();
+    protected List<User> followers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "viewer", cascade = CascadeType.ALL)
+    protected List<ViewProfile> profileActivities = new ArrayList<>();
+
+    @OneToMany(mappedBy = "viewed", cascade = CascadeType.ALL)
+    protected List<ViewProfile> profileViews = new ArrayList<>();
 
     @Override
     public String toString() {

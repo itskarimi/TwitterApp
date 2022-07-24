@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = Tweet.TABLE_NAME)
+@Table(name = "tweet_table")
 @NamedEntityGraph(name = "twit_likes",
         attributeNodes = {
                 @NamedAttributeNode("likes")
@@ -23,28 +23,27 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Tweet extends BaseEntity<Long> {
-    public static final String TABLE_NAME = "tweet_table";
     public static final String CREATE_DATE_TIME = "create_date_time";
     public static final String LAST_UPDATE_DATE_TIME = "last_update_date_time";
 
-    private String text;
+    protected String text;
 
     @Column(name = CREATE_DATE_TIME, nullable = false)
-    private LocalDateTime createDateTime;
+    protected LocalDateTime createDateTime;
 
     @Column(name = LAST_UPDATE_DATE_TIME, nullable = false)
-    private LocalDateTime lastUpdateDateTime;
+    protected LocalDateTime lastUpdateDateTime;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    protected User user;
 
     @OneToMany(mappedBy = "tweet" , cascade = CascadeType.ALL)
-    private List<Comment> comments = new ArrayList<>();
+    protected List<Comment> comments = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "twit_like")
-    private List<User> likes = new ArrayList<>();
+    protected List<User> likes = new ArrayList<>();
 
     @Override
     public String toString() {

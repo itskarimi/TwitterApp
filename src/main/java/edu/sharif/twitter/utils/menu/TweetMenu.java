@@ -15,7 +15,7 @@ public class TweetMenu extends Menu{
     private final TweetService tweetService;
     public final UserService userService = ApplicationContext.getUserService();
     public TweetMenu(User user,TweetService tweetService) {
-        super(new String[]{"Add Tweet","Show My Tweets","Edit Tweet","Delete Tweet","Back"});
+        super(new String[]{"Add Tweet","Show My Tweets","Edit Tweet","Delete Tweet","Back", "show followings tweets"});
         this.user = user;
         this.tweetService = tweetService;
     }
@@ -60,6 +60,10 @@ public class TweetMenu extends Menu{
                     break;
                 case 5:
                     return;
+                case 6:
+                    List<Tweet> tweets = userService.showFollowingsTweets(user);
+                    for (Tweet tweet1 : tweets)
+                        System.out.println(tweet1);
 
             }
         }
