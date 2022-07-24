@@ -41,4 +41,21 @@ public class UserProfile extends BaseEntity<Long> {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = USER_ID, nullable = false)
     private User user;
+
+    @Override
+    public String toString() {
+        String dashLine = "----------";
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(dashLine).append(dashLine).append(dashLine);
+        stringBuilder.append("\n");
+        stringBuilder.append("First_name: ").append(firstName).append("\n");
+        stringBuilder.append("Last_name: ").append(lastName).append("\n");
+        stringBuilder.append("Phone_number: ").append(phoneNumber).append("\n");
+        stringBuilder.append("email: ").append(email).append("\n");
+        stringBuilder.append("age: ").append(age).append("\n");
+        stringBuilder.append("bio: ").append(bio).append("\n");
+        stringBuilder.append(dashLine).append(dashLine).append(dashLine);
+        stringBuilder.append("\n\n");
+        return stringBuilder.toString();
+    }
 }

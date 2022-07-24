@@ -1,9 +1,14 @@
 package edu.sharif.twitter.utils.menu;
 
+import edu.sharif.twitter.entity.User;
+import edu.sharif.twitter.utils.ApplicationContext;
+
+import java.util.Objects;
+
 public class ShowAndRunMenu extends Menu{
 
     public ShowAndRunMenu(){
-        super(new String[]{"Add Account","Exit"});
+        super(new String[]{"Log in", "Sign up", "Exit"});
     }
 
     public void runMenu() {
@@ -11,9 +16,23 @@ public class ShowAndRunMenu extends Menu{
             print();
             switch (chooseOperation()) {
                 case 1:
-                    new AccountMenu().runMenu();
+                    User user = ApplicationContext.getUserService().login();
+                    if(Objects.isNull(user)){
+                        System.out.println("Your password or username is wrong...");
+                        user = ApplicationContext.getUserService().login();
+                    }
+                    if (user.getIsDeleted()){
+                        user.setIsDeleted(false);
+                        ApplicationContext.getUserService().save(user);
+
+                    }
+
+                    new Home(user).runMenu();
                     break;
                 case 2:
+                    ApplicationContext.getUserService().signUp();
+                    break;
+                case 3:
                     return;
             }
         }

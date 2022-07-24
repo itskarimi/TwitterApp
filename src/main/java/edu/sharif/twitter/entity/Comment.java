@@ -9,44 +9,20 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = Comment.TABLE_NAME)
+@Entity(name = "comment")
+@DiscriminatorValue("comment")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment extends BaseEntity<Long> {
-    public static final String TABLE_NAME = "comment_table";
-    public static final String TEXT_COMMENT = "text_comment";
-    public static final String CREATE_DATE_TIME = "create_date_time";
-    public static final String LAST_UPDATE_DATE_TIME = "last_update_date_time";
-    @Column(name = TEXT_COMMENT)
-    private String textComment;
-
-    @Column(name = CREATE_DATE_TIME, nullable = false)
-    private LocalDateTime createDateTime;
-
-    @Column(name = LAST_UPDATE_DATE_TIME, nullable = false)
-    private LocalDateTime lastUpdateDateTime;
-
-
+public class Comment extends PublicMessage {
     @ManyToOne
-    @JoinColumn(name = "tweet_id")
-    private Tweet tweet;
-    /*
-    * Many -> Comment , One -> Tweet
-    * Tweet -> have many Comments
-    * */
-
-// hello
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
+    @JoinColumn(name = "public_message_id")
+    private PublicMessage repliedTo;
 
     @Override
     public String toString() {
         return "@" + user.getUsername() + ":\n" +
-                textComment + "\n";
+                text + "\n";
     }
 }

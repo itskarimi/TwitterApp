@@ -11,15 +11,18 @@ import edu.sharif.twitter.utils.input.Input;
 import java.util.List;
 import java.util.Objects;
 
-public class ProfileMenu extends Menu{
+public class Home extends Menu{
     private final User user;
-    private final UserService userService;
-    private final TweetService tweetService;
-    public ProfileMenu(User user, UserService userService, TweetService tweetService) {
-        super(new String[]{"Show profile","Edit profile","Show tweets", "Delete Account", "Back"});
+
+    private static final UserService userService = ApplicationContext.getUserService();
+    private static final TweetService tweetService = ApplicationContext.getTweetService();
+    private static final CommentService commentService = ApplicationContext.getCommentService();
+    public Home(User user) {
+        super(new String[]{"Profile","Followers","Following","Tweet","like","Show Tweet Of All Users","Explore", "follow","comment", "Log out"});
         this.user = user;
-        this.userService = userService;
-        this.tweetService = tweetService;
+        System.out.println("Welcome to your work bench... \n"
+                +user.getUserProfile().getFirstName() +"  "
+                + user.getUserProfile().getLastName());
     }
 
 
@@ -28,19 +31,24 @@ public class ProfileMenu extends Menu{
             print();
             switch (chooseOperation()) {
                 case 1:
-                    System.out.println(user.getUserProfile());
+                    new ProfileMenu(user, userService, tweetService).runMenu();
                     break;
                 case 2:
-                    new EditInformationUserMenu(user, userService).runMenu();
+                    new SelectMenu<>(user.getFollowers()).runMenu();
                     break;
                 case 3:
-                    System.out.println(user.getTweets());
+                    int j = 1;
+                    for(User user1 : user.getFollowings()){
+                        System.out.println(j + "- " + user1);
+                        j++;
+                    }
                     break;
                 case 4:
-                    new DeleteAccountMenu(user , userService).runMenu();
+                    new TweetingMenu(user, tweetService).runMenu();
                     break;
                 case 5:
                     new LikeMenu(user , userService , tweetService).runMenu();
+                    break;
                 case 6:
                     List<User> users = userService.showTweetAllOfUsers();
                     for (User user1 : users) {
@@ -48,13 +56,15 @@ public class ProfileMenu extends Menu{
                     }
                     break;
                 case 7:
-                    User receiver = search();
-                    if (receiver != null)
-                        new DMMenu(user, receiver).runMenu();
+                    search();
                     break;
                 case 8:
                     new FollowMenu(user).runMenu();
+                    break;
                 case 9:
+                    new CommentMenu(user, commentService, userService).runMenu();
+                    break;
+                case 10:
                     return;
 
 
@@ -62,17 +72,14 @@ public class ProfileMenu extends Menu{
         }
     }
 
-    public User search() {
+    public void search() {
         String username = new Input("Enter your username :").getInputString();
         SearchUserDto search = new SearchUserDto(username);
         User user = userService.findByUsername(search);
-        if (Objects.isNull(user)) {
+        if (Objects.isNull(user))
             System.out.println("User not found...");
-            return null;
-        }
         else
             System.out.println(user);
-        return user;
     }
 
 

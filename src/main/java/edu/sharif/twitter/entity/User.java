@@ -38,7 +38,10 @@ public class User extends BaseEntity<Long> {
             inverseJoinColumns = @JoinColumn(name = "following"))
     protected List<User> followings = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "followings")
+    @ManyToMany
+    @JoinTable(name = "follow_pattern",
+            joinColumns = @JoinColumn(name = "following"),
+            inverseJoinColumns =@JoinColumn(name = "follower"))
     protected List<User> followers = new ArrayList<>();
 
     @OneToMany(mappedBy = "viewer", cascade = CascadeType.ALL)

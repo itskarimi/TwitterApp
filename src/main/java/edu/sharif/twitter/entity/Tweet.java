@@ -11,39 +11,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "tweet_table")
-@NamedEntityGraph(name = "twit_likes",
-        attributeNodes = {
-                @NamedAttributeNode("likes")
-        }
-)
+@Entity(name = "tweet")
+@DiscriminatorValue("tweet")
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
-public class Tweet extends BaseEntity<Long> {
-    public static final String CREATE_DATE_TIME = "create_date_time";
-    public static final String LAST_UPDATE_DATE_TIME = "last_update_date_time";
-
-    protected String text;
-
-    @Column(name = CREATE_DATE_TIME, nullable = false)
-    protected LocalDateTime createDateTime;
-
-    @Column(name = LAST_UPDATE_DATE_TIME, nullable = false)
-    protected LocalDateTime lastUpdateDateTime;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    protected User user;
-
-    @OneToMany(mappedBy = "tweet" , cascade = CascadeType.ALL)
-    protected List<Comment> comments = new ArrayList<>();
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "twit_like")
-    protected List<User> likes = new ArrayList<>();
+public class Tweet extends PublicMessage {
 
     @Override
     public String toString() {

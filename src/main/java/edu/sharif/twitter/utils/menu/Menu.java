@@ -10,6 +10,7 @@ public class Menu {
     }
 
     public void print() {
+        System.out.println("Menu options:");
         for (int i = 1; i <= items.length; i++) {
             System.out.printf("%d - %s \n", i, items[i - 1]);
         }
