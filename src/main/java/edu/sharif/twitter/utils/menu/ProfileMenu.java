@@ -51,7 +51,9 @@ public class ProfileMenu extends Menu{
                     }
                     break;
                 case 7:
-                    search();
+                    User receiver = search();
+                    if (receiver != null)
+                        new DMMenu(user, receiver).runMenu();
                     break;
                 case 8:
                     new FollowMenu(user).runMenu();
@@ -63,14 +65,17 @@ public class ProfileMenu extends Menu{
         }
     }
 
-    public void search() {
+    public User search() {
         String username = new Input("Enter your username :").getInputString();
         SearchUserDto search = new SearchUserDto(username);
         User user = userService.findByUsername(search);
-        if (Objects.isNull(user))
+        if (Objects.isNull(user)) {
             System.out.println("User not found...");
+            return null;
+        }
         else
             System.out.println(user);
+        return user;
     }
 
 
