@@ -3,12 +3,13 @@ package edu.sharif.twitter.repository.impl;
 import edu.sharif.twitter.base.repository.impl.BaseEntityRepositoryImpl;
 import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
+import edu.sharif.twitter.repository.PublicMessageRepository;
 import edu.sharif.twitter.repository.TweetRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-public  class TweetRepositoryImpl extends BaseEntityRepositoryImpl<Tweet, Long>
+public  class TweetRepositoryImpl extends PublicMessageRepositoryImpl<Tweet>
     implements TweetRepository {
 
     public TweetRepositoryImpl(EntityManager entityManager) {
@@ -21,9 +22,9 @@ public  class TweetRepositoryImpl extends BaseEntityRepositoryImpl<Tweet, Long>
     }
 
     @Override
-    public void showTweets(User user) {
+    public void showPublicMessage(User user) {
         TypedQuery<Tweet> query = entityManager.createQuery(
-                "from public_message m WHERE m.user.id =: id", Tweet.class).setParameter("id", user.getId());
+                "from Tweet t WHERE t.user.id    =: id", Tweet.class).setParameter("id", user.getId());
 
         query.getResultList().forEach(System.out::println);
 
@@ -33,7 +34,7 @@ public  class TweetRepositoryImpl extends BaseEntityRepositoryImpl<Tweet, Long>
     @Override
     public void deleteById(Long id) {
         entityManager.createQuery(
-                "delete from public_message as m where m.id =: id",
+                "delete from Tweet as t where t.id =: id",
                 Tweet.class
         ).setParameter("id",id);
     }

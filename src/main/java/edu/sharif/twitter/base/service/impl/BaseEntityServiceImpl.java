@@ -44,9 +44,9 @@ public class BaseEntityServiceImpl<E extends BaseEntity<ID>, ID extends Serializ
 
     @Override
     public void delete(E e) {
-        //repository.getEntityManger().getTransaction().begin();
+        repository.getEntityManger().getTransaction().begin();
         repository.delete(e);
-        //repository.getEntityManger().getTransaction().commit();
+        repository.getEntityManger().getTransaction().commit();
     }
 
     @Override

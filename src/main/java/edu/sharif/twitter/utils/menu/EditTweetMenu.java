@@ -24,7 +24,7 @@ public class EditTweetMenu extends Menu{
             print();
             switch (chooseOperation()) {
                 case 1:
-                    tweetService.editTweet(tweet);
+                    //tweetService.editTweet(tweet);
                     userService.save(user);
                     break;
                 case 2:

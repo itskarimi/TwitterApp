@@ -1,6 +1,6 @@
 package edu.sharif.twitter.service.impl;
 
-import edu.sharif.twitter.base.service.impl.BaseEntityServiceImpl;
+import edu.sharif.twitter.entity.PublicMessage;
 import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.repository.TweetRepository;
@@ -10,7 +10,7 @@ import edu.sharif.twitter.utils.input.Input;
 import javax.persistence.EntityTransaction;
 import java.time.LocalDateTime;
 
-public class TweetServiceImpl extends BaseEntityServiceImpl<Tweet, Long, TweetRepository>
+public class TweetServiceImpl extends PublicMessageServiceImpl<Tweet>
         implements TweetService {
 
     public TweetServiceImpl(TweetRepository repository) {
@@ -20,7 +20,7 @@ public class TweetServiceImpl extends BaseEntityServiceImpl<Tweet, Long, TweetRe
     private final EntityTransaction transaction = repository.getEntityManger().getTransaction();
 
     @Override
-    public void addTweet(User user) {
+    public Tweet createPublicMessage(User user, PublicMessage repliedTo) {
         Tweet tweet = new Tweet();
 
         tweet.setText(new Input(
@@ -31,15 +31,19 @@ public class TweetServiceImpl extends BaseEntityServiceImpl<Tweet, Long, TweetRe
         tweet.setCreateDateTime(LocalDateTime.now());
         tweet.setLastUpdateDateTime(LocalDateTime.now());
         tweet.setUser(user);
-        user.getTweets().add(tweet);
-        transaction.begin();
-        repository.save(tweet);
-        transaction.commit();
-
+        return tweet;
     }
 
     @Override
-    public void editTweet(Tweet tweet) {
+    public void addPublicMessage(Tweet tweet) {
+        tweet.getUser().getTweets().add(tweet);
+        transaction.begin();
+        repository.save(tweet);
+        transaction.commit();
+    }
+
+    @Override
+    public void editPublicMessage(Tweet tweet) {
         tweet.setText(new Input(
                 "Enter your text :",
                 "Your text must be a maximum of 280 characters",
@@ -51,8 +55,8 @@ public class TweetServiceImpl extends BaseEntityServiceImpl<Tweet, Long, TweetRe
     }
 
     @Override
-    public void showTweets(User user) {
-        repository.showTweets(user);
+    public void showPublicMessage(User user) {
+        repository.showPublicMessage(user);
     }
 
     @Override

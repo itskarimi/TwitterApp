@@ -25,7 +25,7 @@ public class EditCommentMenu extends Menu{
             print();
             switch (chooseOperation()) {
                 case 1:
-                    commentService.editComment(comment);
+                    //commentService.editComment(comment);
                     userService.save(user);
                     break;
                 case 2:
