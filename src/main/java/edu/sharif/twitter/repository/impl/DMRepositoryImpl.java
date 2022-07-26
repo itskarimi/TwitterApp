@@ -1,21 +1,24 @@
 package edu.sharif.twitter.repository.impl;
 
 import edu.sharif.twitter.base.repository.impl.BaseEntityRepositoryImpl;
+import edu.sharif.twitter.entity.Chat;
 import edu.sharif.twitter.entity.DM;
-import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
+import edu.sharif.twitter.repository.ChatRepository;
 import edu.sharif.twitter.repository.DMRepository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DMRepositoryImpl extends BaseEntityRepositoryImpl<DM, Long>
-        implements DMRepository {
+            implements DMRepository {
+
+    private ChatRepository chatRepository;
 
     public DMRepositoryImpl(EntityManager entityManager) {
         super(entityManager);
+        chatRepository = new ChatRepositoryImpl(entityManager);
     }
 
     @Override
@@ -23,11 +26,14 @@ public class DMRepositoryImpl extends BaseEntityRepositoryImpl<DM, Long>
         return DM.class;
     }
 
+
     @Override
     public List<DM> showDMs(User user) {
-        TypedQuery<DM> query = entityManager.createQuery(
-                "from DM dm WHERE dm.user1.id =: id OR dm.user2.id =: id", DM.class).setParameter("id", user.getId());
-
-        return query.getResultList();
+        List<Chat> chats = chatRepository.showChats(user);
+        List<DM> dms = new ArrayList<>();
+        for (Chat chat : chats)
+            if (chat instanceof DM)
+                dms.add((DM) chat);
+        return dms;
     }
 }

@@ -31,8 +31,8 @@ public class Message extends BaseEntity<Long> {
     protected LocalDateTime lastUpdateDateTime;
 
     @ManyToOne
-    @JoinColumn(name = "DM_id")
-    protected DM dm;
+    @JoinColumn(name = "chat_id")
+    protected Chat chat;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -45,7 +45,7 @@ public class Message extends BaseEntity<Long> {
     @JoinColumn
     protected Message origin;
 
-    @OneToMany(mappedBy = "origin")
+    @OneToMany(mappedBy = "origin", cascade = CascadeType.ALL)
     protected List<Message> replies = new ArrayList<>();
 
     @Column(nullable = false)
@@ -53,7 +53,15 @@ public class Message extends BaseEntity<Long> {
 
     @Override
     public String toString() {
-        return user.getUsername() + ": " + text;
+        String reply = "";
+        if (this.getIsReply()) {
+            reply = getOrigin().getUser().getUsername() + ": ";
+            String replyText = getOrigin().getText();
+            if (replyText.length() > 8)
+                replyText = replyText.substring(0, 8) + "...";
+            reply = reply + ": " + replyText + "\n" + "---";
+        }
+        return reply + user.getUsername() + ": " + text;
     }
 
 }

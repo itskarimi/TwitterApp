@@ -1,5 +1,6 @@
 package edu.sharif.twitter.utils.menu;
 
+import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.entity.dto.SearchUserDto;
 import edu.sharif.twitter.service.CommentService;
@@ -16,7 +17,7 @@ public class ProfileMenu extends Menu{
     private final UserService userService;
     private final TweetService tweetService;
     public ProfileMenu(User user, UserService userService, TweetService tweetService) {
-        super(new String[]{"Show profile","Edit profile","Show tweets", "Delete Account", "Back"});
+        super(new String[]{"Show profile","Edit profile", "Followers", "Followings", "Show tweets", "Delete Account", "Back"});
         this.user = user;
         this.userService = userService;
         this.tweetService = tweetService;
@@ -34,27 +35,18 @@ public class ProfileMenu extends Menu{
                     new EditInformationUserMenu(user, userService).runMenu();
                     break;
                 case 3:
-                    System.out.println(user.getTweets());
+                    new SelectMenu<>(user.getFollowers()).runMenu();
                     break;
                 case 4:
-                    new DeleteAccountMenu(user , userService).runMenu();
+                    new SelectMenu<>(user.getFollowings()).runMenu();
                     break;
                 case 5:
-                    new LikeMenu(user , userService , tweetService).runMenu();
+                    System.out.println(user.getTweets());
+                    break;
                 case 6:
-                    List<User> users = userService.showTweetAllOfUsers();
-                    for (User user1 : users) {
-                        System.out.println(user1.getTweets());
-                    }
+                    new DeleteAccountMenu(user , userService).runMenu();
                     break;
                 case 7:
-                    User receiver = search();
-                    if (receiver != null)
-                        new DMMenu(user, receiver).runMenu();
-                    break;
-                case 8:
-                    new FollowMenu(user).runMenu();
-                case 9:
                     return;
 
 

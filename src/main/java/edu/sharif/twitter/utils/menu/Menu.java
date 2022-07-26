@@ -2,6 +2,8 @@ package edu.sharif.twitter.utils.menu;
 
 import edu.sharif.twitter.utils.input.Input;
 
+import java.util.List;
+
 public class Menu {
     private String[] items;
 

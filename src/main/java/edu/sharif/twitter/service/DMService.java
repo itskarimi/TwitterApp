@@ -8,9 +8,7 @@ import java.util.List;
 
 public interface DMService extends BaseEntityService<DM, Long> {
 
-    void newDM(User user1, User user2);
-
-    List<User> showDMs(User user);
+    DM newDM(User user1, User user2);
 
     DM findByUsers(User user1, User user2);
 }

@@ -50,8 +50,14 @@ public class User extends BaseEntity<Long> {
     @OneToMany(mappedBy = "viewed", cascade = CascadeType.ALL)
     protected List<ViewProfile> profileViews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     protected List<Message> messages = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "members")
+    protected List<Chat> chats = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "admins")
+    protected List<Group> adminChats = new ArrayList<>();
 
     @Override
     public String toString() {

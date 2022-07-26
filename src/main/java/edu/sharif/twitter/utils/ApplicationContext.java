@@ -1,5 +1,6 @@
 package edu.sharif.twitter.utils;
 
+import edu.sharif.twitter.entity.Group;
 import edu.sharif.twitter.repository.*;
 import edu.sharif.twitter.repository.impl.*;
 import edu.sharif.twitter.service.*;
@@ -29,6 +30,12 @@ public class ApplicationContext {
     private static final MessageRepository messageRepository;
     private static final MessageService messageService;
 
+    private static final ChatRepository chatRepository;
+    private static final ChatService chatService;
+
+    private static final GroupRepository groupRepository;
+    private static final GroupService groupService;
+
 
 
 
@@ -48,6 +55,12 @@ public class ApplicationContext {
 
         messageRepository = new MessageRepositoryImpl(entityManager);
         messageService = new MessageServiceImpl(messageRepository);
+
+        chatRepository = new ChatRepositoryImpl(entityManager);
+        chatService = new ChatServiceImpl(chatRepository);
+
+        groupRepository = new GroupRepositoryImpl(entityManager);
+        groupService = new GroupServiceImpl(groupRepository);
     }
 
     public static UserService getUserService() {
@@ -68,5 +81,13 @@ public class ApplicationContext {
 
     public static MessageService getMessageService() {
         return messageService;
+    }
+
+    public static ChatService getChatService() {
+        return chatService;
+    }
+
+    public static GroupService getGroupService() {
+        return groupService;
     }
 }

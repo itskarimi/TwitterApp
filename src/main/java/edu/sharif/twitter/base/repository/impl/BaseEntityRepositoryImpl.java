@@ -49,7 +49,6 @@ public abstract class BaseEntityRepositoryImpl<E extends BaseEntity<ID>, ID exte
     // implement hard delete
     @Override
     public void delete(E e) {
-
         entityManager.remove(e);
     }
 

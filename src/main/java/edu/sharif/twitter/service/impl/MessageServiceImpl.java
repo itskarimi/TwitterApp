@@ -2,10 +2,7 @@ package edu.sharif.twitter.service.impl;
 
 import edu.sharif.twitter.base.repository.impl.BaseEntityRepositoryImpl;
 import edu.sharif.twitter.base.service.impl.BaseEntityServiceImpl;
-import edu.sharif.twitter.entity.DM;
-import edu.sharif.twitter.entity.Message;
-import edu.sharif.twitter.entity.Tweet;
-import edu.sharif.twitter.entity.User;
+import edu.sharif.twitter.entity.*;
 import edu.sharif.twitter.repository.MessageRepository;
 import edu.sharif.twitter.service.MessageService;
 import edu.sharif.twitter.utils.input.Input;
@@ -26,7 +23,7 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
 
 
     @Override
-    public Message addMessage(User user, DM dm, Boolean isReply) {
+    public Message addMessage(User user, Chat chat) {
         Message message = new Message();
 
         message.setText(new Input(
@@ -37,15 +34,40 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
         message.setCreateDateTime(LocalDateTime.now());
         message.setLastUpdateDateTime(LocalDateTime.now());
         message.setUser(user);
-        message.setDm(dm);
+        message.setChat(chat);
         message.setIsForward(false);
-        message.setIsReply(isReply);
+        message.setIsReply(false);
         message.setIsDeleted(false);
         user.getMessages().add(message);
         transaction.begin();
         repository.save(message);
         transaction.commit();
         return message;
+    }
+
+    @Override
+    public Message addReply(User user, Message message) {
+        Message reply = new Message();
+
+        reply.setText(new Input(
+                "Enter your text :",
+                "Your text must be a maximum of 280 characters",
+                "", null).getInputTextString());
+
+        reply.setCreateDateTime(LocalDateTime.now());
+        reply.setLastUpdateDateTime(LocalDateTime.now());
+        reply.setUser(user);
+        reply.setChat(message.getChat());
+        reply.setIsForward(false);
+        reply.setIsReply(true);
+        reply.setIsDeleted(false);
+        reply.setOrigin(message);
+        message.getReplies().add(reply);
+        user.getMessages().add(reply);
+        transaction.begin();
+        repository.save(reply);
+        transaction.commit();
+        return reply;
     }
 
     @Override
@@ -61,12 +83,20 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
     }
 
     @Override
-    public List<Message> showMessages(DM dm) {
-        return repository.showMessages(dm);
+    public List<Message> showMessages(Chat chat) {
+        return repository.showMessages(chat);
     }
 
     @Override
     public void deleteById(Long id) {
-        repository.deleteById(id);
+        Message message = findById(id);
+        this.delete(message);
+    }
+    public void delete(Message message) {
+        for (Message message1 : message.getReplies()) {
+            message1.setOrigin(null);
+            message1.setIsReply(false);
+        }
+        super.delete(message);
     }
 }

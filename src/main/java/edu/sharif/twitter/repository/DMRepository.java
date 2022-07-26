@@ -9,5 +9,4 @@ import java.util.List;
 public interface DMRepository extends BaseEntityRepository<DM, Long> {
 
     List<DM> showDMs(User user);
-
 }

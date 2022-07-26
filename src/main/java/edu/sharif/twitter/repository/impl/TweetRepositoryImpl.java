@@ -23,7 +23,7 @@ public  class TweetRepositoryImpl extends BaseEntityRepositoryImpl<Tweet, Long>
     @Override
     public void showTweets(User user) {
         TypedQuery<Tweet> query = entityManager.createQuery(
-                "from Tweet t WHERE t.user.id    =: id", Tweet.class).setParameter("id", user.getId());
+                "from public_message m WHERE m.user.id =: id", Tweet.class).setParameter("id", user.getId());
 
         query.getResultList().forEach(System.out::println);
 
@@ -33,7 +33,7 @@ public  class TweetRepositoryImpl extends BaseEntityRepositoryImpl<Tweet, Long>
     @Override
     public void deleteById(Long id) {
         entityManager.createQuery(
-                "delete from Tweet as t where t.id =: id",
+                "delete from public_message as m where m.id =: id",
                 Tweet.class
         ).setParameter("id",id);
     }
