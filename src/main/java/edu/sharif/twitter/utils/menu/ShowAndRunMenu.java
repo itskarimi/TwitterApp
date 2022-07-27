@@ -27,7 +27,7 @@ public class ShowAndRunMenu extends Menu{
 
                     }
 
-                    new Home(user).runMenu();
+                    new HomeMenu(user).runMenu();
                     break;
                 case 2:
                     ApplicationContext.getUserService().signUp();
