@@ -1,13 +1,16 @@
 package edu.sharif.twitter.utils.menu;
 
 
+import edu.sharif.twitter.entity.Comment;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.entity.Tweet;
 
 public class TweetMenu extends Menu  {
     private final Tweet tweet;
-    public TweetMenu(Tweet tweet) {
+    private final User user;
+    public TweetMenu(User user, Tweet tweet) {
         super(new String[]{"Like", "Comment", "Back"});
+        this.user = user;
         this.tweet = tweet;
     }
 
@@ -20,7 +23,6 @@ public class TweetMenu extends Menu  {
 
                     break;
                 case 2:
-
                     break;
                 case 3:
                     return;
