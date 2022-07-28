@@ -3,7 +3,8 @@ package edu.sharif.twitter.utils.menu;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.service.UserService;
 
-public class UserMenu extends Menu {
+public class
+UserMenu extends Menu {
     private final User user;
     public UserMenu(User user) {
         super(new String[]{"Show profile","Show tweets", "Back"});

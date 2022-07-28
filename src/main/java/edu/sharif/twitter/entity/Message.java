@@ -61,7 +61,11 @@ public class Message extends BaseEntity<Long> {
                 replyText = replyText.substring(0, 8) + "...";
             reply = reply + ": " + replyText + "\n" + "---";
         }
-        return reply + user.getUsername() + ": " + text;
+        String forward = "";
+        if (this.isForward) {
+            forward = "Forward!" + "\n";
+        }
+        return forward + reply + user.getUsername() + ": " + text;
     }
 
 }

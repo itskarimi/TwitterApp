@@ -92,6 +92,24 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
         Message message = findById(id);
         this.delete(message);
     }
+
+    @Override
+    public void forwardMessage(User user, Chat chat, Message message) {
+        Message forward = new Message();
+        forward.setText(message.getText());
+        forward.setCreateDateTime(LocalDateTime.now());
+        forward.setLastUpdateDateTime(LocalDateTime.now());
+        forward.setUser(user);
+        forward.setChat(chat);
+        forward.setIsForward(true);
+        forward.setIsReply(false);
+        forward.setIsDeleted(false);
+        user.getMessages().add(forward);
+        transaction.begin();
+        repository.save(forward);
+        transaction.commit();
+    }
+
     public void delete(Message message) {
         for (Message message1 : message.getReplies()) {
             message1.setOrigin(null);

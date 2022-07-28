@@ -17,6 +17,6 @@ import java.util.List;
 public class DM extends Chat {
     @Override
     public String toString() {
-        return members.toString();
+        return members.get(0).getUsername() + " & " + members.get(1).getUsername();
     }
 }

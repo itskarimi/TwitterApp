@@ -34,4 +34,14 @@ public class Chat extends BaseEntity<Long> {
 
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
     protected List<Message> messages = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Chat{" +
+                "createDateTime=" + createDateTime +
+                ", lastUpdateDateTime=" + lastUpdateDateTime +
+                ", members=" + members +
+                ", messages=" + messages +
+                '}';
+    }
 }

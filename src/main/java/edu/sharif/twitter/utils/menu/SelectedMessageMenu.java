@@ -37,21 +37,26 @@ public class SelectedMessageMenu extends Menu {
                         System.out.println("you can't edit this message anymore");
                         return 0;
                     }
-                    if (message.getUser().equals(user)) {
-                        messageService.editMessage(message);
-                        return 1;
-                    }
-                    else
+                    if (!message.getUser().equals(user)) {
                         System.out.println("you can only edit your own messages");
-                    return 0;
+                        return 0;
+                    }
+                    else if (message.getIsForward()) {
+                        System.out.println("you can't edit forwarded message");
+                        return 0;
+                    }
+                    messageService.editMessage(message);
+                    return 1;
                 case 2:
                     messageService.deleteById(message.getId());
                     return 2;
                 case 3:
                     return 3;
                 case 4:
-                    List<Chat> chats = user.getChats();
-                    return 4;
+                    boolean forwarded = new ForwardMenu(user, message).runMenu();
+                    if (forwarded)
+                        return 4;
+                    return 0;
                 case 5:
                     return 0;
             }

@@ -10,6 +10,8 @@ public class ShowEntities<E extends BaseEntity<Long>>  {
 
     private int from, to, sortedNumber;
 
+    private boolean isSorted;
+
     private List<E> entities;
 
     public ShowEntities(List<E> entities) {
@@ -54,9 +56,25 @@ public class ShowEntities<E extends BaseEntity<Long>>  {
         from = Math.max(0, to - 5);
     }
 
+    public void entityAdded() {
+        sortedNumber++;
+        to = entities.size();
+        from = Math.max(0, to - 5);
+    }
+
     public void removeEntity(E entity) {
         sortedNumber--;
         entities.remove(entity);
+        if (from == 0 && to != entities.size())
+            to++;
+        else if (from > 0) {
+            from--;
+            to--;
+        }
+    }
+
+    public void removedEntity() {
+        sortedNumber--;
         if (from == 0 && to != entities.size())
             to++;
         else if (from > 0) {

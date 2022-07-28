@@ -7,6 +7,8 @@ import edu.sharif.twitter.service.ChatService;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.ShowEntities;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShowChatsMenu extends Menu {
@@ -55,4 +57,5 @@ public class ShowChatsMenu extends Menu {
             }
         }
     }
+
 }

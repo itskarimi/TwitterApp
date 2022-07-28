@@ -19,4 +19,6 @@ public interface MessageService extends BaseEntityService<Message, Long> {
     List<Message> showMessages(Chat chat);
 
     void deleteById(Long id);
+
+    void forwardMessage(User user, Chat chat, Message message);
 }

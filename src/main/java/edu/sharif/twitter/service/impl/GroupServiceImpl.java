@@ -8,6 +8,7 @@ import edu.sharif.twitter.repository.GroupRepository;
 import edu.sharif.twitter.service.GroupService;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.input.Input;
+import org.w3c.dom.ls.LSOutput;
 
 import javax.persistence.EntityTransaction;
 import java.time.LocalDateTime;
@@ -61,27 +62,55 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
 
     @Override
     public void addMember(Group group, User admin, User member) {
-        if (group.getAdmins().contains(admin) && !group.getMembers().contains(member))
+        if (!group.getAdmins().contains(admin)) {
+            System.out.println("you are not admin!");
+            return;
+        }
+        if (!group.getMembers().contains(member))
             group.getMembers().add(member);
     }
 
     @Override
     public void removeMember(Group group, User admin, User member) {
-        if (group.getAdmins().contains(admin)) {
-            group.getMembers().remove(member);
-            group.getAdmins().remove(member);
+        if (!group.getAdmins().contains(admin)) {
+            System.out.println("you are not admin!");
+            return;
         }
+        group.getMembers().remove(member);
+        group.getAdmins().remove(member);
     }
 
     @Override
     public void promoteMember(Group group, User admin, User member) {
-        if (group.getAdmins().contains(admin) && !group.getAdmins().contains(member) && group.getMembers().contains(member))
+        if (!group.getAdmins().contains(admin)) {
+            System.out.println("you are not admin!");
+            return;
+        }
+        if (group.getAdmins().contains(member)) {
+            System.out.println("this member is already an admin");
+            return;
+        }
+        if (group.getMembers().contains(member))
             group.getAdmins().add(member);
     }
 
     @Override
     public void demoteMember(Group group, User admin, User member) {
-        if (group.getAdmins().contains(admin) && group.getAdmins().size() > 1)
+        if (!group.getAdmins().contains(admin)) {
+            System.out.println("you are not admin!");
+            return;
+        }
+        if (group.getMembers().size() > 1)
             group.getAdmins().remove(member);
+    }
+
+    @Override
+    public void changeProfile(Group group, User admin) {
+        if (!group.getAdmins().contains(admin)) {
+            System.out.println("you are not admin!");
+            return;
+        }
+        group.getGroupProfile().setName(new Input("set the new name: ").getInputString());
+        group.getGroupProfile().setDescription(new Input("set the new description").getInputString());
     }
 }
