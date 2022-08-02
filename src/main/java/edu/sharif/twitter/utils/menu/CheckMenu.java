@@ -1,8 +1,10 @@
 package edu.sharif.twitter.utils.menu;
 
+import java.util.Arrays;
+
 public class CheckMenu extends Menu {
     public CheckMenu() {
-        super(new String[]{"YES", "NO"});
+        super(Arrays.asList("YES", "NO"));
     }
 
 

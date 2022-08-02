@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Input {
-    private String message;
+    private final String message;
     private String warning;
     private String regex;
     private int floorInt;
@@ -20,7 +20,8 @@ public class Input {
     private Long inputLong;
     private String inputString;
     private Double inputDouble;
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
+    private Boolean inputBoolean;
 
     public Input(String message, String warning, String regex, List<String> unAllowedValues) {
         this.message = message;
@@ -63,6 +64,11 @@ public class Input {
 
         else
             return true;
+    }
+
+
+    private boolean validateBoolean() {
+        return true;
     }
 
     public boolean validateDouble() {
@@ -112,6 +118,20 @@ public class Input {
                 return inputInt;
             } else
                 System.out.println(warning);
+        }
+    }
+    public void setInputBoolean() {
+        inputBoolean = scanner.nextBoolean();
+    }
+    public Boolean getInputBoolean() {
+        while (true) {
+            System.out.println(message);
+            setInputBoolean();
+            if (validateBoolean()) {
+                return inputBoolean;
+            } else {
+                System.out.println(warning);
+            }
         }
     }
 

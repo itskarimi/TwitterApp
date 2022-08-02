@@ -5,28 +5,28 @@ import edu.sharif.twitter.utils.input.Input;
 import java.util.List;
 
 public class Menu {
-    private String[] items;
+    protected List<String> items;
 
-    public Menu(String[] items) {
+    public Menu(List<String> items) {
         this.items = items;
     }
 
     public void print() {
         System.out.println("Menu options:");
-        for (int i = 1; i <= items.length; i++) {
-            System.out.printf("%d - %s \n", i, items[i - 1]);
+        for (int i = 1; i <= items.size(); i++) {
+            System.out.printf("%d - %s \n", i, items.get(i - 1));
         }
     }
 
     public int chooseOperation() {
         return new Input(
                 "Enter your Item :",
-                items.length ,
+                items.size() ,
                 1 ,
                 null).getInputInt();
     }
 
-    public String[] getItems() {
+    public List<String> getItems() {
         return items;
     }
 }

@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.Arrays;
 import java.util.List;
 
 public class SelectedMessageMenu extends Menu {
@@ -21,7 +22,7 @@ public class SelectedMessageMenu extends Menu {
     private final MessageService messageService = ApplicationContext.getMessageService();
 
     public SelectedMessageMenu(User user, Message message) {
-        super(new String[] {"edit", "delete", "reply", "forward", "BACK"});
+        super(Arrays.asList("edit", "delete", "reply", "forward", "BACK"));
         this.message = message;
         this.user = user;
     }

@@ -10,6 +10,7 @@ import edu.sharif.twitter.utils.ApplicationContext;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,7 +22,7 @@ public class AddPostMenu<T extends PublicMessage> extends Menu{
     private final Class<T> type;
 
     public AddPostMenu(User user, Class<T> type) {
-        super(new String[]{"Add Text", "Send","Back"});
+        super(Arrays.asList("Change Text", "Send","Back"));
         this.user = user;
         this.type = type;
         publicMessageService = type == Tweet.class
@@ -30,7 +31,7 @@ public class AddPostMenu<T extends PublicMessage> extends Menu{
     }
 
     public AddPostMenu(User user, PublicMessage repliedTo, Class<T> type) {
-        super(new String[]{"Add Text", "Send","Back"});
+        super(Arrays.asList("Change Text", "Send","Back"));
         this.user = user;
         this.repliedTo = repliedTo;
         this.type = type;
@@ -49,8 +50,8 @@ public class AddPostMenu<T extends PublicMessage> extends Menu{
                     pm = publicMessageService.createPublicMessage(user, repliedTo);
                     break;
                 case 2:
-                    publicMessageService.addPublicMessage(type.cast(pm));
-                    break;
+                    publicMessageService.save(type.cast(pm));
+                    return;
                 case 3:
                     return;
             }
@@ -65,8 +66,7 @@ public class AddPostMenu<T extends PublicMessage> extends Menu{
             tweetTexts.add(tweet.getText());
         }
         tweetTexts.add("Back");
-        String[] texts = tweetTexts.toArray(new String[0]);
-        Tweet tweet = new ShowUsersInformation<>(texts , tweets , true).runMenu();
+        Tweet tweet = new ShowUsersInformation<>(tweetTexts , tweets , true).runMenu();
         tweets.remove(tweet);
         return tweet;
     }

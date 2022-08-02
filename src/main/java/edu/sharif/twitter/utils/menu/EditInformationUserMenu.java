@@ -5,12 +5,14 @@ import edu.sharif.twitter.service.UserService;
 import edu.sharif.twitter.utils.InputInformation;
 import edu.sharif.twitter.utils.input.Input;
 
+import java.util.Arrays;
+
 public class EditInformationUserMenu extends Menu {
     private final User user;
     private final UserService userService;
 
     public EditInformationUserMenu(User user, UserService userService) {
-        super(new String[]{"Edit FirstName", "Edit LastName", "Edit Username", "Edit Bio", "Edit Password", "Edit PhoneNumber", "Edit email", "Edit Age", "Back"});
+        super(Arrays.asList("Edit FirstName", "Edit LastName", "Edit Username", "Edit Bio", "Edit Password", "Edit PhoneNumber", "Edit email", "Edit Age", "Back"));
         this.user = user;
         this.userService = userService;
     }

@@ -11,17 +11,16 @@ import javax.persistence.EntityManager;
 public class ApplicationContext {
 
     private static final UserRepository userRepository;
-
     private static final UserService userService;
 
     private static final TweetRepository tweetRepository;
-
     private static final TweetService tweetService;
 
     private static final CommentRepository commentRepository;
-
     private static final CommentService commentService;
 
+    private static final LikeRepository likeRepository;
+    private static final LikeService likeService;
 
     private static final DMRepository dmRepository;
 
@@ -36,7 +35,11 @@ public class ApplicationContext {
     private static final GroupRepository groupRepository;
     private static final GroupService groupService;
 
+    private static final ViewRepository viewRepository;
+    private static final ViewService viewService;
 
+    private static final ViewProfileRepository viewProfileRepository;
+    private static final ViewProfileService viewProfileService;
 
 
     static {
@@ -50,6 +53,9 @@ public class ApplicationContext {
         commentRepository = new CommentRepositoryImpl(entityManager);
         commentService = new CommentServiceImpl(commentRepository);
 
+        likeRepository = new LikeRepositoryImpl(entityManager);
+        likeService = new LikeServiceImpl(likeRepository);
+
         dmRepository = new DMRepositoryImpl(entityManager);
         dmService = new DMServiceImpl(dmRepository);
 
@@ -61,6 +67,12 @@ public class ApplicationContext {
 
         groupRepository = new GroupRepositoryImpl(entityManager);
         groupService = new GroupServiceImpl(groupRepository);
+
+        viewRepository = new ViewRepositoryImpl(entityManager);
+        viewService = new ViewServiceImpl(viewRepository);
+
+        viewProfileRepository = new ViewProfileRepositoryImpl(entityManager);
+        viewProfileService = new ViewProfileServiceImpl(viewProfileRepository);
     }
 
     public static UserService getUserService() {
@@ -73,6 +85,10 @@ public class ApplicationContext {
 
     public static CommentService getCommentService() {
         return commentService;
+    }
+
+    public static LikeService getLikeService() {
+        return likeService;
     }
 
     public static DMService getDmService() {
@@ -89,5 +105,13 @@ public class ApplicationContext {
 
     public static GroupService getGroupService() {
         return groupService;
+    }
+
+    public static ViewService getViewService() {
+        return viewService;
+    }
+
+    public static ViewProfileService getViewProfileService() {
+        return viewProfileService;
     }
 }

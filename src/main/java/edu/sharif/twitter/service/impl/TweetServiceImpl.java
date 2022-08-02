@@ -31,15 +31,9 @@ public class TweetServiceImpl extends PublicMessageServiceImpl<Tweet>
         tweet.setCreateDateTime(LocalDateTime.now());
         tweet.setLastUpdateDateTime(LocalDateTime.now());
         tweet.setUser(user);
-        return tweet;
-    }
-
-    @Override
-    public void addPublicMessage(Tweet tweet) {
         tweet.getUser().getTweets().add(tweet);
-        transaction.begin();
-        repository.save(tweet);
-        transaction.commit();
+
+        return tweet;
     }
 
     @Override
@@ -63,6 +57,4 @@ public class TweetServiceImpl extends PublicMessageServiceImpl<Tweet>
     public void deleteById(Long Id) {
         repository.deleteById(Id);
     }
-
-
 }

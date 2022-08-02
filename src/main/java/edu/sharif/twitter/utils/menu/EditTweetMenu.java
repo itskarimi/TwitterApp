@@ -6,6 +6,8 @@ import edu.sharif.twitter.service.TweetService;
 import edu.sharif.twitter.service.UserService;
 import edu.sharif.twitter.utils.ApplicationContext;
 
+import java.util.Arrays;
+
 public class EditTweetMenu extends Menu{
     private final Tweet tweet;
     private final TweetService tweetService;
@@ -13,7 +15,7 @@ public class EditTweetMenu extends Menu{
     private User user;
 
     public EditTweetMenu(Tweet tweet, TweetService tweetService, User user1) {
-        super(new String[]{"Edit Text","Back"});
+        super(Arrays.asList("Edit Text","Back"));
         this.tweetService = tweetService;
         this.tweet = tweet;
         this.user = user1;

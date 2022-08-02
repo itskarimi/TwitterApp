@@ -28,13 +28,12 @@ public abstract class PublicMessage extends BaseEntity<Long> {
     @Column(name = LAST_UPDATE_DATE_TIME, nullable = false)
     protected LocalDateTime lastUpdateDateTime;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    protected User user;
-
     @OneToMany(mappedBy = "repliedTo", cascade = CascadeType.ALL)
     protected List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "publicMessage", cascade = CascadeType.ALL)
     protected List<Like> likes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "viewed", cascade = CascadeType.ALL)
+    protected List<View> views = new ArrayList<>();
 }

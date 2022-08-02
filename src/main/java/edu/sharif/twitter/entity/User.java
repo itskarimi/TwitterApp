@@ -22,15 +22,19 @@ public class User extends BaseEntity<Long> {
 
     protected String username;
     protected String password;
+    protected Boolean isBusiness;
 
     @OneToOne(mappedBy = "user" ,cascade = CascadeType.ALL)
     protected UserProfile userProfile = new UserProfile();
 
-    @OneToMany(mappedBy = "user"  ,cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = edu.sharif.twitter.entity.Tweet.class, mappedBy = "user"  ,cascade = CascadeType.ALL)
     protected List<Tweet> tweets = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = edu.sharif.twitter.entity.Comment.class, mappedBy = "user" ,cascade = CascadeType.ALL)
     protected List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    protected List<Like> likes = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "follow_pattern",
@@ -49,6 +53,9 @@ public class User extends BaseEntity<Long> {
 
     @OneToMany(mappedBy = "viewed", cascade = CascadeType.ALL)
     protected List<ViewProfile> profileViews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "viewer", cascade = CascadeType.ALL)
+    protected List<View> views = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     protected List<Message> messages = new ArrayList<>();

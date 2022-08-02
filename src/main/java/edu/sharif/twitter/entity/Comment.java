@@ -16,8 +16,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comment extends PublicMessage {
+
     @ManyToOne
-    @JoinColumn(name = "public_message_id")
+    @JoinColumn(name = "comment_user_id")
+    protected User user;
+
+    @ManyToOne
+    @JoinColumn(name = "comment_public_message_id")
     private PublicMessage repliedTo;
 
     @Override

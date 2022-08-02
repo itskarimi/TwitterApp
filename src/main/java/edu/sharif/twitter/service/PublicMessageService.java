@@ -9,11 +9,11 @@ public interface PublicMessageService<T extends PublicMessage> extends BaseEntit
 
     T createPublicMessage(User user, PublicMessage repliedTo);
 
-    void addPublicMessage(T publicMessage);
-
     void editPublicMessage(T publicMessage);
 
     void showPublicMessage(User user);
 
     void deleteById(Long Id);
+
+    void showStats(PublicMessage publicMessage);
 }

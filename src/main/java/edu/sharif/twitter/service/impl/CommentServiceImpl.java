@@ -26,16 +26,8 @@ public class CommentServiceImpl extends PublicMessageServiceImpl<Comment>
         comment.setLastUpdateDateTime(LocalDateTime.now());
         comment.setRepliedTo(repliedTo);
         comment.setUser(user);
-        return comment;
-    }
-
-    @Override
-    public void addPublicMessage(Comment comment) {
         comment.getUser().getComments().add(comment);
-
-        repository.getEntityManger().getTransaction().begin();
-        repository.save(comment);
-        repository.getEntityManger().getTransaction().commit();
+        return comment;
     }
 
     @Override

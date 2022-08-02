@@ -1,6 +1,8 @@
 package edu.sharif.twitter.repository.impl;
 
 import edu.sharif.twitter.base.repository.impl.BaseEntityRepositoryImpl;
+import edu.sharif.twitter.entity.DateCount;
+import edu.sharif.twitter.entity.PublicMessage;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.entity.dto.SearchUserDto;
 import edu.sharif.twitter.repository.UserRepository;
@@ -81,5 +83,15 @@ public class UserRepositoryImpl extends BaseEntityRepositoryImpl<User , Long>
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public List<DateCount> getViewCountPerDay(User user) {
+        TypedQuery<DateCount> dateCounts = entityManager.createQuery(
+                "SELECT NEW edu.sharif.twitter.entity.DateCount(date(v.createDateTime), COUNT(*))\n" +
+                        "FROM ViewProfile v\n" +
+                        "WHERE v.viewed.id =: id\n" +
+                        "GROUP BY date(v.createDateTime)", DateCount.class
+        ).setParameter("id", user.getId());
+        return dateCounts.getResultList();
     }
 }

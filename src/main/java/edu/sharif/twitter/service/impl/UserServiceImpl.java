@@ -1,6 +1,8 @@
 package edu.sharif.twitter.service.impl;
 
 import edu.sharif.twitter.base.service.impl.BaseEntityServiceImpl;
+import edu.sharif.twitter.entity.DateCount;
+import edu.sharif.twitter.entity.PublicMessage;
 import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.entity.dto.SearchUserDto;
@@ -84,6 +86,8 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
 
         user.getUserProfile().setBio(new Input("Enter your bio : ").getInputString());
 
+        user.setIsBusiness(new Input("Is business user? (false/true): ").getInputBoolean());
+
 
         user.getUserProfile().setUser(user);
 
@@ -120,35 +124,18 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
     }
 
     @Override
-    public void follow(User user) {
-        String username = new Input("Enter username :").getInputTextString();
-        User following = findByUsername(new SearchUserDto(username));
-        if (following == null) {
-            System.out.println("no such user found");
-            return;
-        }
+    public void follow(User user, User following) {
+        String username = following.getUsername();
         if (user.getFollowings().contains(following)) {
-            System.out.printf("%s is already among your followings\n", username);
-            return;
+            user.getFollowings().remove(following);
+            following.getFollowers().remove(user);
+            System.out.printf("%s was successfully unfollowed\n", username);
         }
-        user.getFollowings().add(following);
-        System.out.printf("%s was successfully followed\n", username);
-    }
-
-    @Override
-    public void unfollow(User user) {
-        String username = new Input("Enter username :").getInputTextString();
-        User following = findByUsername(new SearchUserDto(username));
-        if (following == null) {
-            System.out.println("no such user found");
-            return;
+        else {
+            user.getFollowings().add(following);
+            following.getFollowers().add(user);
+            System.out.printf("%s was successfully followed\n", username);
         }
-        if (!user.getFollowings().contains(following)) {
-            System.out.printf("%s isn't among your followings\n", username);
-            return;
-        }
-        user.getFollowings().remove(following);
-        System.out.printf("%s was successfully unfollowed\n", username);
     }
 
     @Override
@@ -168,5 +155,10 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
             tweets.addAll(following.getTweets());
         }
         return tweets;
+    }
+
+    public void showStats(User user) {
+        List<DateCount> dateCounts = repository.getViewCountPerDay(user);
+        dateCounts.forEach(System.out::println);
     }
 }

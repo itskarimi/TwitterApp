@@ -15,8 +15,13 @@ import java.util.List;
 @DiscriminatorValue("tweet")
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class Tweet extends PublicMessage {
+
+    @ManyToOne
+    @JoinColumn(name = "tweet_user_id")
+    protected User user;
 
     @Override
     public String toString() {

@@ -27,7 +27,6 @@ public class CommentRepositoryImpl extends PublicMessageRepositoryImpl<Comment>
                 "from Comment t WHERE t.user.id    =: id", Comment.class).setParameter("id", user.getId());
 
         query.getResultList().forEach(System.out::println);
-
     }
 
 

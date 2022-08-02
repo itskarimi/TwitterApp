@@ -9,6 +9,7 @@ import edu.sharif.twitter.utils.ShowEntities;
 import edu.sharif.twitter.utils.input.Input;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GroupMenu extends Menu{
@@ -24,7 +25,7 @@ public class GroupMenu extends Menu{
     private ShowEntities<User> showMembers;
 
     public GroupMenu(User user, Group group) {
-        super(new String[] {"show previous", "show next", "select a member", "add", "change group profile", "BACK"});
+        super(Arrays.asList("show previous", "show next", "select a member", "add", "change group profile", "BACK"));
         this.user = user;
         this.group = group;
         this.members = group.getMembers();

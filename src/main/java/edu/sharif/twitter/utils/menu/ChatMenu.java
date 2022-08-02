@@ -10,6 +10,7 @@ import edu.sharif.twitter.utils.ShowEntities;
 import edu.sharif.twitter.utils.input.Input;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ChatMenu extends Menu {
     private ShowEntities<Message> showMessages;
 
     public ChatMenu(User user, Chat chat) {
-        super(new String[] {"show profile", "show previous massages", "show next massages", "select a massage", "new massage", "BACK"});
+        super(Arrays.asList("show profile", "show previous massages", "show next massages", "select a massage", "new massage", "BACK"));
         this.user = user;
         this.chat = chat;
         messages = chat.getMessages();
@@ -43,9 +44,9 @@ public class ChatMenu extends Menu {
                 case 1:
                     if (chat instanceof DM) {
                         if (chat.getMembers().get(0).equals(user))
-                            new UserMenu(chat.getMembers().get(1)).runMenu();
+                            new UserMenu(user, chat.getMembers().get(1)).runMenu();
                         else
-                            new UserMenu(chat.getMembers().get(0)).runMenu();
+                            new UserMenu(user, chat.getMembers().get(0)).runMenu();
                     }
                     else
                         new GroupMenu(user, (Group) chat).runMenu();

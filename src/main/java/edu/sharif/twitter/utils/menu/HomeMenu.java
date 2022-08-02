@@ -9,6 +9,7 @@ import edu.sharif.twitter.service.UserService;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.input.Input;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,7 +20,7 @@ public class HomeMenu extends Menu{
     private static final TweetService tweetService = ApplicationContext.getTweetService();
     private static final CommentService commentService = ApplicationContext.getCommentService();
     public HomeMenu(User user) {
-        super(new String[]{"Profile","Tweet","like","Show Tweet Of All Users","Explore", "follow","comment", "chat", "Log out"});
+        super(Arrays.asList("Profile","Tweet","Explore", "Chat", "Log out"));
         this.user = user;
         System.out.println("Welcome to your work bench... \n"
                 +user.getUserProfile().getFirstName() +"  "
@@ -38,31 +39,15 @@ public class HomeMenu extends Menu{
                     new AddPostMenu<>(user, Tweet.class).runMenu();
                     break;
                 case 3:
-                    new LikeMenu(user , userService , tweetService).runMenu();
-                    break;
-                case 4:
-                    List<User> users = userService.showTweetAllOfUsers();
-                    for (User user1 : users) {
-                        System.out.println(user1.getTweets());
-                    }
-                    break;
-                case 5:
                     User receiver = search();
                     if (receiver != null)
                         new ChatMenu(user, receiver).runMenu();
                     break;
-                case 6:
-                    new FollowMenu(user).runMenu();
-                    break;
-                case 7:
-                    break;
-                case 8:
+                case 4:
                     new ShowChatsMenu(user).runMenu();
                     break;
-                case 9:
+                case 5:
                     return;
-
-
             }
         }
     }

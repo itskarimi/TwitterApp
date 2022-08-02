@@ -6,6 +6,8 @@ import edu.sharif.twitter.service.CommentService;
 import edu.sharif.twitter.service.UserService;
 import edu.sharif.twitter.utils.ApplicationContext;
 
+import java.util.Arrays;
+
 public class EditCommentMenu extends Menu{
     private Comment comment;
     private User user;
@@ -14,7 +16,7 @@ public class EditCommentMenu extends Menu{
     private final UserService userService = ApplicationContext.getUserService();
 
     public EditCommentMenu(Comment comment, CommentService commentService, User user1) {
-        super(new String[] {"Edit Comment Text" ,"Exit"});
+        super(Arrays.asList("Edit Comment Text" ,"Exit"));
         this.comment = comment;
         this.commentService = commentService;
         this.user = user1;

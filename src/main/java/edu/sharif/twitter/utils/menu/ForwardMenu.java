@@ -7,6 +7,7 @@ import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.ShowEntities;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ForwardMenu extends Menu{
@@ -20,7 +21,7 @@ public class ForwardMenu extends Menu{
     private ShowEntities<Chat> showChats;
 
     public ForwardMenu(User user, Message message) {
-        super(new String[] {"show previous", "show next", "select a chat", "cancel forward"});
+        super(Arrays.asList("show previous", "show next", "select a chat", "cancel forward"));
         this.user = user;
         this.message = message;
         this.chats = user.getChats();

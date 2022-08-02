@@ -3,12 +3,13 @@ package edu.sharif.twitter.utils.menu;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.utils.ApplicationContext;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class ShowAndRunMenu extends Menu{
 
     public ShowAndRunMenu(){
-        super(new String[]{"Log in", "Sign up", "Exit"});
+        super(Arrays.asList("Log in", "Sign up", "Exit"));
     }
 
     public void runMenu() {

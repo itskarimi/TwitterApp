@@ -3,12 +3,14 @@ package edu.sharif.twitter.utils.menu;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.service.UserService;
 
+import java.util.Arrays;
+
 public class DeleteAccountMenu extends Menu{
     private final User user;
     private final UserService userService;
 
     public DeleteAccountMenu(User user, UserService userService) {
-        super(new String[]{"Temporary delete","Permanent delete","Back"});
+        super(Arrays.asList("Temporary delete","Permanent delete","Back"));
         this.user = user;
         this.userService = userService;
     }

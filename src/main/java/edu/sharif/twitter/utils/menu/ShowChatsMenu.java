@@ -7,6 +7,7 @@ import edu.sharif.twitter.service.ChatService;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.ShowEntities;
 
+import java.util.Arrays;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class ShowChatsMenu extends Menu {
     private ChatService chatService = ApplicationContext.getChatService();
 
     public ShowChatsMenu(User user) {
-        super(new String[] {"show previous", "show next", "select a chat", "new group", "followings", "followers", "BACK"});
+        super(Arrays.asList("show previous", "show next", "select a chat", "new group", "followings", "followers", "BACK"));
         this.user = user;
         chats = chatService.showChats(user);
         showChats = new ShowEntities<>(chats);
@@ -57,5 +58,4 @@ public class ShowChatsMenu extends Menu {
             }
         }
     }
-
 }
