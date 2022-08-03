@@ -17,4 +17,13 @@ module edu.sharif.twitter {
 
     opens edu.sharif.twitter to javafx.fxml;
     exports edu.sharif.twitter;
+
+    exports edu.sharif.twitter.view;
+    opens edu.sharif.twitter.view to javafx.fxml;
+
+    opens edu.sharif.twitter.base to org.hibernate.orm.core;
+    exports  edu.sharif.twitter.base;
+
+    opens edu.sharif.twitter.entity to org.hibernate.orm.core;
+    exports edu.sharif.twitter.entity;
 }

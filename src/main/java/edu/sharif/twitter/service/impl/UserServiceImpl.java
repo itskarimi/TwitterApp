@@ -2,7 +2,6 @@ package edu.sharif.twitter.service.impl;
 
 import edu.sharif.twitter.base.service.impl.BaseEntityServiceImpl;
 import edu.sharif.twitter.entity.DateCount;
-import edu.sharif.twitter.entity.PublicMessage;
 import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.entity.dto.SearchUserDto;
@@ -10,6 +9,10 @@ import edu.sharif.twitter.repository.UserRepository;
 import edu.sharif.twitter.service.UserService;
 import edu.sharif.twitter.utils.InputInformation;
 import edu.sharif.twitter.utils.input.Input;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,81 +25,117 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
     }
 
     @Override
-    public User login() {
+    public User login(TextField usernameField, PasswordField passwordField,
+                      String css) {
 
-        String username = new Input("Enter your username :").getInputString();
-        String password = new Input("Enter your password :").getInputString();
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
         User user = repository.existByUsername(username);
         try{
             if (user.getPassword().equals(password)){
+                usernameField.getStylesheets().remove(css);
+                passwordField.getStylesheets().remove(css);
                 return user;
             }
+            else {
+                usernameField.getStylesheets().add(css);
+                passwordField.getStylesheets().add(css);
+            }
         } catch (NullPointerException ignored){
-
         }
         return null;
     }
     @Override
-    public void signUp() {
+    public boolean signUp(TextField usernameField, TextField passwordField, TextField confirmField,
+                          TextField firstNameField, TextField lastNameField,
+                          TextField emailField, TextField ageField, TextField bioField,
+                          ToggleButton businessToggle, String css, Label warnings) {
+
+        boolean done = true;
+
         User user = new User();
 
-        user.getUserProfile().setFirstName(InputInformation.getFirstName());
+        String errors = "";
 
-        user.getUserProfile().setLastName(InputInformation.getLastName());
-
-        String username = new Input("Enter your username").getInputString();
-
-        while (repository.existByUsername(username) != null) {
-            System.out.println("this username is token before");
-            username = new Input("Enter your username :").getInputString();
+        String firstName = firstNameField.getText();
+        if (!firstName.matches(InputInformation.FIRSTNAME_REGEX)) {
+            firstNameField.getStylesheets().add(css);
+            done = false;
+        }
+        else {
+            user.getUserProfile().setFirstName(firstName);
+            firstNameField.getStylesheets().remove(css);
         }
 
-        user.setUsername(username);
-        user.setIsDeleted(false);
-
-        String password;
-        while(true) {
-            password = new Input("Enter your password").getInputString();
-            if (password.length() < 8) {
-                System.out.println("your password isn't long enough");
-            } else if (password.matches("[^a-z]*")) {
-                System.out.println("your password should have lowercase letter");
-            } else if (password.matches("[^A-Z]*")) {
-                System.out.println("your password should hove uppercase letter");
-            } else if (password.matches("\\D*")) {
-                System.out.println("your password should have numbers");
-            } else {
-                break;
-            }
+        String lastName = lastNameField.getText();
+        if (!firstName.matches(InputInformation.LASTNAME_REGEX)) {
+            lastNameField.getStylesheets().add(css);
+            done = false;
         }
-        while(true) {
-            String password1 = new Input("Reenter your password").getInputString();
-            if (password1.equals(password))
-                break;
-            System.out.println("your passwords don't match");
+        else {
+            user.getUserProfile().setLastName(lastName);
+            lastNameField.getStylesheets().remove(css);
         }
 
-        user.setPassword(password);
+        String username = usernameField.getText();
+        if (repository.existByUsername(username) != null) {
+            usernameField.getStylesheets().add(css);
+            done = false;
+        }
+        else {
+            user.setUsername(username);
+            user.setIsDeleted(false);
+            usernameField.getStylesheets().remove(css);
+        }
 
-        user.getUserProfile().setPhoneNumber(InputInformation.getPhoneNumber());
+        String password = passwordField.getText(), confirm = confirmField.getText();
+        passwordField.getStylesheets().add(css);
+        confirmField.getStylesheets().add(css);
+        if (password.length() < 8) {
+            errors += "your password isn't long enough";
+            done = false;
+        } else if (password.matches("[^a-z]*")) {
+            errors += "your password should have lowercase letter";
+            done = false;
+        } else if (password.matches("[^A-Z]*")) {
+            errors += "your password should hove uppercase letter";
+            done = false;
+        } else if (password.matches("\\D*")) {
+            errors += "your password should have numbers";
+            done = false;
+        } else if (!confirm.equals(password)) {
+            errors += "your passwords don't match";
+            done = false;
+        } else {
+            user.setPassword(password);
+            passwordField.getStylesheets().remove(css);
+            confirmField.getStylesheets().remove(css);
+        }
 
-        user.getUserProfile().setEmail(new Input("Enter your email :").getInputString());
+        String email = emailField.getText();
+        user.getUserProfile().setEmail(email);
 
-        user.getUserProfile().setAge(new Input("Enter your Age :").getInputInt());
+        String age = ageField.getText();
+        user.getUserProfile().setAge(Integer.parseInt(age));
 
-        user.getUserProfile().setBio(new Input("Enter your bio : ").getInputString());
+        String bio = bioField.getText();
+        user.getUserProfile().setBio(bio);
 
-        user.setIsBusiness(new Input("Is business user? (false/true): ").getInputBoolean());
-
+        user.setIsBusiness(businessToggle.isSelected());
 
         user.getUserProfile().setUser(user);
 
-        repository.getEntityManger().getTransaction().begin();
-        repository.save(user);
-        repository.getEntityManger().getTransaction().commit();
+        warnings.setText(errors);
+        warnings.setLayoutX(280);
+        warnings.setLayoutY(490);
 
-        System.out.println("You are signup successfully...");
-
+        if (done) {
+            repository.getEntityManger().getTransaction().begin();
+            repository.save(user);
+            repository.getEntityManger().getTransaction().commit();
+        }
+        return done;
     }
 
 
