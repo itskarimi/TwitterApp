@@ -43,6 +43,8 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                 passwordField.getStylesheets().add(css);
             }
         } catch (NullPointerException ignored){
+            usernameField.getStylesheets().add(css);
+            passwordField.getStylesheets().add(css);
         }
         return null;
     }

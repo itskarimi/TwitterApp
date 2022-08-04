@@ -1,0 +1,25 @@
+.root {
+    -fx-background-color: #15223b;
+}
+
+.button {
+    -fx-background-color: #00000000;
+    -fx-border-color: #1e90ff;
+    -fx-border-radius: 5;
+    -fx-text-fill: "white";
+}
+.button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #1e90ff50;
+}
+.button:selected {
+    -fx-background-color: #1e90ff;
+}
+
+.label {
+    -fx-text-fill: "white";
+}
+
+#tweetArea .content {
+    -fx-background-color: #3cdfff;
+}

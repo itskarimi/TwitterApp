@@ -1,0 +1,17 @@
+.root {
+    -fx-background-color:  #15223b;
+}
+
+#usernameLabel {
+    -fx-text-fill: white;
+}
+
+#tweetField {
+    -fx-text-fill: white;
+    -fx-border-color:  #1e90ff;
+    -fx-border-radius: 5;
+}
+
+#likeButton, #commentButton {
+    -fx-border-color: #00000000;
+}

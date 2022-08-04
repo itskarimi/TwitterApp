@@ -6,6 +6,9 @@ import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.repository.TweetRepository;
 import edu.sharif.twitter.service.TweetService;
 import edu.sharif.twitter.utils.input.Input;
+import edu.sharif.twitter.utils.input.MyInput;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 
 import javax.persistence.EntityTransaction;
 import java.time.LocalDateTime;
@@ -20,13 +23,10 @@ public class TweetServiceImpl extends PublicMessageServiceImpl<Tweet>
     private final EntityTransaction transaction = repository.getEntityManger().getTransaction();
 
     @Override
-    public Tweet createPublicMessage(User user, PublicMessage repliedTo) {
+    public Tweet createPublicMessage(User user, PublicMessage repliedTo, TextInputControl field) {
         Tweet tweet = new Tweet();
 
-        tweet.setText(new Input(
-                "Enter your text :",
-                "Your text must be a maximum of 280 characters",
-                "", null).getInputTextString());
+        tweet.setText(new MyInput(field).getInputTextString());
 
         tweet.setCreateDateTime(LocalDateTime.now());
         tweet.setLastUpdateDateTime(LocalDateTime.now());

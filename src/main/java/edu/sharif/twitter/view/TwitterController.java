@@ -25,7 +25,7 @@ public class TwitterController {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/login.css").toExternalForm();
+        String css = this.getClass().getResource("css/theme1/login.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
@@ -36,7 +36,7 @@ public class TwitterController {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/signUp.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/login.css").toExternalForm();
+        String css = this.getClass().getResource("css/theme1/login.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();

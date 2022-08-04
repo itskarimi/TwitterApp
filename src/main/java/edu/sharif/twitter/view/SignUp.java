@@ -41,7 +41,7 @@ public class SignUp {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/twitter-view.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/login.css").toExternalForm();
+        String css = this.getClass().getResource("css/theme1/login.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();

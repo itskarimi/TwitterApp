@@ -15,7 +15,7 @@ public class TwitterApplication extends Application{
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(TwitterApplication.class.getResource("view/fxml/twitter-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        String css = this.getClass().getResource("view/css/login.css").toExternalForm();
+        String css = this.getClass().getResource("view/css/theme1/login.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setTitle("Hello!");
         stage.setScene(scene);

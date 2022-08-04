@@ -8,6 +8,9 @@ import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.repository.CommentRepository;
 import edu.sharif.twitter.service.CommentService;
 import edu.sharif.twitter.utils.input.Input;
+import edu.sharif.twitter.utils.input.MyInput;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 
 import java.time.LocalDateTime;
 
@@ -19,9 +22,9 @@ public class CommentServiceImpl extends PublicMessageServiceImpl<Comment>
     }
 
     @Override
-    public Comment createPublicMessage(User user, PublicMessage repliedTo) {
+    public Comment createPublicMessage(User user, PublicMessage repliedTo, TextInputControl field) {
         Comment comment = new Comment();
-        comment.setText(new Input("Enter your comment :").getInputString());
+        comment.setText(new MyInput(field).getInputTextString());
         comment.setCreateDateTime(LocalDateTime.now());
         comment.setLastUpdateDateTime(LocalDateTime.now());
         comment.setRepliedTo(repliedTo);

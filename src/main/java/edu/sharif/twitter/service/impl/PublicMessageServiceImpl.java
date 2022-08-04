@@ -4,6 +4,8 @@ import edu.sharif.twitter.base.service.impl.BaseEntityServiceImpl;
 import edu.sharif.twitter.entity.*;
 import edu.sharif.twitter.repository.PublicMessageRepository;
 import edu.sharif.twitter.service.PublicMessageService;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 
 import java.util.List;
 
@@ -13,7 +15,7 @@ public abstract class PublicMessageServiceImpl<T extends PublicMessage> extends 
         super(repository);
     }
 
-    public abstract T createPublicMessage(User user, PublicMessage repliedTo);
+    public abstract T createPublicMessage(User user, PublicMessage repliedTo, TextInputControl field);
 
     public abstract void editPublicMessage(T publicMessage);
 
