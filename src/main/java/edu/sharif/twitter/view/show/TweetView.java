@@ -32,10 +32,10 @@ public class TweetView {
     public void gotoComments(ActionEvent event) throws IOException {
         DataManager.setTweet(tweet);
 
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/comment.fxml"));
+        Parent root = FXMLLoader.load(Comment.class.getResource("fxml/comment.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
+        String css = Comment.class.getResource("css/theme1/home.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
