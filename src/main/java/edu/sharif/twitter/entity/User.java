@@ -36,13 +36,13 @@ public class User extends BaseEntity<Long> {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     protected List<Like> likes = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "follow_pattern",
             joinColumns = @JoinColumn(name = "follower"),
             inverseJoinColumns = @JoinColumn(name = "following"))
     protected List<User> followings = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "follow_pattern",
             joinColumns = @JoinColumn(name = "following"),
             inverseJoinColumns =@JoinColumn(name = "follower"))

@@ -1,5 +1,6 @@
 package edu.sharif.twitter.base;
 
+import edu.sharif.twitter.entity.Tweet;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,12 +17,11 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BaseEntity<ID extends Serializable> implements Serializable {
+public abstract class BaseEntity<ID extends Serializable> implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private ID id;
 
     private Boolean isDeleted;
-
 }
