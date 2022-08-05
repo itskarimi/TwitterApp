@@ -1,5 +1,6 @@
 package edu.sharif.twitter.view;
 
+import edu.sharif.twitter.TwitterApplication;
 import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.view.data.DataManager;
@@ -70,6 +71,18 @@ public class Profile extends Menu{
         UserListScreenController userListScreenController = userListLoader.getController();
         userListScreenController.setUsers(user.getFollowings());
         scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void logout(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(TwitterApplication.class.getResource("view/fxml/twitter-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        String css = TwitterApplication.class.getResource("view/css/theme1/login.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Twitter");
         stage.setScene(scene);
         stage.show();
     }
