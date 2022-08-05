@@ -20,8 +20,8 @@ public class CommentScreenController extends ScreenController {
 
     @FXML
     public void initialize() throws IOException {
-        FXMLLoader tweetLoader = new FXMLLoader(getClass().getResource("fxml/show/tweet-view.fxml"));
-        FXMLLoader commentLoader = new FXMLLoader(getClass().getResource("fxml/show/comment-view.fxml"));
+        FXMLLoader tweetLoader = new FXMLLoader(getClass().getResource("fxml/item/tweet-view.fxml"));
+        FXMLLoader commentLoader = new FXMLLoader(getClass().getResource("fxml/item/comment-view.fxml"));
         tweetVbox.getChildren().add(tweetLoader.load());
         tweetView = tweetLoader.getController();
         tweetView.setTweet(tweet);

@@ -34,7 +34,7 @@ public class ProfileScreenController extends ScreenController {
 
         for (int i = user.getTweets().size() - 1; i >= 0; i--) {
             Tweet tweet = user.getTweets().get(i);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/show/tweet-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/item/tweet-view.fxml"));
             Node node = loader.load();
             TweetViewController tweetViewController = loader.getController();
             tweetViewController.setTweet(tweet);

@@ -44,7 +44,7 @@ public class ExploreScreenController extends ScreenController {
         userViews.clear();
 
         if (searchUser != null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/show/user-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/item/user-view.fxml"));
             Node node = loader.load();
             UserViewController userView = loader.getController();
             userView.setUser(searchUser);
