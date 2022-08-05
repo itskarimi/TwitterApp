@@ -82,12 +82,12 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <Button fx:id="followersButton" layoutX="397.0" layoutY="68.0" mnemonicParsing="false" text="Followers">
+            <Button fx:id="followersButton" onAction="#onFollowersButtonClicked" layoutX="397.0" layoutY="68.0" mnemonicParsing="false" text="Followers">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="followingButton" layoutX="537.0" layoutY="68.0" mnemonicParsing="false" text="Followings">
+            <Button fx:id="followingButton" onAction="#onFollowingButtonClicked" layoutX="537.0" layoutY="68.0" mnemonicParsing="false" text="Followings">
                <font>
                   <Font size="16.0" />
                </font>

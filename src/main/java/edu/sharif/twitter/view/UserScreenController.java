@@ -5,12 +5,15 @@ import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.view.data.DataManager;
 import edu.sharif.twitter.view.show.TweetView;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import lombok.Data;
 
 import java.io.IOException;
@@ -55,5 +58,31 @@ public class UserScreenController extends Menu {
     @FXML
     public void onDirectToUserButtonClick() {
 
+    }
+
+    @FXML
+    public void onFollowersButtonClicked(ActionEvent event) throws IOException {
+        FXMLLoader userListLoader = new FXMLLoader(getClass().getResource("fxml/user-list-screen.fxml"));
+        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(userListLoader.load());
+        UserListScreenController userListScreenController = userListLoader.getController();
+        userListScreenController.setUsers(user.getFollowers());
+        scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void onFollowingButtonClicked(ActionEvent event) throws IOException {
+        FXMLLoader userListLoader = new FXMLLoader(getClass().getResource("fxml/user-list-screen.fxml"));
+        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(userListLoader.load());
+        UserListScreenController userListScreenController = userListLoader.getController();
+        userListScreenController.setUsers(user.getFollowings());
+        scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
     }
 }
