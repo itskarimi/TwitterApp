@@ -8,6 +8,7 @@ public class DataManager {
     private static User user;
     private static Tweet tweet;
     private static Comment comment;
+    private static User targetUser;
 
     public static User getUser() {
         return user;
@@ -31,5 +32,13 @@ public class DataManager {
 
     public static void setComment(Comment comment) {
         DataManager.comment = comment;
+    }
+
+    public static User getTargetUser() {
+        return targetUser;
+    }
+
+    public static void setTargetUser(User targetUser) {
+        DataManager.targetUser = targetUser;
     }
 }

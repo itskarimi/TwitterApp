@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.UserScreenController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="591.2000305175782" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="567.0000061035156" minHeight="10.0" prefHeight="530.1999938964844" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/Twitter-complete-logo.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="homeButton" layoutX="658.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToHome">
+                    <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/home-logo.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="directButton" layoutX="712.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToDirect">
+                    <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/Telegram-logo.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="addButton" layoutX="767.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToTweet">
+                    <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/add-post-logo.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="exploreButton" layoutX="821.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToExplore">
+                    <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/explore-logo.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="profileButton" layoutX="876.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToProfile">
+                    <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/twitter-logo.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <children>
+                <Label fx:id="usernameLabel" layoutX="302.0" layoutY="14.0" text="username">
+                    <font>
+                        <Font size="22.0" />
+                    </font>
+                </Label>
+                <Button fx:id="followButton" onAction="#onFollowButtonClick" layoutX="564.0" layoutY="21.0" mnemonicParsing="false" text="Follow">
+                   <font>
+                      <Font size="16.0" />
+                   </font>
+                </Button>
+                <Button fx:id="directToUserButton" onAction="#onDirectToUserButtonClick" layoutX="508.0" layoutY="22.0" mnemonicParsing="false">
+                    <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/Telegram-logo.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="followersButton" layoutX="397.0" layoutY="68.0" mnemonicParsing="false" text="Followers">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Button>
+                <Button fx:id="followingButton" layoutX="537.0" layoutY="68.0" mnemonicParsing="false" text="Followings">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Button>
+                <Label fx:id="postsLabel" layoutX="302.0" layoutY="73.0" text="Posts">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <ScrollPane layoutX="290.0" layoutY="122.0" maxHeight="430.0" minHeight="0.0" prefWidth="370.0">
+                    <content>
+                        <VBox fx:id="postVbox" prefWidth="350.0" />
+                    </content>
+                </ScrollPane>
+            </children>
+        </AnchorPane>
+    </children>
+</GridPane>
