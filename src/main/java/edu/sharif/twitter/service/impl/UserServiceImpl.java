@@ -9,6 +9,7 @@ import edu.sharif.twitter.repository.UserRepository;
 import edu.sharif.twitter.service.UserService;
 import edu.sharif.twitter.utils.InputInformation;
 import edu.sharif.twitter.utils.input.Input;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -201,5 +202,10 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
     public void showStats(User user) {
         List<DateCount> dateCounts = repository.getViewCountPerDay(user);
         dateCounts.forEach(System.out::println);
+    }
+
+    @FXML
+    public User loadArian() {
+        return repository.existByUsername("arianbst");
     }
 }

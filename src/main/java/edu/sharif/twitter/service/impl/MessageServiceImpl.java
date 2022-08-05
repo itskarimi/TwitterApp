@@ -6,6 +6,7 @@ import edu.sharif.twitter.entity.*;
 import edu.sharif.twitter.repository.MessageRepository;
 import edu.sharif.twitter.service.MessageService;
 import edu.sharif.twitter.utils.input.Input;
+import javafx.scene.control.TextInputControl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -23,13 +24,10 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
 
 
     @Override
-    public Message addMessage(User user, Chat chat) {
+    public Message addMessage(User user, Chat chat, TextInputControl field) {
         Message message = new Message();
 
-        message.setText(new Input(
-                "Enter your text :",
-                "Your text must be a maximum of 280 characters",
-                "", null).getInputTextString());
+        message.setText(field.getText());
 
         message.setCreateDateTime(LocalDateTime.now());
         message.setLastUpdateDateTime(LocalDateTime.now());
@@ -39,6 +37,7 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
         message.setIsReply(false);
         message.setIsDeleted(false);
         user.getMessages().add(message);
+        chat.getMessages().add(message);
         transaction.begin();
         repository.save(message);
         transaction.commit();
@@ -46,13 +45,10 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
     }
 
     @Override
-    public Message addReply(User user, Message message) {
+    public Message addReply(User user, Message message, TextInputControl field) {
         Message reply = new Message();
 
-        reply.setText(new Input(
-                "Enter your text :",
-                "Your text must be a maximum of 280 characters",
-                "", null).getInputTextString());
+        reply.setText(field.getText());
 
         reply.setCreateDateTime(LocalDateTime.now());
         reply.setLastUpdateDateTime(LocalDateTime.now());
@@ -64,6 +60,7 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
         reply.setOrigin(message);
         message.getReplies().add(reply);
         user.getMessages().add(reply);
+        message.getChat().getMessages().add(reply);
         transaction.begin();
         repository.save(reply);
         transaction.commit();

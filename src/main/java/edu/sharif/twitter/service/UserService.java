@@ -33,4 +33,6 @@ public interface UserService extends BaseEntityService<User, Long> {
     List<Tweet> showFollowingsTweets(User user);
 
     void showStats(User user);
+
+    User loadArian();
 }

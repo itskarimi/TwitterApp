@@ -27,7 +27,7 @@ public class Menu {
     }
     @FXML
     public void switchToDirect(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/chat-screen.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();

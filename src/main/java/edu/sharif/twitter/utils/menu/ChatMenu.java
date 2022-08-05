@@ -8,6 +8,7 @@ import edu.sharif.twitter.service.UserService;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.ShowEntities;
 import edu.sharif.twitter.utils.input.Input;
+import javafx.scene.control.TextArea;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,7 +65,7 @@ public class ChatMenu extends Menu {
                     if(action == 2) {
                         showMessages.removedEntity();
                     } else if (action == 3) {
-                        Message reply = messageService.addReply(user, selectedMessage);
+                        Message reply = messageService.addReply(user, selectedMessage, new TextArea());
                         messages.add(reply);
                         showMessages.entityAdded();
                     } else if (action == 4) {
@@ -72,7 +73,7 @@ public class ChatMenu extends Menu {
                     }
                     break;
                 case 5:
-                    Message message = messageService.addMessage(user, chat);
+                    Message message = messageService.addMessage(user, chat, new TextArea());
                     messages.add(message);
                     showMessages.entityAdded();
                     break;

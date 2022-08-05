@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="messagePane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.show.MessageView">
+   <children>
+      <Label fx:id="usernameLabel" layoutX="14.0" layoutY="14.0" text="Username">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="messageLabel" layoutX="12.0" layoutY="50.0" text="Message">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="replyButton" layoutX="96.0" layoutY="11.0" mnemonicParsing="false" onAction="#reply" text="reply">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
