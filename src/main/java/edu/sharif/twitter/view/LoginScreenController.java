@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Login {
+public class LoginScreenController {
     @FXML
     private TextField usernameField;
     @FXML
@@ -35,7 +35,7 @@ public class Login {
 
         DataManager.setUser(user);
 
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/profile.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/profile-screen.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();

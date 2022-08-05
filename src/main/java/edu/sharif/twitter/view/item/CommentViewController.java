@@ -1,4 +1,4 @@
-package edu.sharif.twitter.view.show;
+package edu.sharif.twitter.view.item;
 
 import edu.sharif.twitter.entity.Comment;
 import javafx.fxml.FXML;
@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
-public class CommentView {
+public class CommentViewController {
     Comment comment;
     @FXML
     private AnchorPane anchorPane;

@@ -3,7 +3,7 @@ package edu.sharif.twitter.view;
 import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.view.data.DataManager;
-import edu.sharif.twitter.view.show.TweetView;
+import edu.sharif.twitter.view.item.TweetViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,9 +14,9 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Profile extends Menu{
+public class ProfileScreenController extends ScreenController {
     private User user = DataManager.getUser();
-    private ArrayList<TweetView> tweetViews = new ArrayList<>();
+    private ArrayList<TweetViewController> tweetViews = new ArrayList<>();
     private ArrayList<Node> nodes = new ArrayList<>();
     @FXML
     private Label usernameLabel, postsLabel;
@@ -34,12 +34,12 @@ public class Profile extends Menu{
 
         for (int i = user.getTweets().size() - 1; i >= 0; i--) {
             Tweet tweet = user.getTweets().get(i);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/show/tweetView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/show/tweet-view.fxml"));
             Node node = loader.load();
-            TweetView tweetView = loader.getController();
-            tweetView.setTweet(tweet);
+            TweetViewController tweetViewController = loader.getController();
+            tweetViewController.setTweet(tweet);
             nodes.add(node);
-            tweetViews.add(tweetView);
+            tweetViews.add(tweetViewController);
             postVbox.getChildren().add(node);
         }
     }

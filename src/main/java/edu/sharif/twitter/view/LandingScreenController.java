@@ -7,13 +7,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class TwitterController {
+public class LandingScreenController {
 
     @FXML
     private AnchorPane anchorPane;
@@ -22,7 +21,7 @@ public class TwitterController {
 
     @FXML
     public void login(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/login-screen.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("css/theme1/login.css").toExternalForm();
@@ -33,7 +32,7 @@ public class TwitterController {
 
     @FXML
     public void signUp(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/signUp.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/sign-up-screen.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("css/theme1/login.css").toExternalForm();

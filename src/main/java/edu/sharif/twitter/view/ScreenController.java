@@ -11,13 +11,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Menu {
+public class ScreenController {
     @FXML
     protected Button homeButton, directButton, addButton, exploreButton, profileButton;
 
     @FXML
     public void switchToHome(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/home-screen.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
@@ -27,7 +27,7 @@ public class Menu {
     }
     @FXML
     public void switchToDirect(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/home-screen.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
@@ -37,7 +37,7 @@ public class Menu {
     }
     @FXML
     public void switchToTweet(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/tweet.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/tweeting-screen.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
@@ -47,7 +47,7 @@ public class Menu {
     }
     @FXML
     public void switchToExplore(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/explore.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/explore-screen.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
@@ -57,7 +57,7 @@ public class Menu {
     }
     @FXML
     public void switchToProfile(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/profile.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/profile-screen.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();

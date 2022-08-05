@@ -3,7 +3,7 @@ package edu.sharif.twitter.view;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.entity.dto.SearchUserDto;
 import edu.sharif.twitter.utils.ApplicationContext;
-import edu.sharif.twitter.view.show.UserView;
+import edu.sharif.twitter.view.item.UserViewController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -15,8 +15,8 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Explore extends Menu {
-    private ArrayList<UserView> userViews = new ArrayList<>();
+public class ExploreScreenController extends ScreenController {
+    private ArrayList<UserViewController> userViews = new ArrayList<>();
     private ArrayList<Node> nodes = new ArrayList<>();
     @FXML
     private TextField searchField;
@@ -44,9 +44,9 @@ public class Explore extends Menu {
         userViews.clear();
 
         if (searchUser != null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/show/userView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/show/user-view.fxml"));
             Node node = loader.load();
-            UserView userView = loader.getController();
+            UserViewController userView = loader.getController();
             userView.setUser(searchUser);
 
             nodes.add(node);

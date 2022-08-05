@@ -13,7 +13,7 @@ public class TwitterApplication extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(TwitterApplication.class.getResource("view/fxml/twitter-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(TwitterApplication.class.getResource("view/fxml/landing-screen.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         String css = this.getClass().getResource("view/css/theme1/login.css").toExternalForm();
         scene.getStylesheets().add(css);

@@ -1,12 +1,11 @@
-package edu.sharif.twitter.view.show;
+package edu.sharif.twitter.view.item;
 
 import edu.sharif.twitter.entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
-public class UserView {
+public class UserViewController {
     private User user;
     @FXML
     private Label usernameLabel;

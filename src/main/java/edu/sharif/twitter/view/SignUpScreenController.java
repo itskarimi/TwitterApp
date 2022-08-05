@@ -1,8 +1,6 @@
 package edu.sharif.twitter.view;
 
-import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.utils.ApplicationContext;
-import edu.sharif.twitter.utils.InputInformation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class SignUp {
+public class SignUpScreenController {
     @FXML
     private TextField usernameField, firstNameField, lastNameField, emailField, ageField, bioField;
     @FXML
@@ -38,7 +36,7 @@ public class SignUp {
             return;
 
 
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/twitter-view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/landing-screen.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("css/theme1/login.css").toExternalForm();
