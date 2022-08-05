@@ -23,6 +23,8 @@ public abstract class PublicMessageServiceImpl<T extends PublicMessage> extends 
 
     public abstract void deleteById(Long Id);
 
+    public abstract List<Comment> getComments(T publicMessage);
+
     public void showStats(PublicMessage publicMessage) {
         List<DateCount> viewDateCounts = repository.getViewCountPerDay(publicMessage);
         System.out.println("Views:");

@@ -7,12 +7,15 @@ import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.repository.CommentRepository;
 import edu.sharif.twitter.service.CommentService;
+import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.input.Input;
 import edu.sharif.twitter.utils.input.MyInput;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommentServiceImpl extends PublicMessageServiceImpl<Comment>
         implements CommentService {
@@ -30,6 +33,7 @@ public class CommentServiceImpl extends PublicMessageServiceImpl<Comment>
         comment.setRepliedTo(repliedTo);
         comment.setUser(user);
         comment.getUser().getComments().add(comment);
+        repliedTo.getComments().add(comment);
         return comment;
     }
 
@@ -53,5 +57,15 @@ public class CommentServiceImpl extends PublicMessageServiceImpl<Comment>
     @Override
     public void deleteById(Long Id) {
         repository.deleteById(Id);
+    }
+
+    @Override
+    public List<Comment> getComments(Comment publicMessage) {
+        ArrayList<Comment> comments = new ArrayList<>();
+        for (Comment comment : publicMessage.getComments()) {
+            comments.addAll(ApplicationContext.getCommentService().getComments(comment));
+        }
+        comments.add(publicMessage);
+        return comments;
     }
 }

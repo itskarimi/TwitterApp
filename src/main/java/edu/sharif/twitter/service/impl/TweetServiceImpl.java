@@ -1,10 +1,12 @@
 package edu.sharif.twitter.service.impl;
 
+import edu.sharif.twitter.entity.Comment;
 import edu.sharif.twitter.entity.PublicMessage;
 import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.repository.TweetRepository;
 import edu.sharif.twitter.service.TweetService;
+import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.input.Input;
 import edu.sharif.twitter.utils.input.MyInput;
 import javafx.scene.control.TextField;
@@ -12,6 +14,9 @@ import javafx.scene.control.TextInputControl;
 
 import javax.persistence.EntityTransaction;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TweetServiceImpl extends PublicMessageServiceImpl<Tweet>
         implements TweetService {
@@ -56,5 +61,28 @@ public class TweetServiceImpl extends PublicMessageServiceImpl<Tweet>
     @Override
     public void deleteById(Long Id) {
         repository.deleteById(Id);
+    }
+
+    @Override
+    public List<Comment> getComments(Tweet publicMessage) {
+        ArrayList<Comment> comments = new ArrayList<>();
+        for (Comment comment : publicMessage.getComments()) {
+            comments.addAll(ApplicationContext.getCommentService().getComments(comment));
+        }
+        System.out.println(comments.size());
+        ArrayList<Comment> sorted = new ArrayList<>();
+        for (int i = 0; i < comments.size(); i++) {
+            int s = 0;
+            for (int j = 0; j < comments.size(); j++)
+                if (comments.get(j) != null && (comments.get(s) == null ||
+                        comments.get(j).getCreateDateTime().isBefore(comments.get(s).getCreateDateTime())))
+                    s = j;
+            System.out.println(i + "\t" + comments.get(s));
+            sorted.add(comments.get(s));
+            comments.set(s, null);
+        }
+        System.out.println(comments);
+        System.out.println(sorted);
+        return sorted;
     }
 }

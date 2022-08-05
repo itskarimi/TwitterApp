@@ -23,3 +23,7 @@
 #tweetArea .content {
     -fx-background-color: #3cdfff;
 }
+
+#commentField .content {
+    -fx-background-color: #3cdfff;
+}
