@@ -1,0 +1,6 @@
+.text-field {
+    -fx-border-color: "tomato";
+    -fx-border-width: 3;
+    -fx-background-color: #00bfff;
+    -fx-text-fill: "black";
+}
