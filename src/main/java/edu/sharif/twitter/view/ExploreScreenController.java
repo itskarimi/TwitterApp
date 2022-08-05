@@ -24,7 +24,9 @@ public class ExploreScreenController extends ScreenController {
     private VBox searchVbox;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException{
+        initializeGridPane();
+
         searchField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {

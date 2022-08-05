@@ -1,5 +1,6 @@
 package edu.sharif.twitter.view;
 
+import edu.sharif.twitter.view.item.MenuViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,64 +8,20 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class ScreenController {
     @FXML
-    protected Button homeButton, directButton, addButton, exploreButton, profileButton;
+    private GridPane gridPane;
 
-    @FXML
-    public void switchToHome(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/home-screen.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        stage.setScene(scene);
-        stage.show();
-    }
-    @FXML
-    public void switchToDirect(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/home-screen.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        stage.setScene(scene);
-        stage.show();
-    }
-    @FXML
-    public void switchToTweet(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/tweeting-screen.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        stage.setScene(scene);
-        stage.show();
-    }
-    @FXML
-    public void switchToExplore(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/explore-screen.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        stage.setScene(scene);
-        stage.show();
-    }
-    @FXML
-    public void switchToProfile(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/profile-screen.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        String tweetCss = this.getClass().getResource("css/theme1/tweet.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        scene.getStylesheets().add(tweetCss);
-        stage.setScene(scene);
-        stage.show();
+    protected MenuViewController menuViewController;
+
+    protected void initializeGridPane() throws IOException {
+        FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("fxml/item/menu-view.fxml"));
+        menuViewController = menuLoader.getController();
+        gridPane.getChildren().add(0, menuLoader.load());
     }
 }

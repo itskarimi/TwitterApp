@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="edu.sharif.twitter.view.item.MenuViewController"
+            prefHeight="200.0" prefWidth="200.0">
+    <children>
+        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../images/Twitter-complete-logo.png" />
+            </image>
+        </ImageView>
+        <Button fx:id="homeButton" layoutX="658.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToHome">
+            <graphic>
+                <ImageView fitHeight="26.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/home-logo.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="directButton" layoutX="712.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToDirect">
+            <graphic>
+                <ImageView fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/Telegram-logo.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="addButton" layoutX="767.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToTweet">
+            <graphic>
+                <ImageView fitHeight="26.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/add-post-logo.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="exploreButton" layoutX="821.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToExplore">
+            <graphic>
+                <ImageView fitHeight="26.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/explore-logo.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="profileButton" layoutX="876.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToProfile">
+            <graphic>
+                <ImageView fitHeight="26.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/twitter-logo.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </children>
+</AnchorPane>

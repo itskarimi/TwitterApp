@@ -27,6 +27,8 @@ public class ProfileScreenController extends ScreenController {
 
     @FXML
     public void initialize() throws IOException {
+        initializeGridPane();
+
         usernameLabel.setText(user.getUsername());
         postsLabel.setText(user.getTweets().size() + " Posts");
         followersButton.setText(user.getFollowers().size() + " Followers");
