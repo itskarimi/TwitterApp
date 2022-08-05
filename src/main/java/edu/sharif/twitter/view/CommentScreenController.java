@@ -1,5 +1,6 @@
 package edu.sharif.twitter.view;
 
+import edu.sharif.twitter.entity.Comment;
 import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.view.data.DataManager;
 import edu.sharif.twitter.view.item.CommentViewController;
@@ -20,6 +21,8 @@ public class CommentScreenController extends ScreenController {
 
     @FXML
     public void initialize() throws IOException {
+        initializeGridPane();
+
         FXMLLoader tweetLoader = new FXMLLoader(getClass().getResource("fxml/item/tweet-view.fxml"));
         FXMLLoader commentLoader = new FXMLLoader(getClass().getResource("fxml/item/comment-view.fxml"));
         tweetVbox.getChildren().add(tweetLoader.load());
@@ -27,7 +30,7 @@ public class CommentScreenController extends ScreenController {
         tweetView.setTweet(tweet);
 
         for (int i = tweet.getComments().size() - 1; i >= 0; i--) {
-            edu.sharif.twitter.entity.Comment comment = tweet.getComments().get(i);
+            Comment comment = tweet.getComments().get(i);
 
             commentVbox.getChildren().add(commentLoader.load());
             CommentViewController commentView = commentLoader.getController();
