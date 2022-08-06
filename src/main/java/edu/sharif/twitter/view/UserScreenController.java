@@ -53,8 +53,8 @@ public class UserScreenController extends Menu {
     @FXML
     public void onFollowButtonClick() {
         ApplicationContext.getUserService().follow(DataManager.getUser(), user);
-        ApplicationContext.getUserService().save(DataManager.getUser());
-        ApplicationContext.getUserService().save(user);
+//        ApplicationContext.getUserService().save(DataManager.getUser());
+//        ApplicationContext.getUserService().save(user);
         initLabels();
     }
 

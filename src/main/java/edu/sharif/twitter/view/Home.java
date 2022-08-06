@@ -27,7 +27,7 @@ public class Home extends Menu{
     @FXML
     public void initialize() throws IOException {
         homeTitle.setText("Home");
-
+        tweets.addAll(DataManager.getUser().getTweets());
         for(User u : DataManager.getUser().getFollowings()) {
             tweets.addAll(u.getTweets());
         }

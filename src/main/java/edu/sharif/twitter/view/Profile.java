@@ -82,7 +82,7 @@ public class Profile extends Menu{
         String css = TwitterApplication.class.getResource("view/css/theme1/login.css").toExternalForm();
         scene.getStylesheets().add(css);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle("Twitter");
+        stage.setTitle("Sharif Twitter");
         stage.setScene(scene);
         stage.show();
     }

@@ -178,6 +178,10 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
             following.getFollowers().add(user);
             System.out.printf("%s was successfully followed\n", username);
         }
+
+        repository.getEntityManger().getTransaction().begin();
+        repository.save(user);
+        repository.getEntityManger().getTransaction().commit();
     }
 
     @Override

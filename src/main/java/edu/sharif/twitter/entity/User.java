@@ -39,13 +39,16 @@ public class User extends BaseEntity<Long> {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "follow_pattern",
             joinColumns = @JoinColumn(name = "follower"),
-            inverseJoinColumns = @JoinColumn(name = "following"))
+            inverseJoinColumns = @JoinColumn(name = "following"),
+            uniqueConstraints=
+            @UniqueConstraint(columnNames={"follower", "following"})
+    )
     protected List<User> followings = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "follow_pattern",
-            joinColumns = @JoinColumn(name = "following"),
-            inverseJoinColumns =@JoinColumn(name = "follower"))
+    @ManyToMany(mappedBy = "followings", fetch = FetchType.EAGER)
+//    @JoinTable(name = "follow_pattern",
+//            joinColumns = @JoinColumn(name = "following"),
+//            inverseJoinColumns =@JoinColumn(name = "follower"))0
     protected List<User> followers = new ArrayList<>();
 
     @OneToMany(mappedBy = "viewer", cascade = CascadeType.ALL)

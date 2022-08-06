@@ -17,7 +17,7 @@ public class TwitterApplication extends Application{
         Scene scene = new Scene(fxmlLoader.load());
         String css = this.getClass().getResource("view/css/theme1/login.css").toExternalForm();
         scene.getStylesheets().add(css);
-        stage.setTitle("Hello!");
+        stage.setTitle("Sharif Twitter");
         stage.setScene(scene);
         stage.show();
     }
