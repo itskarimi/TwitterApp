@@ -2,10 +2,12 @@ package edu.sharif.twitter.view.show;
 
 import edu.sharif.twitter.entity.Message;
 import edu.sharif.twitter.view.data.DataManager;
+import edu.sharif.twitter.view.data.MessageMode;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -15,16 +17,31 @@ public class MessageView {
     @FXML
     private Label usernameLabel, messageLabel;
     @FXML
-    private Button replyButton;
+    private MenuBar optionBar;
 
     @FXML
     public void reply() {
-        String text ;
 
-        if (DataManager.getMessage() == null || !DataManager.getMessage().equals(message))
-            DataManager.setMessage(message);
+        if (DataManager.getMode() == MessageMode.NULL ||
+                (!DataManager.getMessage().equals(message) && DataManager.getMode() == MessageMode.REPLY))
+            DataManager.setMessage(message, MessageMode.REPLY);
         else
-            DataManager.setMessage(null);
+            DataManager.setMessage(null, MessageMode.NULL);
+    }
+
+    @FXML
+    public void edit() {
+        DataManager.setMessage(message, MessageMode.EDIT);
+    }
+
+    @FXML
+    public void delete() {
+        DataManager.setMessage(message, MessageMode.DELETE);
+    }
+
+    @FXML
+    public void forward() {
+        DataManager.setMessage(message, MessageMode.FORWARD);
     }
 
 
@@ -47,7 +64,7 @@ public class MessageView {
             double size = 120;
             usernameLabel.setLayoutX(570 - size);
             messageLabel.setLayoutX(570 - size);
-            replyButton.setLayoutX(570 - size + 80);
+            optionBar.setLayoutX(570 - size + 80);
         }
 
     }

@@ -1,12 +1,11 @@
 package edu.sharif.twitter.view;
 
-import edu.sharif.twitter.entity.Chat;
-import edu.sharif.twitter.entity.Message;
+import edu.sharif.twitter.entity.*;
 import edu.sharif.twitter.entity.Tweet;
-import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.service.MessageService;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.view.data.DataManager;
+import edu.sharif.twitter.view.data.MessageMode;
 import edu.sharif.twitter.view.show.ChatView;
 import edu.sharif.twitter.view.show.CommentView;
 import edu.sharif.twitter.view.show.MessageView;
@@ -18,17 +17,23 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ChatScreen extends Menu {
@@ -37,7 +42,7 @@ public class ChatScreen extends Menu {
     @FXML
     private VBox chatVbox;
     @FXML
-    private Button sendButton;
+    private Button sendButton, profileButton;
     @FXML
     private TextArea messageArea;
     @FXML
@@ -71,6 +76,12 @@ public class ChatScreen extends Menu {
     }
 
     public void showChat(Chat chat) throws IOException {
+        if (DataManager.getMode() != MessageMode.FORWARD) {
+            replyLabel.setText("");
+            DataManager.setMessage(null, MessageMode.NULL);
+        }
+        profileButton.setText(ApplicationContext.getChatService().getName(DataManager.getUser(), chat));
+        messageArea.setText("");
         DataManager.setChat(chat);
         messageViews.clear();
         chatVbox.getChildren().clear();
@@ -87,38 +98,83 @@ public class ChatScreen extends Menu {
 
     @FXML
     public void send() throws IOException {
-        if (messageArea.getText().equals(""))
+        if (messageArea.getText().equals("") && DataManager.getMode() != MessageMode.FORWARD)
             return;
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/show/messageView.fxml"));
-
-        Message origin = DataManager.getMessage();
-        Message message;
-        if (origin == null)
-            message = messageService.addMessage(DataManager.getUser(), DataManager.getChat(), messageArea);
-        else
-            message = messageService.addReply(DataManager.getUser(), DataManager.getMessage(), messageArea);
-
-        messageArea.setText("");
-
         Node node = loader.load();
         MessageView messageView = loader.getController();
-        messageView.setMessage(message);
-        messageViews.add(0, messageView);
-        chatVbox.getChildren().add(0, node);
 
-        observableList.clear();
-        observableList.addAll(ApplicationContext.getChatService().getChats(DataManager.getUser()));
+        Message message;
+        if (DataManager.getMode() == MessageMode.REPLY) {
+            message = messageService.addReply(DataManager.getUser(), DataManager.getMessage(), messageArea);
+            messageView.setMessage(message);
+            messageViews.add(0, messageView);
+            chatVbox.getChildren().add(0, node);
+        } else if (DataManager.getMode() == MessageMode.NULL) {
+            message = messageService.addMessage(DataManager.getUser(), DataManager.getChat(), messageArea);
+            messageView.setMessage(message);
+            messageViews.add(0, messageView);
+            chatVbox.getChildren().add(0, node);
+        } else if (DataManager.getMode() == MessageMode.EDIT) {
+            message = DataManager.getMessage();
+            messageService.editMessage(message, messageArea.getText());
+        } else if (DataManager.getMode() == MessageMode.FORWARD) {
+            if (DataManager.getChat() != null && !DataManager.getChat().equals(DataManager.getMessage().getChat()))
+                messageService.forwardMessage(DataManager.getUser(), DataManager.getChat(), DataManager.getMessage());
+        }
+
+        DataManager.setMessage(null, MessageMode.NULL);
+        messageArea.setText("");
+
+        Collections.sort(observableList, new Comparator<Chat>() {
+            @Override
+            public int compare(Chat o1, Chat o2) {
+                if (o1.getLastUpdateDateTime().isAfter(o2.getLastUpdateDateTime()))
+                    return -1;
+                return 1;
+            }
+        });
+    }
+
+    @FXML
+    public void gotoProfile(ActionEvent event) throws IOException {
+        if (DataManager.getChat() != null && DataManager.getChat() instanceof DM) {
+            Parent root;
+            String css, tweetCss;
+
+            if (DataManager.getChat().getMembers().get(0).equals(DataManager.getUser()))
+                DataManager.setTargetUser(DataManager.getChat().getMembers().get(1));
+            else
+                DataManager.getChat().getMembers().get(0);
+
+            root = FXMLLoader.load(UserScreenController.class.getResource("fxml/user-screen.fxml"));
+            css = UserScreenController.class.getResource("css/theme1/home.css").toExternalForm();
+            tweetCss = UserScreenController.class.getResource("css/theme1/tweet.css").toExternalForm();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(css);
+            scene.getStylesheets().add(tweetCss);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     public void update() {
-        if (DataManager.getMessage() != null) {
+        if (DataManager.getMode() == MessageMode.REPLY) {
             String text = DataManager.getMessage().getText();
             if (text.length() > 12) {
                 text = text.substring(0, 12) + "...";
             }
             replyLabel.setText("Reply to: " + text);
+        } else if (DataManager.getMode() == MessageMode.EDIT) {
+            String text = DataManager.getMessage().getText();
+            replyLabel.setText("Edit from: " + text);
+        } else if (DataManager.getMode() == MessageMode.DELETE) {
+            messageService.delete(DataManager.getMessage());
+        } else if (DataManager.getMode() == MessageMode.FORWARD) {
+            replyLabel.setText("Forward\n!" + DataManager.getMessage().getText());
         }
-        else
-            replyLabel.setText("set Reply");
     }
 }

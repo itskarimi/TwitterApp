@@ -70,11 +70,8 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
     }
 
     @Override
-    public void editMessage(Message message) {
-        message.setText(new Input(
-                "Enter your text :",
-                "Your text must be a maximum of 280 characters",
-                "", null).getInputTextString());
+    public void editMessage(Message message, String text) {
+        message.setText(text);
         message.setLastUpdateDateTime(LocalDateTime.now());
         transaction.begin();
         repository.save(message);
@@ -104,6 +101,7 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
         forward.setIsReply(false);
         forward.setIsDeleted(false);
         user.getMessages().add(forward);
+        chat.getMessages().add(forward);
         chat.setLastUpdateDateTime(LocalDateTime.now());
         transaction.begin();
         repository.save(forward);

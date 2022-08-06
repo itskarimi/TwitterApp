@@ -88,10 +88,19 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ListView fx:id="chatList" maxHeight="567.0" minHeight="0.0" prefHeight="331.0" prefWidth="679.0" />
+                  <AnchorPane prefHeight="546.0" prefWidth="272.0">
+                     <children>
+                        <ListView fx:id="chatList" layoutY="45.0" maxHeight="567.0" minHeight="0.0" prefHeight="522.0" prefWidth="272.0" />
+                        <Button layoutY="14.0" mnemonicParsing="false" style="-fx-border-color: #00000000;" text="New Group">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
                   <AnchorPane prefHeight="314.0" prefWidth="679.0" GridPane.columnIndex="1">
                      <children>
-                        <ScrollPane fx:id="scrollPane" maxHeight="-Infinity" prefHeight="438.0" prefWidth="679.0">
+                        <ScrollPane fx:id="scrollPane" layoutY="46.0" maxHeight="-Infinity" prefHeight="392.0" prefWidth="679.0">
                            <content>
                               <VBox fx:id="chatVbox" prefHeight="433.0" prefWidth="670.0" />
                            </content>
@@ -111,6 +120,15 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
+                        <AnchorPane prefHeight="47.0" prefWidth="679.0">
+                           <children>
+                              <Button fx:id="profileButton" layoutY="4.0" mnemonicParsing="false" onAction="#gotoProfile" style="-fx-border-color: #00000000;" text="Profile">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
                </children>

@@ -15,7 +15,7 @@ public interface MessageService extends BaseEntityService<Message, Long> {
 
     Message addReply(User user, Message message, TextInputControl field);
 
-    void editMessage(Message message);
+    void editMessage(Message message, String text);
 
     List<Message> showMessages(Chat chat);
 
