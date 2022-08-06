@@ -1,5 +1,6 @@
 package edu.sharif.twitter.view;
 
+import edu.sharif.twitter.entity.DM;
 import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.utils.ApplicationContext;
@@ -58,8 +59,19 @@ public class UserScreenController extends Menu {
     }
 
     @FXML
-    public void onDirectToUserButtonClick() {
-
+    public void onDirectToUserButtonClick(ActionEvent event) throws IOException {
+        DM dm = ApplicationContext.getDmService().findByUsers(DataManager.getUser(), DataManager.getTargetUser());
+        if (dm != null)
+            DataManager.setChat(dm);
+        else
+            DataManager.setChat(ApplicationContext.getDmService().newDM(DataManager.getUser(), DataManager.getTargetUser()));
+        FXMLLoader userListLoader = new FXMLLoader(getClass().getResource("fxml/chat-screen.fxml"));
+        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(userListLoader.load());
+        scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -87,4 +99,5 @@ public class UserScreenController extends Menu {
         stage.setScene(scene);
         stage.show();
     }
+    
 }

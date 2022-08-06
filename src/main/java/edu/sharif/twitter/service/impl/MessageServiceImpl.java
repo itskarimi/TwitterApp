@@ -38,6 +38,7 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
         message.setIsDeleted(false);
         user.getMessages().add(message);
         chat.getMessages().add(message);
+        chat.setLastUpdateDateTime(LocalDateTime.now());
         transaction.begin();
         repository.save(message);
         transaction.commit();
@@ -61,6 +62,7 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
         message.getReplies().add(reply);
         user.getMessages().add(reply);
         message.getChat().getMessages().add(reply);
+        message.getChat().setLastUpdateDateTime(LocalDateTime.now());
         transaction.begin();
         repository.save(reply);
         transaction.commit();
@@ -102,6 +104,7 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
         forward.setIsReply(false);
         forward.setIsDeleted(false);
         user.getMessages().add(forward);
+        chat.setLastUpdateDateTime(LocalDateTime.now());
         transaction.begin();
         repository.save(forward);
         transaction.commit();

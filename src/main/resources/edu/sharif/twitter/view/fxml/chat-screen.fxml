@@ -91,7 +91,7 @@
                   <ListView fx:id="chatList" maxHeight="567.0" minHeight="0.0" prefHeight="331.0" prefWidth="679.0" />
                   <AnchorPane prefHeight="314.0" prefWidth="679.0" GridPane.columnIndex="1">
                      <children>
-                        <ScrollPane maxHeight="-Infinity" prefHeight="438.0" prefWidth="679.0">
+                        <ScrollPane fx:id="scrollPane" maxHeight="-Infinity" prefHeight="438.0" prefWidth="679.0">
                            <content>
                               <VBox fx:id="chatVbox" prefHeight="433.0" prefWidth="670.0" />
                            </content>
@@ -106,7 +106,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Label fx:id="replyLabel" layoutX="340.0" layoutY="446.0" text="Reply To:">
+                        <Label fx:id="replyLabel" layoutX="340.0" layoutY="446.0" text="Set Reply">
                            <font>
                               <Font size="14.0" />
                            </font>

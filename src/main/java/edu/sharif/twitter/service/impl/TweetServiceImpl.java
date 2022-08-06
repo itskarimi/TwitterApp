@@ -81,8 +81,6 @@ public class TweetServiceImpl extends PublicMessageServiceImpl<Tweet>
             sorted.add(comments.get(s));
             comments.set(s, null);
         }
-        System.out.println(comments);
-        System.out.println(sorted);
         return sorted;
     }
 }

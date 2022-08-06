@@ -3,6 +3,7 @@ package edu.sharif.twitter.view;
 import edu.sharif.twitter.entity.Chat;
 import edu.sharif.twitter.entity.Message;
 import edu.sharif.twitter.entity.Tweet;
+import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.service.MessageService;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.view.data.DataManager;
@@ -21,16 +22,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChatScreen extends Menu {
     @FXML
@@ -43,13 +42,15 @@ public class ChatScreen extends Menu {
     private TextArea messageArea;
     @FXML
     private Label replyLabel;
+    @FXML
+    private ScrollPane scrollPane;
     private ObservableList<Chat> observableList = FXCollections.observableArrayList();
     private ArrayList<MessageView> messageViews = new ArrayList<>();
     private MessageService messageService = ApplicationContext.getMessageService();
 
     @FXML
     public void initialize() {
-        observableList.addAll(DataManager.getUser().getChats());
+        observableList.addAll(ApplicationContext.getChatService().getChats(DataManager.getUser()));
         chatList.setCellFactory(new ChatFactory());
         chatList.setItems(observableList);
 
@@ -104,6 +105,9 @@ public class ChatScreen extends Menu {
         messageView.setMessage(message);
         messageViews.add(0, messageView);
         chatVbox.getChildren().add(0, node);
+
+        observableList.clear();
+        observableList.addAll(ApplicationContext.getChatService().getChats(DataManager.getUser()));
     }
 
     public void update() {

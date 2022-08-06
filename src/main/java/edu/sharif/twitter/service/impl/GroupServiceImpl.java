@@ -53,6 +53,7 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
         }
         group.setMembers(members);
         group.setCreateDateTime(LocalDateTime.now());
+        group.setLastUpdateDateTime(LocalDateTime.now());
         group.getGroupProfile().setGroup(group);
         transaction.begin();
         repository.save(group);

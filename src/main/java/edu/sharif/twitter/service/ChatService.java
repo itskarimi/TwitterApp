@@ -12,4 +12,6 @@ public interface ChatService extends BaseEntityService<Chat, Long> {
     List<Chat> showChats(User user);
 
     String getName(User user, Chat chat);
+
+    List<Chat> getChats(User user);
 }

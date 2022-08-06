@@ -33,6 +33,7 @@ public class DMServiceImpl extends BaseEntityServiceImpl<DM, Long, DMRepository>
             return dm;
         dm = new DM();
         dm.setCreateDateTime(LocalDateTime.now());
+        dm.setLastUpdateDateTime(LocalDateTime.now());
         dm.setMembers(Arrays.asList(user1, user2));
         dm.setIsDeleted(false);
         user1.getChats().add(dm);
