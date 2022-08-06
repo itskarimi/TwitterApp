@@ -4,9 +4,11 @@ import edu.sharif.twitter.base.service.BaseEntityService;
 import edu.sharif.twitter.entity.Group;
 import edu.sharif.twitter.entity.User;
 
+import java.util.List;
+
 public interface GroupService extends BaseEntityService<Group, Long> {
 
-    Group newGroup(User admin);
+    Group newGroup(User admin, String name, String description, List<User> members);
 
     void addMember(Group group, User admin, User member);
 

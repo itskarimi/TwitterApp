@@ -3,6 +3,8 @@ package edu.sharif.twitter.view.data;
 import edu.sharif.twitter.entity.*;
 import eu.hansolo.tilesfx.skins.CharacterTileSkin;
 
+import java.util.ArrayList;
+
 public class DataManager {
     private static User user;
     private static Tweet tweet;
@@ -11,6 +13,8 @@ public class DataManager {
     private static Message message;
     private static Chat chat;
     private static MessageMode mode;
+    private static Group group;
+    private static ArrayList<User> members = new ArrayList<>();
 
     public static User getUser() {
         return user;
@@ -64,4 +68,17 @@ public class DataManager {
         DataManager.message = message;
         DataManager.mode = mode;
     }
+
+    public static Group getGroup() {
+        return group;
+    }
+
+    public static void setGroup(Group group) {
+        DataManager.group = group;
+    }
+
+    public static ArrayList<User> getMembers() {
+        return members;
+    }
+
 }

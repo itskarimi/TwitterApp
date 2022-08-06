@@ -15,7 +15,7 @@ public abstract class PublicMessageServiceImpl<T extends PublicMessage> extends 
         super(repository);
     }
 
-    public abstract T createPublicMessage(User user, PublicMessage repliedTo, TextInputControl field);
+    public abstract T createPublicMessage(User user, PublicMessage repliedTo, String text);
 
     public abstract void editPublicMessage(T publicMessage);
 

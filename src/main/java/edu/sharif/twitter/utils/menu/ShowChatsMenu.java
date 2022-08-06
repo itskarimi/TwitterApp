@@ -3,14 +3,17 @@ package edu.sharif.twitter.utils.menu;
 import edu.sharif.twitter.entity.Chat;
 import edu.sharif.twitter.entity.Group;
 import edu.sharif.twitter.entity.User;
+import edu.sharif.twitter.entity.dto.SearchUserDto;
 import edu.sharif.twitter.service.ChatService;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.ShowEntities;
+import edu.sharif.twitter.utils.input.Input;
 
 import java.util.Arrays;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ShowChatsMenu extends Menu {
     private User user;
@@ -44,7 +47,29 @@ public class ShowChatsMenu extends Menu {
                     new ChatMenu(user, selectedChat).runMenu();
                     break;
                 case 4:
-                    Group group = ApplicationContext.getGroupService().newGroup(user);
+                    String name = new Input("enter your group name: ").getInputString();
+                    String description = new Input("enter your group description: ").getInputString();
+                    List<User> members = new ArrayList<>();
+                    members.add(user);
+                    while (true) {
+                        String username = new Input("enter a username or end: ").getInputString();
+                        if (username.equals("end"))
+                            break;
+                        SearchUserDto search = new SearchUserDto(username);
+                        User member = ApplicationContext.getUserService().findByUsername(search);
+                        if (Objects.isNull(member)) {
+                            System.out.println("User not found...");
+                        }
+                        else {
+                            if (members.contains(member))
+                                System.out.println("user already added");
+                            else {
+                                System.out.println(username + " added to the group");
+                                members.add(member);
+                            }
+                        }
+                    }
+                    Group group = ApplicationContext.getGroupService().newGroup(user, name, description, members);
                     showChats.addEntity(group);
                     break;
                 case 5:

@@ -26,9 +26,11 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
     }
 
     @Override
-    public Group newGroup(User admin) {
+    public Group newGroup(User admin, String name, String description, List<User> members) {
         Group group = new Group();
-        group.getGroupProfile().setName(new Input("enter your group name: ").getInputString());
+        group.getGroupProfile().setName(name);
+        group.getGroupProfile().setDescription(description);
+        /*group.getGroupProfile().setName(new Input("enter your group name: ").getInputString());
         group.getGroupProfile().setDescription(new Input("enter your group description: ").getInputString());
         group.setAdmins(Arrays.asList(admin));
         List<User> members = new ArrayList<>();
@@ -50,11 +52,15 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
                     members.add(member);
                 }
             }
-        }
-        group.setMembers(members);
+        }*/
+        group.setAdmins(Arrays.asList(admin));
+        group.getMembers().addAll(members);
         group.setCreateDateTime(LocalDateTime.now());
         group.setLastUpdateDateTime(LocalDateTime.now());
         group.getGroupProfile().setGroup(group);
+        for (User member : members)
+            member.getChats().add(group);
+        admin.getAdminChats().add(group);
         transaction.begin();
         repository.save(group);
         transaction.commit();
@@ -67,8 +73,14 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
             System.out.println("you are not admin!");
             return;
         }
-        if (!group.getMembers().contains(member))
+        if (!group.getMembers().contains(member)) {
             group.getMembers().add(member);
+            member.getChats().add(group);
+
+            transaction.begin();
+            repository.save(group);
+            transaction.commit();
+        }
     }
 
     @Override
@@ -79,6 +91,12 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
         }
         group.getMembers().remove(member);
         group.getAdmins().remove(member);
+        member.getChats().remove(group);
+        member.getAdminChats().remove(group);
+
+        transaction.begin();
+        repository.save(group);
+        transaction.commit();
     }
 
     @Override
@@ -91,8 +109,14 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
             System.out.println("this member is already an admin");
             return;
         }
-        if (group.getMembers().contains(member))
+        if (group.getMembers().contains(member)) {
             group.getAdmins().add(member);
+            member.getAdminChats().add(group);
+
+            transaction.begin();
+            repository.save(group);
+            transaction.commit();
+        }
     }
 
     @Override
@@ -101,8 +125,14 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
             System.out.println("you are not admin!");
             return;
         }
-        if (group.getMembers().size() > 1)
+        if (group.getMembers().size() > 1) {
             group.getAdmins().remove(member);
+            member.getAdminChats().remove(group);
+
+            transaction.begin();
+            repository.save(group);
+            transaction.commit();
+        }
     }
 
     @Override

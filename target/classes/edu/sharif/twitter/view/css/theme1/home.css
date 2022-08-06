@@ -46,6 +46,9 @@
 .text-area .content {
     -fx-background-color: #3cdfff;
 }
+.text-field {
+    -fx-background-color: #3cdfff;
+}
 
 .menu-bar {
     -fx-background-color: #00000000;

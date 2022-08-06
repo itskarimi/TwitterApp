@@ -8,7 +8,6 @@ import edu.sharif.twitter.repository.TweetRepository;
 import edu.sharif.twitter.service.TweetService;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.input.Input;
-import edu.sharif.twitter.utils.input.MyInput;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 
@@ -28,10 +27,10 @@ public class TweetServiceImpl extends PublicMessageServiceImpl<Tweet>
     private final EntityTransaction transaction = repository.getEntityManger().getTransaction();
 
     @Override
-    public Tweet createPublicMessage(User user, PublicMessage repliedTo, TextInputControl field) {
+    public Tweet createPublicMessage(User user, PublicMessage repliedTo, String text) {
         Tweet tweet = new Tweet();
 
-        tweet.setText(new MyInput(field).getInputTextString());
+        tweet.setText(text);
 
         tweet.setCreateDateTime(LocalDateTime.now());
         tweet.setLastUpdateDateTime(LocalDateTime.now());

@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface MessageService extends BaseEntityService<Message, Long> {
 
-    Message addMessage(User user, Chat chat, TextInputControl field);
+    Message addMessage(User user, Chat chat, String text);
 
-    Message addReply(User user, Message message, TextInputControl field);
+    Message addReply(User user, Message message, String text);
 
     void editMessage(Message message, String text);
 

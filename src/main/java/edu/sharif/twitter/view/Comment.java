@@ -72,9 +72,9 @@ public class Comment extends Menu{
         edu.sharif.twitter.entity.Comment origin = DataManager.getComment();
         edu.sharif.twitter.entity.Comment pm;
         if (origin != null)
-            pm = publicMessageService.createPublicMessage(DataManager.getUser(), origin, commentField);
+            pm = publicMessageService.createPublicMessage(DataManager.getUser(), origin, commentField.getText());
         else
-            pm = publicMessageService.createPublicMessage(DataManager.getUser(), tweet, commentField);
+            pm = publicMessageService.createPublicMessage(DataManager.getUser(), tweet, commentField.getText());
         
         publicMessageService.save(pm);
         commentField.setText("");

@@ -65,7 +65,7 @@ public class ChatMenu extends Menu {
                     if(action == 2) {
                         showMessages.removedEntity();
                     } else if (action == 3) {
-                        Message reply = messageService.addReply(user, selectedMessage, new TextArea());
+                        Message reply = messageService.addReply(user, selectedMessage, new Input("reply :").getInputTextString());
                         messages.add(reply);
                         showMessages.entityAdded();
                     } else if (action == 4) {
@@ -73,7 +73,7 @@ public class ChatMenu extends Menu {
                     }
                     break;
                 case 5:
-                    Message message = messageService.addMessage(user, chat, new TextArea());
+                    Message message = messageService.addMessage(user, chat, new Input("new Message: ").getInputString());
                     messages.add(message);
                     showMessages.entityAdded();
                     break;

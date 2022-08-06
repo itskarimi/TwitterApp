@@ -17,7 +17,7 @@ public class Tweet extends Menu {
 
     @FXML
     public void tweet(ActionEvent event) {
-        edu.sharif.twitter.entity.Tweet pm = publicMessageService.createPublicMessage(DataManager.getUser(), null, tweetArea);
+        edu.sharif.twitter.entity.Tweet pm = publicMessageService.createPublicMessage(DataManager.getUser(), null, tweetArea.getText());
         publicMessageService.save(pm);
         tweetArea.setText("");
     }

@@ -24,10 +24,10 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
 
 
     @Override
-    public Message addMessage(User user, Chat chat, TextInputControl field) {
+    public Message addMessage(User user, Chat chat, String text) {
         Message message = new Message();
 
-        message.setText(field.getText());
+        message.setText(text);
 
         message.setCreateDateTime(LocalDateTime.now());
         message.setLastUpdateDateTime(LocalDateTime.now());
@@ -46,10 +46,10 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
     }
 
     @Override
-    public Message addReply(User user, Message message, TextInputControl field) {
+    public Message addReply(User user, Message message, String text) {
         Message reply = new Message();
 
-        reply.setText(field.getText());
+        reply.setText(text);
 
         reply.setCreateDateTime(LocalDateTime.now());
         reply.setLastUpdateDateTime(LocalDateTime.now());

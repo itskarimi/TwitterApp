@@ -42,7 +42,7 @@ public class ChatScreen extends Menu {
     @FXML
     private VBox chatVbox;
     @FXML
-    private Button sendButton, profileButton;
+    private Button sendButton, profileButton, newGroupButton;
     @FXML
     private TextArea messageArea;
     @FXML
@@ -54,10 +54,13 @@ public class ChatScreen extends Menu {
     private MessageService messageService = ApplicationContext.getMessageService();
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
         observableList.addAll(ApplicationContext.getChatService().getChats(DataManager.getUser()));
         chatList.setCellFactory(new ChatFactory());
         chatList.setItems(observableList);
+
+        if (DataManager.getChat() != null)
+            showChat(DataManager.getChat());
 
         chatList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Chat>() {
             @Override
@@ -65,7 +68,7 @@ public class ChatScreen extends Menu {
                 try {
                     showChat(chatList.getSelectionModel().getSelectedItem());
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
             }
         });
@@ -107,12 +110,12 @@ public class ChatScreen extends Menu {
 
         Message message;
         if (DataManager.getMode() == MessageMode.REPLY) {
-            message = messageService.addReply(DataManager.getUser(), DataManager.getMessage(), messageArea);
+            message = messageService.addReply(DataManager.getUser(), DataManager.getMessage(), messageArea.getText());
             messageView.setMessage(message);
             messageViews.add(0, messageView);
             chatVbox.getChildren().add(0, node);
         } else if (DataManager.getMode() == MessageMode.NULL) {
-            message = messageService.addMessage(DataManager.getUser(), DataManager.getChat(), messageArea);
+            message = messageService.addMessage(DataManager.getUser(), DataManager.getChat(), messageArea.getText());
             messageView.setMessage(message);
             messageViews.add(0, messageView);
             chatVbox.getChildren().add(0, node);
@@ -139,9 +142,13 @@ public class ChatScreen extends Menu {
 
     @FXML
     public void gotoProfile(ActionEvent event) throws IOException {
+        Parent root;
+        String css, tweetCss;
+
+        css = UserScreenController.class.getResource("css/theme1/home.css").toExternalForm();
+        tweetCss = UserScreenController.class.getResource("css/theme1/tweet.css").toExternalForm();
+
         if (DataManager.getChat() != null && DataManager.getChat() instanceof DM) {
-            Parent root;
-            String css, tweetCss;
 
             if (DataManager.getChat().getMembers().get(0).equals(DataManager.getUser()))
                 DataManager.setTargetUser(DataManager.getChat().getMembers().get(1));
@@ -149,8 +156,6 @@ public class ChatScreen extends Menu {
                 DataManager.getChat().getMembers().get(0);
 
             root = FXMLLoader.load(UserScreenController.class.getResource("fxml/user-screen.fxml"));
-            css = UserScreenController.class.getResource("css/theme1/home.css").toExternalForm();
-            tweetCss = UserScreenController.class.getResource("css/theme1/tweet.css").toExternalForm();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
@@ -159,6 +164,31 @@ public class ChatScreen extends Menu {
             stage.setScene(scene);
             stage.show();
         }
+        else {
+            DataManager.setGroup((Group) DataManager.getChat());
+
+            root = FXMLLoader.load(UserScreenController.class.getResource("fxml/group-profile.fxml"));
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(css);
+            scene.getStylesheets().add(tweetCss);
+            stage.setScene(scene);
+            stage.show();
+        }
+    }
+
+    @FXML
+    public void newGroup(ActionEvent event) throws IOException {
+        DataManager.getMembers().add(DataManager.getUser());
+
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/new-group.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void update() {

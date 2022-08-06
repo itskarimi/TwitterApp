@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface PublicMessageService<T extends PublicMessage> extends BaseEntityService<T, Long> {
 
-    T createPublicMessage(User user, PublicMessage repliedTo, TextInputControl field);
+    T createPublicMessage(User user, PublicMessage repliedTo, String text);
 
     void editPublicMessage(T publicMessage);
 
