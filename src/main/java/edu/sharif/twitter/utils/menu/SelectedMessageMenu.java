@@ -5,6 +5,7 @@ import edu.sharif.twitter.entity.Message;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.service.MessageService;
 import edu.sharif.twitter.utils.ApplicationContext;
+import edu.sharif.twitter.utils.input.Input;
 import org.hibernate.type.ListType;
 
 import java.time.Duration;
@@ -46,7 +47,7 @@ public class SelectedMessageMenu extends Menu {
                         System.out.println("you can't edit forwarded message");
                         return 0;
                     }
-                    messageService.editMessage(message);
+                    messageService.editMessage(message, new Input("new text: ").getInputTextString());
                     return 1;
                 case 2:
                     messageService.deleteById(message.getId());

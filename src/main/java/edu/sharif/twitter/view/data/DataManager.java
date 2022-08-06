@@ -10,6 +10,7 @@ public class DataManager {
     private static User targetUser;
     private static Message message;
     private static Chat chat;
+    private static MessageMode mode;
 
     public static User getUser() {
         return user;
@@ -43,19 +44,24 @@ public class DataManager {
         DataManager.targetUser = targetUser;
     }
 
-    public static Message getMessage() {
-        return message;
-    }
-
-    public static void setMessage(Message message) {
-        DataManager.message = message;
-    }
-
     public static Chat getChat() {
         return chat;
     }
 
     public static void setChat(Chat chat) {
         DataManager.chat = chat;
+    }
+
+    public static Message getMessage() {
+        return message;
+    }
+
+    public static MessageMode getMode() {
+        return mode;
+    }
+
+    public static void setMessage(Message message, MessageMode mode) {
+        DataManager.message = message;
+        DataManager.mode = mode;
     }
 }
