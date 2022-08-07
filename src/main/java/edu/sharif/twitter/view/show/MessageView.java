@@ -1,14 +1,15 @@
 package edu.sharif.twitter.view.show;
 
 import edu.sharif.twitter.entity.Message;
+import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.view.data.DataManager;
 import edu.sharif.twitter.view.data.MessageMode;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 
@@ -18,6 +19,8 @@ public class MessageView {
     private Label usernameLabel, messageLabel;
     @FXML
     private MenuBar optionBar;
+    @FXML
+    private ImageView profileImage;
 
     @FXML
     public void reply() {
@@ -45,7 +48,7 @@ public class MessageView {
     }
 
 
-    public void setMessage(Message message) {
+    public void setMessage(Message message) throws IOException {
         this.message = message;
         usernameLabel.setText(message.getUser().getUsername());
         String text = "";
@@ -61,11 +64,16 @@ public class MessageView {
         text += message.getText();
         messageLabel.setText(text);
         if (message.getUser().equals(DataManager.getUser())) {
-            double size = 120;
-            usernameLabel.setLayoutX(570 - size);
+            double size = 160;
+            usernameLabel.setLayoutX(570 - size + 35);
             messageLabel.setLayoutX(570 - size);
             optionBar.setLayoutX(570 - size + 80);
+            profileImage.setLayoutX(570 - size);
         }
+
+        profileImage.setImage(ApplicationContext.getUserService().getProfileImage(message.getUser()));
+        Circle clipCircle = new Circle(15, 15, 15);
+        profileImage.setClip(clipCircle);
 
     }
 }

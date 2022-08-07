@@ -9,6 +9,7 @@ import edu.sharif.twitter.service.UserService;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.input.Input;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -28,7 +29,7 @@ public class HomeMenu extends Menu{
     }
 
 
-    public void runMenu() {
+    public void runMenu() throws IOException {
         while (true){
             print();
             switch (chooseOperation()) {

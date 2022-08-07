@@ -1,12 +1,18 @@
 package edu.sharif.twitter.entity;
 
 import edu.sharif.twitter.base.BaseEntity;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.imageio.ImageIO;
 import javax.persistence.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +29,10 @@ public class User extends BaseEntity<Long> {
     protected String username;
     protected String password;
     protected Boolean isBusiness;
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    protected byte[] profileImage;
 
     @OneToOne(mappedBy = "user" ,cascade = CascadeType.ALL)
     protected UserProfile userProfile = new UserProfile();
@@ -73,5 +83,14 @@ public class User extends BaseEntity<Long> {
     public String toString() {
         return userProfile.getFirstName() + " " + userProfile.getLastName() + "\n"
                 + username + "\n" + userProfile.getBio();
+    }
+
+    public void setProfileImage(Image image) throws IOException {
+        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        this.profileImage = bytes;
     }
 }

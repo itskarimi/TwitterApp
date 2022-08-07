@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import lombok.Data;
 
@@ -32,6 +33,8 @@ public class TweetView {
     private Button likeButton, likesButton, commentButton;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private ImageView profileImage;
     public ImageView likeButtonImage;
 
     @FXML
@@ -51,10 +54,14 @@ public class TweetView {
         return tweet;
     }
 
-    public void setTweet(Tweet tweet) {
+    public void setTweet(Tweet tweet) throws IOException {
         this.tweet = tweet;
         usernameLabel.setText(tweet.getUser().getUsername());
         tweetLabel.setText(tweet.getText());
+
+        profileImage.setImage(ApplicationContext.getUserService().getProfileImage(tweet.getUser()));
+        Circle clipCircle = new Circle(15, 15, 15);
+        profileImage.setClip(clipCircle);
 
         setLikeInfo();
     }

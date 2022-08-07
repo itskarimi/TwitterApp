@@ -91,7 +91,7 @@
                   <AnchorPane prefHeight="546.0" prefWidth="272.0">
                      <children>
                         <ListView fx:id="chatList" layoutY="45.0" maxHeight="567.0" minHeight="0.0" prefHeight="522.0" prefWidth="272.0" />
-                        <Button fx:id="newGroupButton" layoutY="14.0" mnemonicParsing="false" onAction="#newGroup" style="-fx-border-color: #00000000;" text="New Group">
+                        <Button layoutY="14.0" mnemonicParsing="false" onAction="#newGroup" style="-fx-border-color: #00000000;" text="New Group">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

@@ -2,6 +2,7 @@ module edu.sharif.twitter {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+    requires javafx.swing;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
@@ -14,6 +15,8 @@ module edu.sharif.twitter {
     requires antlr;
     requires java.sql;
     requires org.hibernate.orm.core;
+    requires java.datatransfer;
+    requires java.desktop;
 
     opens edu.sharif.twitter to javafx.fxml;
     exports edu.sharif.twitter;

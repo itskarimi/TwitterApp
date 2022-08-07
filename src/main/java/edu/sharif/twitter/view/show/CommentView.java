@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -31,6 +32,8 @@ public class CommentView {
     private Label usernameLabel, commentLabel, replyLabel;
     @FXML
     private Button likeButton, likesButton, replyButton;
+    @FXML
+    private ImageView profileImage;
     public ImageView likeButtonImage;
 
     @FXML
@@ -43,7 +46,7 @@ public class CommentView {
             DataManager.setComment(null);
     }
 
-    public void setComment(Comment comment) {
+    public void setComment(Comment comment) throws IOException {
         this.comment = comment;
         usernameLabel.setText(comment.getUser().getUsername());
         commentLabel.setText(comment.getText());
@@ -56,6 +59,11 @@ public class CommentView {
             }
             replyLabel.setText(text);
         }
+
+        profileImage.setImage(ApplicationContext.getUserService().getProfileImage(comment.getUser()));
+        Circle clipCircle = new Circle(15, 15, 15);
+        profileImage.setClip(clipCircle);
+
         setLikeInfo();
     }
 

@@ -20,27 +20,20 @@
     -fx-text-fill: "white";
 }
 
-.list-cell:filled:selected:focused {
-    -fx-background-color: #1e90ff;
-}
-.list-cell:filled:selected {
-    -fx-background-color: #3cdfff;
-}
-
 .list-cell {
     -fx-background-color: #15223b;
 }
-
-.list-view .cell:filled {
-    -fx-border-color: white;
+.cell:filled:selected:focused {
+    -fx-background-color: #1e90ff;
 }
-.list-view .cell:empty {
-    -fx-background-insets: 0;
-    -fx-padding: 0;
+.cell:filled:selected {
+    -fx-background-color: #3cdfff;
 }
-
-.list-cell:filled:hover {
+.cell:filled:hover {
     -fx-background-color: #207BCF;
+}
+.cell:filled {
+    -fx-border-color: white;
 }
 
 .text-area .content {
@@ -56,12 +49,10 @@
     -fx-border-radius: 5;
     -fx-text-fill: "white";
 }
-
 .menu-bar:hover {
     -fx-cursor: hand;
     -fx-background-color: #1e90ff50;
 }
-
 .menu-bar:selected {
     -fx-background-color: #1e90ff;
 }

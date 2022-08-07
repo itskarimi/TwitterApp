@@ -13,7 +13,9 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import lombok.Data;
 
@@ -27,13 +29,20 @@ public class UserScreenController extends Menu {
     private Button directToUserButton, followButton, followersButton, followingButton;
     @FXML
     private VBox postVbox;
+    @FXML
+    private ImageView profileImage;
 
-    private void initLabels() {
+    private void initLabels() throws IOException {
         usernameLabel.setText(user.getUsername());
         followButton.setText(user.getFollowers().contains(DataManager.getUser()) ? "Unfollow" : "Follow");
         postsLabel.setText(user.getTweets().size() + " Posts");
         followersButton.setText(user.getFollowers().size() + " Followers");
         followingButton.setText(user.getFollowings().size() + " Following");
+        profileImage.setImage(ApplicationContext.getUserService().getProfileImage(user));
+
+        Circle clipCircle = new Circle(57.5, 57.5, 57.5);
+        profileImage.setClip(clipCircle);
+
     }
 
     @FXML
@@ -51,7 +60,7 @@ public class UserScreenController extends Menu {
     }
 
     @FXML
-    public void onFollowButtonClick() {
+    public void onFollowButtonClick() throws IOException {
         ApplicationContext.getUserService().follow(DataManager.getUser(), user);
 //        ApplicationContext.getUserService().save(DataManager.getUser());
 //        ApplicationContext.getUserService().save(user);

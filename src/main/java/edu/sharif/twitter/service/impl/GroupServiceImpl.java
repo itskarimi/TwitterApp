@@ -8,9 +8,15 @@ import edu.sharif.twitter.repository.GroupRepository;
 import edu.sharif.twitter.service.GroupService;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.input.Input;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import org.w3c.dom.ls.LSOutput;
 
+import javax.imageio.ImageIO;
 import javax.persistence.EntityTransaction;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +32,7 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
     }
 
     @Override
-    public Group newGroup(User admin, String name, String description, List<User> members) {
+    public Group newGroup(User admin, String name, String description, List<User> members, Image image) throws IOException {
         Group group = new Group();
         group.getGroupProfile().setName(name);
         group.getGroupProfile().setDescription(description);
@@ -57,6 +63,7 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
         group.getMembers().addAll(members);
         group.setCreateDateTime(LocalDateTime.now());
         group.setLastUpdateDateTime(LocalDateTime.now());
+        group.getGroupProfile().setProfileImage(image);
         group.getGroupProfile().setGroup(group);
         for (User member : members)
             member.getChats().add(group);
@@ -84,10 +91,21 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
     }
 
     @Override
-    public void removeMember(Group group, User admin, User member) {
+    public boolean removeMember(Group group, User admin, User member) {
+        if (admin.equals(member)) {
+            group.getMembers().remove(member);
+            group.getAdmins().remove(member);
+            member.getChats().remove(group);
+            member.getAdminChats().remove(group);
+
+            transaction.begin();
+            repository.save(group);
+            transaction.commit();
+            return true;
+        }
         if (!group.getAdmins().contains(admin)) {
             System.out.println("you are not admin!");
-            return;
+            return false;
         }
         group.getMembers().remove(member);
         group.getAdmins().remove(member);
@@ -97,17 +115,18 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
         transaction.begin();
         repository.save(group);
         transaction.commit();
+        return true;
     }
 
     @Override
-    public void promoteMember(Group group, User admin, User member) {
+    public boolean promoteMember(Group group, User admin, User member) {
         if (!group.getAdmins().contains(admin)) {
             System.out.println("you are not admin!");
-            return;
+            return false;
         }
         if (group.getAdmins().contains(member)) {
             System.out.println("this member is already an admin");
-            return;
+            return false;
         }
         if (group.getMembers().contains(member)) {
             group.getAdmins().add(member);
@@ -116,14 +135,16 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
             transaction.begin();
             repository.save(group);
             transaction.commit();
+            return true;
         }
+        return false;
     }
 
     @Override
-    public void demoteMember(Group group, User admin, User member) {
+    public boolean demoteMember(Group group, User admin, User member) {
         if (!group.getAdmins().contains(admin)) {
             System.out.println("you are not admin!");
-            return;
+            return false;
         }
         if (group.getMembers().size() > 1) {
             group.getAdmins().remove(member);
@@ -132,7 +153,9 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
             transaction.begin();
             repository.save(group);
             transaction.commit();
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -143,5 +166,23 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
         }
         group.getGroupProfile().setName(new Input("set the new name: ").getInputString());
         group.getGroupProfile().setDescription(new Input("set the new description").getInputString());
+    }
+
+    @Override
+    public Image getProfileImage(Group group) throws IOException {
+        byte[] byteArray = group.getGroupProfile().getProfileImage();
+
+        ByteArrayInputStream inStream = new ByteArrayInputStream(byteArray);
+
+        BufferedImage bufferedImage = ImageIO.read(inStream);
+
+        return SwingFXUtils.toFXImage(bufferedImage, null);
+    }
+
+    @Override
+    public void setProfileImage(Group group, Image image) throws IOException {
+
+        group.getGroupProfile().setProfileImage(image);
+        this.save(group);
     }
 }

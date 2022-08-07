@@ -3,6 +3,7 @@ package edu.sharif.twitter.view;
 import edu.sharif.twitter.TwitterApplication;
 import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
+import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.view.data.DataManager;
 import edu.sharif.twitter.view.show.TweetView;
 import javafx.event.ActionEvent;
@@ -13,7 +14,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,6 +33,8 @@ public class Profile extends Menu{
     private Button followersButton, followingButton;
     @FXML
     private VBox postVbox;
+    @FXML
+    private ImageView profileImage;
 
     @FXML
     public void initialize() throws IOException {
@@ -36,6 +42,11 @@ public class Profile extends Menu{
         postsLabel.setText(user.getTweets().size() + " Posts");
         followersButton.setText(user.getFollowers().size() + " Followers");
         followingButton.setText(user.getFollowings().size() + " Following");
+
+        Circle clipCircle = new Circle(57.5, 57.5, 57.5);
+        profileImage.setClip(clipCircle);
+
+        profileImage.setImage(ApplicationContext.getUserService().getProfileImage(user));
 
         for (int i = user.getTweets().size() - 1; i >= 0; i--) {
             Tweet tweet = user.getTweets().get(i);
