@@ -25,8 +25,6 @@ import java.util.ArrayList;
 
 public class Profile extends Menu{
     private User user = DataManager.getUser();
-    private ArrayList<TweetView> tweetViews = new ArrayList<>();
-    private ArrayList<Node> nodes = new ArrayList<>();
     @FXML
     private Label usernameLabel, postsLabel;
     @FXML
@@ -54,8 +52,6 @@ public class Profile extends Menu{
             Node node = loader.load();
             TweetView tweetView = loader.getController();
             tweetView.setTweet(tweet);
-            nodes.add(node);
-            tweetViews.add(tweetView);
             postVbox.getChildren().add(node);
         }
     }
@@ -63,12 +59,11 @@ public class Profile extends Menu{
     @FXML
     public void onFollowersButtonClicked(ActionEvent event) throws IOException {
         FXMLLoader userListLoader = new FXMLLoader(getClass().getResource("fxml/user-list-screen.fxml"));
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(userListLoader.load());
         UserListScreenController userListScreenController = userListLoader.getController();
         userListScreenController.setUsers(user.getFollowers());
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
@@ -76,12 +71,11 @@ public class Profile extends Menu{
     @FXML
     public void onFollowingButtonClicked(ActionEvent event) throws IOException {
         FXMLLoader userListLoader = new FXMLLoader(getClass().getResource("fxml/user-list-screen.fxml"));
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(userListLoader.load());
         UserListScreenController userListScreenController = userListLoader.getController();
         userListScreenController.setUsers(user.getFollowings());
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
@@ -90,11 +84,12 @@ public class Profile extends Menu{
     public void logout(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TwitterApplication.class.getResource("view/fxml/twitter-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        String css = TwitterApplication.class.getResource("view/css/theme1/login.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().add(DataManager.THEME[0]);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Sharif Twitter");
         stage.setScene(scene);
         stage.show();
+
+        DataManager.clear();
     }
 }

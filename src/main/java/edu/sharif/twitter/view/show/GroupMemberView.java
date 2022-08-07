@@ -29,7 +29,7 @@ public class GroupMemberView {
     @FXML
     private Button promoteButton, removeButton;
     @FXML
-    private AnchorPane anchorPane;
+    private AnchorPane userAnchorPane;
     @FXML
     private ImageView profileImage;
 
@@ -46,19 +46,14 @@ public class GroupMemberView {
         String css, tweetCss;
         if (user.equals(DataManager.getUser())) {
             root = FXMLLoader.load(Profile.class.getResource("fxml/profile.fxml"));
-            css = Profile.class.getResource("css/theme1/home.css").toExternalForm();
-            tweetCss = Profile.class.getResource("css/theme1/tweet.css").toExternalForm();
         } else {
             DataManager.setTargetUser(user);
             root = FXMLLoader.load(UserScreenController.class.getResource("fxml/user-screen.fxml"));
-            css = UserScreenController.class.getResource("css/theme1/home.css").toExternalForm();
-            tweetCss = UserScreenController.class.getResource("css/theme1/tweet.css").toExternalForm();
         }
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(css);
-        scene.getStylesheets().add(tweetCss);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
@@ -105,7 +100,7 @@ public class GroupMemberView {
             text += "(admin)";
         usernameLabel.setText(text);
         if (user.equals(DataManager.getUser())) {
-            anchorPane.getChildren().remove(promoteButton);
+            userAnchorPane.getChildren().remove(promoteButton);
             removeButton.setText("left");
             return;
         } else if (!DataManager.getGroup().getAdmins().contains(DataManager.getUser()))

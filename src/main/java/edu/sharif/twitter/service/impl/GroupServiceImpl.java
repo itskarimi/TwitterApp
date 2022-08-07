@@ -84,9 +84,7 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
             group.getMembers().add(member);
             member.getChats().add(group);
 
-            transaction.begin();
-            repository.save(group);
-            transaction.commit();
+            save(group);
         }
     }
 

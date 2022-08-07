@@ -29,7 +29,7 @@ public class CommentView {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private Label usernameLabel, commentLabel, replyLabel;
+    private Label usernameLabel, commentLabel, commentReplyLabel;
     @FXML
     private Button likeButton, likesButton, replyButton;
     @FXML
@@ -51,13 +51,13 @@ public class CommentView {
         usernameLabel.setText(comment.getUser().getUsername());
         commentLabel.setText(comment.getText());
         if (comment.getRepliedTo() == null)
-            anchorPane.getChildren().remove(replyLabel);
+            anchorPane.getChildren().remove(commentReplyLabel);
         else {
             String text = comment.getRepliedTo().getText();
             if (text.length() > 12) {
                 text = text.substring(0, 12) + "...";
             }
-            replyLabel.setText(text);
+            commentReplyLabel.setText(text);
         }
 
         profileImage.setImage(ApplicationContext.getUserService().getProfileImage(comment.getUser()));
@@ -103,8 +103,7 @@ public class CommentView {
         Scene scene = new Scene(likeListLoader.load());
         LikeListScreenController likeListScreenController = likeListLoader.getController();
         likeListScreenController.setPublicMessage(comment.getUser().getUsername(), comment);
-        String css = Home.class.getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();

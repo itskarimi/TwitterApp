@@ -1,0 +1,29 @@
+.root {
+    -fx-background-color: #184d47;
+}
+
+.button {
+    -fx-background-color: #00917c;
+    -fx-text-fill: "white";
+}
+.button:hover {
+    -fx-background-color: #a5f0c5;
+}
+
+.label {
+    -fx-text-fill: "white";
+}
+
+.text-field {
+    -fx-background-color: #a5f0c5;
+    -fx-text-fill: "black";
+}
+
+.toggle-button {
+    -fx-background-color: "tomato";
+    -fx-text-fill: "white";
+}
+.toggle-button:selected {
+    -fx-background-color: #00ff7f;
+    -fx-text-fill: "white";
+}

@@ -3,6 +3,7 @@ package edu.sharif.twitter.view;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.InputInformation;
+import edu.sharif.twitter.view.data.DataManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,8 +50,7 @@ public class SignUp {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/twitter-view.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/login.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().add(DataManager.THEME[0]);
         stage.setScene(scene);
         stage.show();
     }

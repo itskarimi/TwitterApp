@@ -44,8 +44,7 @@ public class TweetView {
         Parent root = FXMLLoader.load(Home.class.getResource("fxml/comment.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = Home.class.getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
@@ -101,8 +100,7 @@ public class TweetView {
         Scene scene = new Scene(likeListLoader.load());
         LikeListScreenController likeListScreenController = likeListLoader.getController();
         likeListScreenController.setPublicMessage(tweet.getUser().getUsername(), tweet);
-        String css = Home.class.getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();

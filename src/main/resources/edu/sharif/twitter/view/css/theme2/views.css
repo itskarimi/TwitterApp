@@ -1,0 +1,21 @@
+#anchorPane, #userAnchorPane {
+    -fx-background-color:  #184d47;
+}
+#userAnchorPane {
+    -fx-border-color: #00917c;
+    -fx-border-radius: 5;
+}
+
+#usernameLabel {
+    -fx-text-fill: white;
+}
+
+#tweetLabel, #commentLabel, #commentReplyLabel {
+    -fx-text-fill: white;
+    -fx-border-color:  #a5f0c5;
+    -fx-border-radius: 5;
+}
+
+#likeButton, #commentButton {
+    -fx-border-color: #00000000;
+}

@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="300.0" maxWidth="-Infinity" minHeight="100.0" minWidth="-Infinity" prefHeight="300.0" prefWidth="350.0" style="-fx-background-color: #15223b;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.show.TweetView">
+<AnchorPane fx:id="anchorPane" maxHeight="300.0" maxWidth="-Infinity" minHeight="100.0" minWidth="-Infinity" prefHeight="300.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.show.TweetView">
    <children>
       <Label fx:id="usernameLabel" layoutX="56.0" layoutY="14.0" text="Username">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="tweetLabel" alignment="CENTER" layoutX="14.0" layoutY="40.0" maxHeight="200.0" minHeight="50.0" prefHeight="200.0" prefWidth="322.0" style="-fx-border-color: #1e90ff; -fx-border-radius: 5;" text="Tweet" textAlignment="CENTER">
+      <Label fx:id="tweetLabel" alignment="CENTER" layoutX="14.0" layoutY="40.0" maxHeight="200.0" minHeight="50.0" prefHeight="200.0" prefWidth="322.0" text="Tweet" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
@@ -23,7 +23,7 @@
             <Insets />
          </opaqueInsets>
       </Label>
-      <Button fx:id="likeButton" layoutX="14.0" layoutY="252.0" mnemonicParsing="false" onAction="#onLikeButtonClicked" style="-fx-background-color: #00000000;">
+      <Button fx:id="likeButton" layoutX="14.0" layoutY="252.0" mnemonicParsing="false" onAction="#onLikeButtonClicked">
          <graphic>
             <ImageView fx:id="likeButtonImage" fitHeight="28.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -33,7 +33,7 @@
          </graphic>
       </Button>
       <Button fx:id="likesButton" layoutX="67.0" layoutY="256.0" mnemonicParsing="false" onAction="#onLikesButtonClicked" text="Likes" />
-      <Button fx:id="commentButton" layoutX="123.0" layoutY="253.0" mnemonicParsing="false" onAction="#gotoComments" style="-fx-background-color: #00000000;">
+      <Button fx:id="commentButton" layoutX="123.0" layoutY="253.0" mnemonicParsing="false" onAction="#gotoComments">
          <graphic>
             <ImageView fitHeight="28.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>

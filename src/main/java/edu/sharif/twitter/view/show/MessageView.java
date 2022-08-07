@@ -67,7 +67,7 @@ public class MessageView {
             double size = 160;
             usernameLabel.setLayoutX(570 - size + 35);
             messageLabel.setLayoutX(570 - size);
-            optionBar.setLayoutX(570 - size + 80);
+            optionBar.setLayoutX(570 - size + 120);
             profileImage.setLayoutX(570 - size);
         }
 

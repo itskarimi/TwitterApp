@@ -52,8 +52,7 @@ public class AddMember extends Menu {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/group-profile.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }

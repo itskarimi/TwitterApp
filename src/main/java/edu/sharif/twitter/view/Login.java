@@ -38,10 +38,7 @@ public class Login {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/profile.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        String tweetCss = this.getClass().getResource("css/theme1/tweet.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        scene.getStylesheets().add(tweetCss);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }

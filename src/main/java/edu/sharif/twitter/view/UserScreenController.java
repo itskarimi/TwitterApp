@@ -75,10 +75,9 @@ public class UserScreenController extends Menu {
         else
             DataManager.setChat(ApplicationContext.getDmService().newDM(DataManager.getUser(), DataManager.getTargetUser()));
         FXMLLoader userListLoader = new FXMLLoader(getClass().getResource("fxml/chat-screen.fxml"));
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(userListLoader.load());
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
@@ -86,12 +85,11 @@ public class UserScreenController extends Menu {
     @FXML
     public void onFollowersButtonClicked(ActionEvent event) throws IOException {
         FXMLLoader userListLoader = new FXMLLoader(getClass().getResource("fxml/user-list-screen.fxml"));
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(userListLoader.load());
         UserListScreenController userListScreenController = userListLoader.getController();
         userListScreenController.setUsers(user.getFollowers());
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
@@ -99,12 +97,11 @@ public class UserScreenController extends Menu {
     @FXML
     public void onFollowingButtonClicked(ActionEvent event) throws IOException {
         FXMLLoader userListLoader = new FXMLLoader(getClass().getResource("fxml/user-list-screen.fxml"));
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(userListLoader.load());
         UserListScreenController userListScreenController = userListLoader.getController();
         userListScreenController.setUsers(user.getFollowings());
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
