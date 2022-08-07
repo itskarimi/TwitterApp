@@ -13,7 +13,9 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import lombok.Data;
 
@@ -27,13 +29,20 @@ public class UserScreenController extends Menu {
     private Button directToUserButton, followButton, followersButton, followingButton;
     @FXML
     private VBox postVbox;
+    @FXML
+    private ImageView profileImage;
 
-    private void initLabels() {
+    private void initLabels() throws IOException {
         usernameLabel.setText(user.getUsername());
         followButton.setText(user.getFollowers().contains(DataManager.getUser()) ? "Unfollow" : "Follow");
         postsLabel.setText(user.getTweets().size() + " Posts");
         followersButton.setText(user.getFollowers().size() + " Followers");
         followingButton.setText(user.getFollowings().size() + " Following");
+        profileImage.setImage(ApplicationContext.getUserService().getProfileImage(user));
+
+        Circle clipCircle = new Circle(57.5, 57.5, 57.5);
+        profileImage.setClip(clipCircle);
+
     }
 
     @FXML
@@ -53,7 +62,7 @@ public class UserScreenController extends Menu {
     }
 
     @FXML
-    public void onFollowButtonClick() {
+    public void onFollowButtonClick() throws IOException {
         ApplicationContext.getUserService().follow(DataManager.getUser(), user);
         initLabels();
     }
@@ -66,10 +75,9 @@ public class UserScreenController extends Menu {
         else
             DataManager.setChat(ApplicationContext.getDmService().newDM(DataManager.getUser(), DataManager.getTargetUser()));
         FXMLLoader userListLoader = new FXMLLoader(getClass().getResource("fxml/chat-screen.fxml"));
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(userListLoader.load());
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
@@ -77,12 +85,11 @@ public class UserScreenController extends Menu {
     @FXML
     public void onFollowersButtonClicked(ActionEvent event) throws IOException {
         FXMLLoader userListLoader = new FXMLLoader(getClass().getResource("fxml/user-list-screen.fxml"));
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(userListLoader.load());
         UserListScreenController userListScreenController = userListLoader.getController();
         userListScreenController.setUsers(user.getFollowers());
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
@@ -90,12 +97,11 @@ public class UserScreenController extends Menu {
     @FXML
     public void onFollowingButtonClicked(ActionEvent event) throws IOException {
         FXMLLoader userListLoader = new FXMLLoader(getClass().getResource("fxml/user-list-screen.fxml"));
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(userListLoader.load());
         UserListScreenController userListScreenController = userListLoader.getController();
         userListScreenController.setUsers(user.getFollowings());
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }

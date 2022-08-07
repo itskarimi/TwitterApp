@@ -25,8 +25,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -49,6 +51,9 @@ public class ChatScreen extends Menu {
     private Label replyLabel;
     @FXML
     private ScrollPane scrollPane;
+    @FXML
+    private ImageView profileImage;
+
     private ObservableList<Chat> observableList = FXCollections.observableArrayList();
     private ArrayList<MessageView> messageViews = new ArrayList<>();
     private MessageService messageService = ApplicationContext.getMessageService();
@@ -68,7 +73,7 @@ public class ChatScreen extends Menu {
                 try {
                     showChat(chatList.getSelectionModel().getSelectedItem());
                 } catch (IOException e) {
-                    //throw new RuntimeException(e);
+                    throw new RuntimeException(e);
                 }
             }
         });
@@ -79,6 +84,14 @@ public class ChatScreen extends Menu {
     }
 
     public void showChat(Chat chat) throws IOException {
+        if (chat instanceof DM)
+            profileImage.setImage(ApplicationContext.getUserService().
+                    getProfileImage(chat.getMembers().get(0).equals(DataManager.getUser()) ? chat.getMembers().get(1) : chat.getMembers().get(0)));
+        else
+            profileImage.setImage(ApplicationContext.getGroupService().getProfileImage((Group) chat));
+        Circle clipCircle = new Circle(20, 20, 20);
+        profileImage.setClip(clipCircle);
+
         if (DataManager.getMode() != MessageMode.FORWARD) {
             replyLabel.setText("");
             DataManager.setMessage(null, MessageMode.NULL);
@@ -143,36 +156,29 @@ public class ChatScreen extends Menu {
     @FXML
     public void gotoProfile(ActionEvent event) throws IOException {
         Parent root;
-        String css, tweetCss;
-
-        css = UserScreenController.class.getResource("css/theme1/home.css").toExternalForm();
-        tweetCss = UserScreenController.class.getResource("css/theme1/tweet.css").toExternalForm();
 
         if (DataManager.getChat() != null && DataManager.getChat() instanceof DM) {
 
-            if (DataManager.getChat().getMembers().get(0).equals(DataManager.getUser()))
-                DataManager.setTargetUser(DataManager.getChat().getMembers().get(1));
-            else
-                DataManager.getChat().getMembers().get(0);
+            DataManager.setTargetUser(
+                    DataManager.getChat().getMembers().get(0).equals(DataManager.getUser()) ?
+                            DataManager.getChat().getMembers().get(1) : DataManager.getChat().getMembers().get(0));
 
             root = FXMLLoader.load(UserScreenController.class.getResource("fxml/user-screen.fxml"));
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(css);
-            scene.getStylesheets().add(tweetCss);
+            scene.getStylesheets().addAll(DataManager.THEME);
             stage.setScene(scene);
             stage.show();
         }
-        else {
+        else if (DataManager.getChat() != null) {
             DataManager.setGroup((Group) DataManager.getChat());
 
             root = FXMLLoader.load(UserScreenController.class.getResource("fxml/group-profile.fxml"));
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(css);
-            scene.getStylesheets().add(tweetCss);
+            scene.getStylesheets().addAll(DataManager.THEME);
             stage.setScene(scene);
             stage.show();
         }
@@ -185,8 +191,7 @@ public class ChatScreen extends Menu {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/new-group.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }

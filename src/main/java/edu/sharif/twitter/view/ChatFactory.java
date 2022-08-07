@@ -31,7 +31,11 @@ public class ChatFactory implements Callback<ListView<Chat>, ListCell<Chat>> {
                         throw new RuntimeException(e);
                     }
                     ChatView chatView = loader.getController();
-                    chatView.setChat(chat);
+                    try {
+                        chatView.setChat(chat);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     setGraphic(node);
                 } else {
                     setText(null);

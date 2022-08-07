@@ -12,7 +12,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class MemberView {
     private User user;
@@ -20,6 +24,8 @@ public class MemberView {
     private Label usernameLabel;
     @FXML
     private Button addButton;
+    @FXML
+    private ImageView profileImage;
 
     @FXML
     public void addMember() {
@@ -32,8 +38,12 @@ public class MemberView {
         }
     }
 
-    public void setUser(User user) {
+    public void setUser(User user) throws IOException {
         this.user = user;
         usernameLabel.setText(user.getUsername());
+
+        profileImage.setImage(ApplicationContext.getUserService().getProfileImage(user));
+        Circle clipCircle = new Circle(15, 15, 15);
+        profileImage.setClip(clipCircle);
     }
 }

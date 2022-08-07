@@ -2,30 +2,32 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="40.0" prefWidth="350.0" style="-fx-background-color: #15223b; -fx-border-color: #1e90ff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.show.GroupMemberView">
+<AnchorPane fx:id="userAnchorPane" prefHeight="40.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.show.GroupMemberView">
     <children>
-        <Label fx:id="usernameLabel" layoutX="14.0" layoutY="11.0" text="Username" textFill="WHITE">
+        <Label fx:id="usernameLabel" layoutX="52.0" layoutY="11.0" text="Username" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <Button layoutX="279.0" layoutY="5.0" mnemonicParsing="false" onAction="#switchToUserProfile" text="profile" textFill="WHITE">
+        <Button layoutX="282.0" layoutY="6.0" mnemonicParsing="false" onAction="#switchToUserProfile" text="profile" textFill="WHITE">
             <font>
-                <Font name="System Bold" size="14.0" />
+                <Font name="System Bold" size="12.0" />
             </font>
         </Button>
-      <Button fx:id="removeButton" layoutX="203.0" layoutY="6.0" mnemonicParsing="false" onAction="#remove" text="remove" textFill="WHITE">
+      <Button fx:id="removeButton" layoutX="216.0" layoutY="7.0" mnemonicParsing="false" onAction="#remove" text="remove" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="promoteButton" layoutX="119.0" layoutY="6.0" mnemonicParsing="false" onAction="#promote" text="promote" textFill="WHITE">
+      <Button fx:id="promoteButton" layoutX="142.0" layoutY="6.0" mnemonicParsing="false" onAction="#promote" text="promote" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <ImageView fx:id="profileImage" fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>

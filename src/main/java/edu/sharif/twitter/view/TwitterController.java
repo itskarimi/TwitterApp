@@ -1,5 +1,6 @@
 package edu.sharif.twitter.view;
 
+import edu.sharif.twitter.view.data.DataManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,8 +26,7 @@ public class TwitterController {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/login.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().add(DataManager.THEME[0]);
         stage.setScene(scene);
         stage.show();
     }
@@ -36,8 +36,7 @@ public class TwitterController {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/signUp.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/login.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().add(DataManager.THEME[0]);
         stage.setScene(scene);
         stage.show();
     }

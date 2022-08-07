@@ -1,0 +1,49 @@
+.root {
+    -fx-background-color: #15223b;
+}
+
+.button, .menu-item, .menu-bar {
+    -fx-background-color: #00000000;
+    -fx-border-color: #1e90ff;
+    -fx-border-radius: 5;
+    -fx-text-fill: white;
+}
+.button:hover, .menu-bar:hover, .menu-item:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #1e90ff50;
+}
+.button:selected, .menu-bar:selected {
+    -fx-background-color: #1e90ff;
+}
+
+.label {
+    -fx-text-fill: white;
+}
+
+.list-cell, .menu-item {
+    -fx-background-color: #15223b;
+}
+.cell:filled:selected:focused {
+    -fx-background-color: #1e90ff;
+}
+.cell:filled:selected {
+    -fx-background-color: #3cdfff;
+}
+.cell:filled:hover {
+    -fx-background-color: #207BCF;
+}
+.cell:filled {
+    -fx-border-color: white;
+}
+
+.text-area .content, .text-field {
+    -fx-background-color: #3cdfff;
+}
+
+#commentField .content {
+    -fx-background-color: #3cdfff;
+}
+
+#chatVbox {
+    -fx-background-color: #15223b;
+}

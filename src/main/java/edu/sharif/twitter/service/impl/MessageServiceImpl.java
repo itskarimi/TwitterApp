@@ -39,9 +39,7 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
         user.getMessages().add(message);
         chat.getMessages().add(message);
         chat.setLastUpdateDateTime(LocalDateTime.now());
-        transaction.begin();
-        repository.save(message);
-        transaction.commit();
+        save(message);
         return message;
     }
 

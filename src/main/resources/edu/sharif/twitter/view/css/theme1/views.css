@@ -1,12 +1,16 @@
-.root {
+#anchorPane, #userAnchorPane {
     -fx-background-color:  #15223b;
+}
+#userAnchorPane {
+    -fx-border-color: #1e90ff;
+    -fx-border-radius: 5;
 }
 
 #usernameLabel {
     -fx-text-fill: white;
 }
 
-#tweetField {
+#tweetLabel, #commentLabel, #commentReplyLabel {
     -fx-text-fill: white;
     -fx-border-color:  #1e90ff;
     -fx-border-radius: 5;

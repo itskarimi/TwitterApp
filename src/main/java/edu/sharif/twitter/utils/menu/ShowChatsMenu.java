@@ -8,7 +8,9 @@ import edu.sharif.twitter.service.ChatService;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.ShowEntities;
 import edu.sharif.twitter.utils.input.Input;
+import javafx.scene.image.Image;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public class ShowChatsMenu extends Menu {
         showChats = new ShowEntities<>(chats);
     }
 
-    public void runMenu() {
+    public void runMenu() throws IOException {
         while (true) {
             showChats.showEntities("no chat");
             print();
@@ -69,7 +71,7 @@ public class ShowChatsMenu extends Menu {
                             }
                         }
                     }
-                    Group group = ApplicationContext.getGroupService().newGroup(user, name, description, members);
+                    Group group = ApplicationContext.getGroupService().newGroup(user, name, description, members, null);
                     showChats.addEntity(group);
                     break;
                 case 5:

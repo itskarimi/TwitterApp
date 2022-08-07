@@ -1,11 +1,27 @@
 package edu.sharif.twitter.view.data;
 
 import edu.sharif.twitter.entity.*;
+import edu.sharif.twitter.view.Home;
 import eu.hansolo.tilesfx.skins.CharacterTileSkin;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 public class DataManager {
+    private static final String THEME1_LOGIN = Home.class.getResource("css/theme1/login.css").toExternalForm();
+    private static final String THEME1_BASICS = Home.class.getResource("css/theme1/basics.css").toExternalForm();
+    private static final String THEME1_VIEWS = Home.class.getResource("css/theme1/views.css").toExternalForm();
+    private static final String THEME2_LOGIN = Home.class.getResource("css/theme2/login.css").toExternalForm();
+    private static final String THEME2_BASICS = Home.class.getResource("css/theme2/basics.css").toExternalForm();
+    private static final String THEME2_VIEWS = Home.class.getResource("css/theme2/views.css").toExternalForm();
+    private static final String THEME3_LOGIN = Home.class.getResource("css/theme3/login.css").toExternalForm();
+    private static final String THEME3_BASICS = Home.class.getResource("css/theme3/basics.css").toExternalForm();
+    private static final String THEME3_VIEWS = Home.class.getResource("css/theme3/views.css").toExternalForm();
+    private static final String[] THEME1 = {THEME1_LOGIN, THEME1_BASICS, THEME1_VIEWS};
+    private static final String[] THEME2 = {THEME2_LOGIN, THEME2_BASICS, THEME2_VIEWS};
+    private static final String[] THEME3 = {THEME3_LOGIN, THEME3_BASICS, THEME3_VIEWS};
+
+    public static String[] THEME = THEME3;
     private static User user;
     private static Tweet tweet;
     private static Comment comment;
@@ -79,6 +95,14 @@ public class DataManager {
 
     public static ArrayList<User> getMembers() {
         return members;
+    }
+
+    public static void clear() {
+        user = null; tweet = null;
+        comment = null; targetUser = null;
+        message = null; chat = null;
+        group = null; members.clear();
+        mode = MessageMode.NULL;
     }
 
 }

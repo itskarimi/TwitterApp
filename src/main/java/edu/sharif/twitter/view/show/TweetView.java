@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import lombok.Data;
 
@@ -33,6 +34,8 @@ public class TweetView {
     private Button likeButton, likesButton, commentButton, statButton;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private ImageView profileImage;
     public ImageView likeButtonImage;
 
     @FXML
@@ -42,8 +45,7 @@ public class TweetView {
         Parent root = FXMLLoader.load(Home.class.getResource("fxml/comment.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = Home.class.getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
@@ -52,11 +54,16 @@ public class TweetView {
         return tweet;
     }
 
-    public void setTweet(Tweet tweet) {
+    public void setTweet(Tweet tweet) throws IOException {
         this.tweet = tweet;
         usernameLabel.setText(tweet.getUser().getUsername());
         adLabel.setVisible(tweet.getUser().getIsBusiness());
         tweetLabel.setText(tweet.getText());
+
+        profileImage.setImage(ApplicationContext.getUserService().getProfileImage(tweet.getUser()));
+        Circle clipCircle = new Circle(15, 15, 15);
+        profileImage.setClip(clipCircle);
+
         statButton.setVisible(DataManager.getUser().getIsBusiness());
         setLikeInfo();
 
@@ -100,8 +107,7 @@ public class TweetView {
         Scene scene = new Scene(likeListLoader.load());
         LikeListScreenController likeListScreenController = likeListLoader.getController();
         likeListScreenController.setPublicMessage(tweet.getUser().getUsername(), tweet);
-        String css = Home.class.getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();

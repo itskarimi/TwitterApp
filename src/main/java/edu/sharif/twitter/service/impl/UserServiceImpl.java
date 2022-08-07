@@ -9,12 +9,19 @@ import edu.sharif.twitter.repository.UserRepository;
 import edu.sharif.twitter.service.UserService;
 import edu.sharif.twitter.utils.InputInformation;
 import edu.sharif.twitter.utils.input.Input;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,10 +57,10 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         return null;
     }
     @Override
-    public boolean signUp(TextField usernameField, TextField passwordField, TextField confirmField,
+    public boolean signUp(TextField usernameField, TextField passwordField, TextField confirmField, Image image,
                           TextField firstNameField, TextField lastNameField,
                           TextField emailField, TextField ageField, TextField bioField,
-                          ToggleButton businessToggle, String css, Label warnings) {
+                          ToggleButton businessToggle, String css, Label warnings) throws IOException {
 
         boolean done = true;
 
@@ -126,6 +133,8 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         user.getUserProfile().setBio(bio);
 
         user.setIsBusiness(businessToggle.isSelected());
+
+        user.setProfileImage(image);
 
         user.getUserProfile().setUser(user);
 
@@ -209,8 +218,21 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         return dateCounts;
     }
 
-    @FXML
-    public User loadArian() {
-        return repository.existByUsername("arianbst");
+    @Override
+    public Image getProfileImage(User user) throws IOException {
+        byte[] byteArray = user.getProfileImage();
+
+        ByteArrayInputStream inStream = new ByteArrayInputStream(byteArray);
+
+        BufferedImage bufferedImage = ImageIO.read(inStream);
+
+        return SwingFXUtils.toFXImage(bufferedImage, null);
+    }
+
+    @Override
+    public void setProfileImage(User user, Image image) throws IOException {
+
+        user.setProfileImage(image);
+        this.save(user);
     }
 }

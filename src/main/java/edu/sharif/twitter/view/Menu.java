@@ -1,5 +1,6 @@
 package edu.sharif.twitter.view;
 
+import edu.sharif.twitter.view.data.DataManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +21,7 @@ public class Menu {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/home.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
@@ -30,8 +30,7 @@ public class Menu {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/chat-screen.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
@@ -40,8 +39,7 @@ public class Menu {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/tweet.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
@@ -50,8 +48,7 @@ public class Menu {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/explore.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
@@ -60,10 +57,7 @@ public class Menu {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/profile.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        String tweetCss = this.getClass().getResource("css/theme1/tweet.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        scene.getStylesheets().add(tweetCss);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
