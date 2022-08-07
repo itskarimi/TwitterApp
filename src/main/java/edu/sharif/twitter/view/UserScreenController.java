@@ -40,6 +40,8 @@ public class UserScreenController extends Menu {
     public void initialize() throws IOException {
         initLabels();
 
+        ApplicationContext.getViewProfileService().addViewProfile(DataManager.getUser(), user);
+
         for (int i = user.getTweets().size() - 1; i >= 0; i--) {
             Tweet tweet = user.getTweets().get(i);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/show/tweetView.fxml"));
@@ -53,8 +55,6 @@ public class UserScreenController extends Menu {
     @FXML
     public void onFollowButtonClick() {
         ApplicationContext.getUserService().follow(DataManager.getUser(), user);
-//        ApplicationContext.getUserService().save(DataManager.getUser());
-//        ApplicationContext.getUserService().save(user);
         initLabels();
     }
 

@@ -26,7 +26,7 @@ public class Profile extends Menu{
     @FXML
     private Label usernameLabel, postsLabel;
     @FXML
-    private Button followersButton, followingButton;
+    private Button followersButton, followingButton, statButton;
     @FXML
     private VBox postVbox;
 
@@ -36,6 +36,7 @@ public class Profile extends Menu{
         postsLabel.setText(user.getTweets().size() + " Posts");
         followersButton.setText(user.getFollowers().size() + " Followers");
         followingButton.setText(user.getFollowings().size() + " Following");
+        statButton.setVisible(user.getIsBusiness());
 
         for (int i = user.getTweets().size() - 1; i >= 0; i--) {
             Tweet tweet = user.getTweets().get(i);
@@ -83,6 +84,18 @@ public class Profile extends Menu{
         scene.getStylesheets().add(css);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Sharif Twitter");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void showStat(ActionEvent event) throws IOException {
+        FXMLLoader profileStatLoader = new FXMLLoader(getClass().getResource("fxml/profile-stat-screen.fxml"));
+        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
+        String chartCss = this.getClass().getResource("css/theme1/chart.css").toExternalForm();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(profileStatLoader.load());
+        scene.getStylesheets().add(css);
+        scene.getStylesheets().add(chartCss);
         stage.setScene(scene);
         stage.show();
     }

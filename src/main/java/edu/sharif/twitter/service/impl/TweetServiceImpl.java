@@ -1,20 +1,14 @@
 package edu.sharif.twitter.service.impl;
 
-import edu.sharif.twitter.entity.Comment;
-import edu.sharif.twitter.entity.PublicMessage;
-import edu.sharif.twitter.entity.Tweet;
-import edu.sharif.twitter.entity.User;
+import edu.sharif.twitter.entity.*;
 import edu.sharif.twitter.repository.TweetRepository;
 import edu.sharif.twitter.service.TweetService;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.input.Input;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
 
 import javax.persistence.EntityTransaction;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TweetServiceImpl extends PublicMessageServiceImpl<Tweet>
@@ -81,5 +75,15 @@ public class TweetServiceImpl extends PublicMessageServiceImpl<Tweet>
             comments.set(s, null);
         }
         return sorted;
+    }
+
+    @Override
+    public List<DateCount> getViewStat(PublicMessage publicMessage) {
+        return repository.getViewCountPerDay(publicMessage);
+    }
+
+    @Override
+    public List<DateCount> getLikeStat(PublicMessage publicMessage) {
+        return repository.getLikeCountPerDay(publicMessage);
     }
 }

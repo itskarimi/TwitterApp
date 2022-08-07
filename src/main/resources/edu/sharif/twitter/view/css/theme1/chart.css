@@ -1,0 +1,45 @@
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-title {
+    -fx-text-fill: #3cdfff;
+}
+
+.axis {
+    -fx-tick-label-fill: #3cdfff;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+}
+
+.chart-legend-item {
+    -fx-text-fill: #3cdfff;
+}
+
+.chart-series-line { -fx-stroke: #3cdfff; }
+.series0 { -fx-background-color: #3cdfff, #3cdfff; }
+
+.chart-series-line .series<0> {
+    -fx-background-color: transparent;
+}
+
+
+.chart-vertical-grid-lines,
+.chart-horizontal-grid-lines,
+.chart-vertical-zero-line,
+.chart-horizontal-zero-line,
+.axis-tick-mark,
+.axis-minor-tick-mark,
+.axis
+{
+    -fx-stroke: white;
+}
+
+.axis {
+    -fx-border-color: transparent;
+}
+.axis-number {
+    -fx-border-color: transparent white transparent transparent;
+}

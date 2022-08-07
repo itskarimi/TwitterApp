@@ -6,6 +6,7 @@ import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.view.Home;
 import edu.sharif.twitter.view.LikeListScreenController;
+import edu.sharif.twitter.view.TweetStatScreenController;
 import edu.sharif.twitter.view.data.DataManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,9 +28,9 @@ import java.io.IOException;
 public class TweetView {
     private Tweet tweet;
     @FXML
-    private Label usernameLabel, tweetLabel;
+    private Label usernameLabel, adLabel, tweetLabel;
     @FXML
-    private Button likeButton, likesButton, commentButton;
+    private Button likeButton, likesButton, commentButton, statButton;
     @FXML
     private AnchorPane anchorPane;
     public ImageView likeButtonImage;
@@ -54,9 +55,14 @@ public class TweetView {
     public void setTweet(Tweet tweet) {
         this.tweet = tweet;
         usernameLabel.setText(tweet.getUser().getUsername());
+        adLabel.setVisible(tweet.getUser().getIsBusiness());
         tweetLabel.setText(tweet.getText());
-
+        statButton.setVisible(DataManager.getUser().getIsBusiness());
         setLikeInfo();
+
+        if (!tweet.getUser().equals(DataManager.getUser())) {
+            ApplicationContext.getViewService().addView(DataManager.getUser(), tweet);
+        }
     }
 
     private void setLikeInfo() {
@@ -97,6 +103,20 @@ public class TweetView {
         String css = Home.class.getResource("css/theme1/home.css").toExternalForm();
         scene.getStylesheets().add(css);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void showStat(ActionEvent event) throws IOException {
+        FXMLLoader profileStatLoader = new FXMLLoader(TweetStatScreenController.class.getResource("fxml/tweet-stat-screen.fxml"));
+        String css = TweetStatScreenController.class.getResource("css/theme1/home.css").toExternalForm();
+        String chartCss = TweetStatScreenController.class.getResource("css/theme1/chart.css").toExternalForm();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(profileStatLoader.load());
+        TweetStatScreenController tweetStatScreenController = profileStatLoader.getController();
+        tweetStatScreenController.setPublicMessage(tweet.getUser().getUsername(), tweet);
+        scene.getStylesheets().add(css);
+        scene.getStylesheets().add(chartCss);
         stage.setScene(scene);
         stage.show();
     }

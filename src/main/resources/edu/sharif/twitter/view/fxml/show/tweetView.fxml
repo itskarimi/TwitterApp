@@ -13,6 +13,10 @@
             <Font size="16.0" />
          </font>
       </Label>
+      <Label fx:id="adLabel" layoutX="312.0" layoutY="15.0" text="ad">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
       <Label fx:id="tweetLabel" alignment="CENTER" layoutX="14.0" layoutY="40.0" maxHeight="200.0" minHeight="50.0" prefHeight="200.0" prefWidth="322.0" style="-fx-border-color: #1e90ff; -fx-border-radius: 5;" text="Tweet" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
@@ -40,5 +44,6 @@
             </ImageView>
          </graphic>
       </Button>
+      <Button fx:id="statButton" onAction="#showStat" layoutX="267.0" layoutY="256.0" mnemonicParsing="false" text="Show Stat" />
    </children>
 </AnchorPane>
