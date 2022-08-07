@@ -64,7 +64,7 @@ public class TweetView {
         Circle clipCircle = new Circle(15, 15, 15);
         profileImage.setClip(clipCircle);
 
-        statButton.setVisible(DataManager.getUser().getIsBusiness());
+        statButton.setVisible(tweet.getUser().equals(DataManager.getUser()) && DataManager.getUser().getIsBusiness());
         setLikeInfo();
 
         if (!tweet.getUser().equals(DataManager.getUser())) {
@@ -115,14 +115,11 @@ public class TweetView {
 
     public void showStat(ActionEvent event) throws IOException {
         FXMLLoader profileStatLoader = new FXMLLoader(TweetStatScreenController.class.getResource("fxml/tweet-stat-screen.fxml"));
-        String css = TweetStatScreenController.class.getResource("css/theme1/home.css").toExternalForm();
-        String chartCss = TweetStatScreenController.class.getResource("css/theme1/chart.css").toExternalForm();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(profileStatLoader.load());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         TweetStatScreenController tweetStatScreenController = profileStatLoader.getController();
         tweetStatScreenController.setPublicMessage(tweet.getUser().getUsername(), tweet);
-        scene.getStylesheets().add(css);
-        scene.getStylesheets().add(chartCss);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }

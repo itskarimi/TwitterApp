@@ -85,7 +85,7 @@ public class Profile extends Menu{
     public void logout(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TwitterApplication.class.getResource("view/fxml/twitter-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(DataManager.THEME[0]);
+        scene.getStylesheets().addAll(DataManager.THEME);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Sharif Twitter");
         stage.setScene(scene);
@@ -96,12 +96,9 @@ public class Profile extends Menu{
 
     public void showStat(ActionEvent event) throws IOException {
         FXMLLoader profileStatLoader = new FXMLLoader(getClass().getResource("fxml/profile-stat-screen.fxml"));
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        String chartCss = this.getClass().getResource("css/theme1/chart.css").toExternalForm();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(profileStatLoader.load());
-        scene.getStylesheets().add(css);
-        scene.getStylesheets().add(chartCss);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }

@@ -34,12 +34,12 @@
 .axis-minor-tick-mark,
 .axis
 {
-    -fx-stroke: #00bfff;
+    -fx-stroke: #c18eda;
 }
 
 .axis {
     -fx-border-color: transparent;
 }
 .axis-number {
-    -fx-border-color: transparent #00bfff transparent transparent;
+    -fx-border-color: transparent #c18eda transparent transparent;
 }

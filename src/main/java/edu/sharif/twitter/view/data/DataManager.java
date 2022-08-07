@@ -11,17 +11,23 @@ public class DataManager {
     private static final String THEME1_LOGIN = Home.class.getResource("css/theme1/login.css").toExternalForm();
     private static final String THEME1_BASICS = Home.class.getResource("css/theme1/basics.css").toExternalForm();
     private static final String THEME1_VIEWS = Home.class.getResource("css/theme1/views.css").toExternalForm();
+    private static final String THEME1_CHART = Home.class.getResource("css/theme1/chart.css").toExternalForm();
+
     private static final String THEME2_LOGIN = Home.class.getResource("css/theme2/login.css").toExternalForm();
     private static final String THEME2_BASICS = Home.class.getResource("css/theme2/basics.css").toExternalForm();
     private static final String THEME2_VIEWS = Home.class.getResource("css/theme2/views.css").toExternalForm();
+    private static final String THEME2_CHART = Home.class.getResource("css/theme2/chart.css").toExternalForm();
+
     private static final String THEME3_LOGIN = Home.class.getResource("css/theme3/login.css").toExternalForm();
     private static final String THEME3_BASICS = Home.class.getResource("css/theme3/basics.css").toExternalForm();
     private static final String THEME3_VIEWS = Home.class.getResource("css/theme3/views.css").toExternalForm();
-    private static final String[] THEME1 = {THEME1_LOGIN, THEME1_BASICS, THEME1_VIEWS};
-    private static final String[] THEME2 = {THEME2_LOGIN, THEME2_BASICS, THEME2_VIEWS};
-    private static final String[] THEME3 = {THEME3_LOGIN, THEME3_BASICS, THEME3_VIEWS};
+    private static final String THEME3_CHART = Home.class.getResource("css/theme3/chart.css").toExternalForm();
 
-    public static String[] THEME = THEME3;
+    private static final String[] THEME1 = {THEME1_LOGIN, THEME1_BASICS, THEME1_VIEWS, THEME1_CHART};
+    private static final String[] THEME2 = {THEME2_LOGIN, THEME2_BASICS, THEME2_VIEWS, THEME2_CHART};
+    private static final String[] THEME3 = {THEME3_LOGIN, THEME3_BASICS, THEME3_VIEWS, THEME3_CHART};
+
+    public static String[] THEME = THEME1;
     private static User user;
     private static Tweet tweet;
     private static Comment comment;

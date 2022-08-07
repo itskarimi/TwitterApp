@@ -79,7 +79,7 @@
                                 <Font size="16.0" />
                             </font>
                         </Label>
-                        <Label fx:id="publicMessageLabel" alignment="CENTER" layoutX="14.0" layoutY="40.0" maxHeight="200.0" minHeight="50.0" prefHeight="200.0" prefWidth="322.0" style="-fx-border-color: #1e90ff; -fx-border-radius: 5;" text="Tweet" textAlignment="CENTER">
+                        <Label fx:id="publicMessageLabel" alignment="CENTER" layoutX="14.0" layoutY="40.0" maxHeight="200.0" minHeight="50.0" prefHeight="200.0" prefWidth="322.0" text="Tweet" textAlignment="CENTER">
                             <font>
                                 <Font size="16.0" />
                             </font>

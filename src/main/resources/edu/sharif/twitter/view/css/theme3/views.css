@@ -10,7 +10,7 @@
     -fx-text-fill: white;
 }
 
-#tweetLabel, #commentLabel, #commentReplyLabel {
+#tweetLabel, #commentLabel, #commentReplyLabel, #publicMessageLabel {
     -fx-text-fill: white;
     -fx-border-color:  #c18eda;
     -fx-border-radius: 5;
