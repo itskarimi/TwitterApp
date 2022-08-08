@@ -16,9 +16,9 @@ public interface GroupService extends BaseEntityService<Group, Long> {
 
     boolean removeMember(Group group, User admin, User member);
 
-    boolean promoteMember(Group group, User admin, User member);
+    void promoteMember(Group group, User admin, User member);
 
-    boolean demoteMember(Group group, User admin, User member);
+    void demoteMember(Group group, User admin, User member);
 
     void changeProfile(Group group, User admin);
 

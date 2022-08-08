@@ -91,6 +91,17 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </TextArea>
+            <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" layoutX="633.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="addImage" layoutX="633.0" layoutY="328.0" mnemonicParsing="false" onAction="#setTweetImage" prefHeight="27.0" prefWidth="110.0" text="add image">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="removeButton" layoutX="758.0" layoutY="328.0" mnemonicParsing="false" onAction="#removeTweetImage" prefHeight="27.0" prefWidth="110.0" text="remove">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
          </children></AnchorPane>
     </children>
 </GridPane>

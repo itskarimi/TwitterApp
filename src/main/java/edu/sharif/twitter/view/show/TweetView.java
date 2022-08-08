@@ -34,7 +34,7 @@ public class TweetView {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private ImageView profileImage;
+    private ImageView profileImage, tweetImage;
     public ImageView likeButtonImage;
 
     @FXML
@@ -59,7 +59,20 @@ public class TweetView {
     public void setTweet(Tweet tweet) throws IOException {
         this.tweet = tweet;
         usernameButton.setText(tweet.getUser().getUsername());
-        tweetLabel.setText(tweet.getText());
+        Image img = ApplicationContext.getTweetService().getImage(tweet);
+        if (img != null) {
+            tweetImage.setFitWidth(img.getWidth());
+            tweetImage.setFitHeight(img.getHeight());
+            tweetImage.setLayoutX(175 - img.getWidth() / 2);
+            tweetImage.setLayoutY(140 - img.getHeight() / 2);
+            tweetImage.setImage(img);
+            tweetLabel.setText("");
+        }
+        else {
+            tweetLabel.setText(tweet.getText());
+        }
+
+//        tweetLabel.setText(tweet.getText());
         adLabel.setVisible(tweet.getUser().getIsBusiness());
         publicDateLabel.setText(tweet.getCreateDateTime().toLocalDate().toString());
 

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="300.0" maxWidth="-Infinity" minHeight="100.0" minWidth="-Infinity" prefHeight="300.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.show.TweetView">
+<AnchorPane fx:id="anchorPane" maxHeight="300.0" maxWidth="-Infinity" minHeight="100.0" minWidth="-Infinity" prefHeight="300.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.show.TweetView">
    <children>
       <Label fx:id="tweetLabel" alignment="CENTER" layoutX="14.0" layoutY="40.0" maxHeight="200.0" minHeight="50.0" prefHeight="200.0" prefWidth="322.0" text="Tweet" textAlignment="CENTER">
          <font>
@@ -47,6 +47,7 @@
          </font>
       </Button>
       <Label fx:id="publicDateLabel" layoutX="175.0" layoutY="260.0" text="Date" />
+      <ImageView fx:id="tweetImage" fitHeight="220.0" fitWidth="322.0" layoutX="14.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="statButton" layoutX="267.0" layoutY="256.0" mnemonicParsing="false" onAction="#showStat" text="Show Stat" />
       <Button fx:id="deleteButton" onAction="#deleteTweet" layoutX="284.0" layoutY="8.0" mnemonicParsing="false" text="Delete" />
       <Button fx:id="editButton" onAction="#editTweet" layoutX="239.0" layoutY="8.0" mnemonicParsing="false" text="Edit" />
