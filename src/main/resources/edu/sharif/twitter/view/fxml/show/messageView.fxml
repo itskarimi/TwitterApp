@@ -26,17 +26,17 @@
                      <menus>
                         <Menu fx:id="menuOption" mnemonicParsing="false" text="!">
                            <items>
-                              <MenuItem mnemonicParsing="false" onAction="#reply" text="reply" />
-                              <MenuItem mnemonicParsing="false" onAction="#forward" text="forward" />
-                              <MenuItem mnemonicParsing="false" onAction="#edit" text="edit" />
-                              <MenuItem mnemonicParsing="false" onAction="#delete" text="delete" />
+                              <MenuItem fx:id="replyItem" mnemonicParsing="false" onAction="#reply" text="reply" />
+                              <MenuItem fx:id="forwardItem" mnemonicParsing="false" onAction="#forward" text="forward" />
+                              <MenuItem fx:id="editItem" mnemonicParsing="false" onAction="#edit" text="edit" />
+                              <MenuItem fx:id="deleteItem" mnemonicParsing="false" onAction="#delete" text="delete" />
                            </items>
                         </Menu>
                      </menus>
                   </MenuBar>
                </children>
             </HBox>
-            <Label fx:id="messageLabel" maxHeight="1.7976931348623157E308" text="Message" />
+            <Label fx:id="messageLabel" maxHeight="1.7976931348623157E308" minHeight="70.0" text="Message" />
             <Label fx:id="dateLabel" text="Date" />
          </children>
          <padding>

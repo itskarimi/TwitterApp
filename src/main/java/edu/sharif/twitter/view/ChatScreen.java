@@ -84,7 +84,13 @@ public class ChatScreen extends Menu {
             }
         });
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), event -> update()));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), event -> {
+            try {
+                update();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
@@ -115,9 +121,9 @@ public class ChatScreen extends Menu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/show/messageView.fxml"));
             Node node = loader.load();
             MessageView messageView = loader.getController();
+            chatVbox.getChildren().add(node);
             messageView.setMessage(message);
             messageViews.add(messageView);
-            chatVbox.getChildren().add(node);
         }
     }
 
@@ -205,7 +211,7 @@ public class ChatScreen extends Menu {
         stage.show();
     }
 
-    public void update() {
+    public void update() throws IOException {
         if (DataManager.getMode() == MessageMode.REPLY) {
             String text = DataManager.getMessage().getText();
             if (text.length() > 12) {
@@ -216,7 +222,9 @@ public class ChatScreen extends Menu {
             String text = DataManager.getMessage().getText();
             replyLabel.setText("Edit from: " + text);
         } else if (DataManager.getMode() == MessageMode.DELETE) {
+            Chat tempChat = DataManager.getMessage().getChat();
             messageService.delete(DataManager.getMessage());
+            showChat(tempChat);
         } else if (DataManager.getMode() == MessageMode.FORWARD) {
             replyLabel.setText("Forward\n!" + DataManager.getMessage().getText());
         }

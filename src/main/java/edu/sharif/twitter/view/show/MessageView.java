@@ -40,6 +40,8 @@ public class MessageView {
     @FXML
     private HBox messageHbox;
     @FXML
+    private MenuItem replyItem, editItem, forwardItem, deleteItem;
+    @FXML
     public void reply() {
 
         if (DataManager.getMode() == MessageMode.NULL ||
@@ -76,8 +78,10 @@ public class MessageView {
             }
             text = "reply: " + text + "\n";
         }
-        if (message.getIsForward())
+        if (message.getIsForward()) {
             text = "Forward!\n";
+            editItem.setDisable(true);
+        }
         text += message.getText();
         messageLabel.setText(text);
         dateLabel.setText(message.getCreateDateTime().toLocalDate().toString());

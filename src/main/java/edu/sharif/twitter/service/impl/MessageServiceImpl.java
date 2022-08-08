@@ -5,6 +5,7 @@ import edu.sharif.twitter.base.service.impl.BaseEntityServiceImpl;
 import edu.sharif.twitter.entity.*;
 import edu.sharif.twitter.repository.MessageRepository;
 import edu.sharif.twitter.service.MessageService;
+import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.input.Input;
 import javafx.scene.control.TextInputControl;
 
@@ -110,7 +111,10 @@ public class MessageServiceImpl extends BaseEntityServiceImpl<Message, Long, Mes
         for (Message message1 : message.getReplies()) {
             message1.setOrigin(null);
             message1.setIsReply(false);
+            save(message1);
         }
+        message.getUser().getMessages().remove(message);
+        message.getChat().getMessages().remove(message);
         super.delete(message);
     }
 }

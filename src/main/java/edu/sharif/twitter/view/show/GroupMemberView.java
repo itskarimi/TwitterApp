@@ -76,16 +76,16 @@ public class GroupMemberView {
 
     @FXML
     public void promote() {
-        if (DataManager.getGroup().getAdmins().contains(user))
-            if (ApplicationContext.getGroupService().demoteMember(DataManager.getGroup(), DataManager.getUser(), user) ) {
-                promoteButton.setText("promote");
-                usernameLabel.setText(user.getUsername());
+        if (DataManager.getGroup().getAdmins().contains(user)) {
+            ApplicationContext.getGroupService().demoteMember(DataManager.getGroup(), DataManager.getUser(), user);
+            promoteButton.setText("promote");
+            usernameLabel.setText(user.getUsername());
+        }
+        else {
+                ApplicationContext.getGroupService().promoteMember(DataManager.getGroup(), DataManager.getUser(), user);
+                promoteButton.setText("demote");
+                usernameLabel.setText(user.getUsername() + "(admin)");
             }
-        else
-             if (ApplicationContext.getGroupService().promoteMember(DataManager.getGroup(), DataManager.getUser(), user)) {
-                 promoteButton.setText("demote");
-                 usernameLabel.setText(user.getUsername() + "(admin)");
-             }
     }
 
     public void setUser(User user) throws IOException {
