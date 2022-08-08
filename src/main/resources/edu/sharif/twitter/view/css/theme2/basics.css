@@ -10,7 +10,7 @@
 }
 .button:hover, .menu-bar:hover, .menu-item:hover {
     -fx-cursor: hand;
-    -fx-background-color: #00917c550;
+    -fx-background-color: #00917c50;
 }
 .button:selected, .menu-bar:selected {
     -fx-background-color: #00917c;

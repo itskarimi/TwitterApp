@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class ChatView {
     @FXML
-    private Label nameLabel, NMLabel;
+    private Label nameLabel;
     @FXML
     private ImageView profileImage;
 
@@ -35,5 +35,6 @@ public class ChatView {
             profileImage.setImage(ApplicationContext.getGroupService().getProfileImage((Group) chat));
         Circle clipCircle = new Circle(15, 15, 15);
         profileImage.setClip(clipCircle);
+
     }
 }

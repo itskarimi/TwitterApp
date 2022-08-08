@@ -67,6 +67,7 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
         group.getGroupProfile().setGroup(group);
         for (User member : members)
             member.getChats().add(group);
+
         admin.getAdminChats().add(group);
         this.save(group);
         return group;
@@ -81,7 +82,6 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
         if (!group.getMembers().contains(member)) {
             group.getMembers().add(member);
             member.getChats().add(group);
-
             save(group);
         }
     }
@@ -115,43 +115,35 @@ public class GroupServiceImpl extends BaseEntityServiceImpl<Group, Long, GroupRe
     }
 
     @Override
-    public boolean promoteMember(Group group, User admin, User member) {
+    public void promoteMember(Group group, User admin, User member) {
         if (!group.getAdmins().contains(admin)) {
             System.out.println("you are not admin!");
-            return false;
+            return;
         }
         if (group.getAdmins().contains(member)) {
             System.out.println("this member is already an admin");
-            return false;
+            return;
         }
-        if (group.getMembers().contains(member)) {
-            group.getAdmins().add(member);
-            member.getAdminChats().add(group);
+        group.getAdmins().add(member);
+        member.getAdminChats().add(group);
 
-            transaction.begin();
-            repository.save(group);
-            transaction.commit();
-            return true;
-        }
-        return false;
+        transaction.begin();
+        repository.save(group);
+        transaction.commit();
     }
 
     @Override
-    public boolean demoteMember(Group group, User admin, User member) {
+    public void demoteMember(Group group, User admin, User member) {
         if (!group.getAdmins().contains(admin)) {
             System.out.println("you are not admin!");
-            return false;
+            return;
         }
-        if (group.getMembers().size() > 1) {
-            group.getAdmins().remove(member);
-            member.getAdminChats().remove(group);
+        group.getAdmins().remove(member);
+        member.getAdminChats().remove(group);
 
-            transaction.begin();
-            repository.save(group);
-            transaction.commit();
-            return true;
-        }
-        return false;
+        transaction.begin();
+        repository.save(group);
+        transaction.commit();
     }
 
     @Override

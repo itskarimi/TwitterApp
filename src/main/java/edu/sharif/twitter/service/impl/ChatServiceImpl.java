@@ -4,9 +4,11 @@ import antlr.GrammarAnalyzer;
 import edu.sharif.twitter.base.service.impl.BaseEntityServiceImpl;
 import edu.sharif.twitter.entity.Chat;
 import edu.sharif.twitter.entity.Group;
+import edu.sharif.twitter.entity.Message;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.repository.ChatRepository;
 import edu.sharif.twitter.service.ChatService;
+import edu.sharif.twitter.utils.ApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +44,8 @@ public class ChatServiceImpl extends BaseEntityServiceImpl<Chat, Long, ChatRepos
                         chats.get(j).getLastUpdateDateTime().isAfter(chats.get(s).getLastUpdateDateTime())))
                     s = j;
 
-                sorted.add(chats.get(s));
-                chats.set(s, null);
+            sorted.add(chats.get(s));
+            chats.set(s, null);
         }
         return sorted;
     }

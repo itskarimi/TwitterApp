@@ -62,13 +62,12 @@ public class GroupMemberView {
     public void remove(ActionEvent event) throws IOException {
         ApplicationContext.getGroupService().removeMember(DataManager.getGroup(), DataManager.getUser(), user);
 
-        DataManager.setChat(null);
         if (DataManager.getUser().equals(user)) {
+            DataManager.setChat(null);
             Parent root = FXMLLoader.load(Home.class.getResource("fxml/chat-screen.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
-            String css = Home.class.getResource("css/theme1/home.css").toExternalForm();
-            scene.getStylesheets().add(css);
+            scene.getStylesheets().addAll(DataManager.THEME);
             stage.setScene(scene);
             stage.show();
         }
