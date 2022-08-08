@@ -92,24 +92,4 @@ public class Profile extends Menu{
 
         DataManager.clear();
     }
-
-    @FXML
-    public void changeTheme(ActionEvent event) {
-        DataManager.changeTheme();
-        Scene scene = ((Node) event.getSource()).getScene();
-        scene.getStylesheets().clear();
-        scene.getStylesheets().addAll(DataManager.THEME);
-    }
-
-    @FXML
-    public void onInformationButtonClicked(ActionEvent event) throws IOException {
-        FXMLLoader userListLoader = new FXMLLoader(getClass().getResource("fxml/user-information.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(userListLoader.load());
-        UserInformation userInformation = userListLoader.getController();
-        userInformation.setUser(user);
-        scene.getStylesheets().addAll(DataManager.THEME);
-        stage.setScene(scene);
-        stage.show();
-    }
 }

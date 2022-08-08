@@ -6,8 +6,6 @@ import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.view.Home;
 import edu.sharif.twitter.view.LikeListScreenController;
-import edu.sharif.twitter.view.Profile;
-import edu.sharif.twitter.view.UserScreenController;
 import edu.sharif.twitter.view.data.DataManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,14 +24,13 @@ import lombok.Data;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 public class TweetView {
     private Tweet tweet;
     @FXML
-    private Label tweetLabel, publicDateLabel;
+    private Label usernameLabel, tweetLabel;
     @FXML
-    private Button likeButton, likesButton, commentButton, usernameButton;
+    private Button likeButton, likesButton, commentButton;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -58,10 +55,8 @@ public class TweetView {
 
     public void setTweet(Tweet tweet) throws IOException {
         this.tweet = tweet;
-        usernameButton.setText(tweet.getUser().getUsername());
+        usernameLabel.setText(tweet.getUser().getUsername());
         tweetLabel.setText(tweet.getText());
-
-        publicDateLabel.setText(tweet.getCreateDateTime().toLocalDate().toString());
 
         profileImage.setImage(ApplicationContext.getUserService().getProfileImage(tweet.getUser()));
         Circle clipCircle = new Circle(15, 15, 15);
@@ -107,23 +102,6 @@ public class TweetView {
         likeListScreenController.setPublicMessage(tweet.getUser().getUsername(), tweet);
         scene.getStylesheets().addAll(DataManager.THEME);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    public void gotoProfile(ActionEvent event) throws IOException {
-        Parent root;
-        if (tweet.getUser().equals(DataManager.getUser())) {
-            root = FXMLLoader.load(Profile.class.getResource("fxml/profile.fxml"));
-        } else {
-            DataManager.setTargetUser(tweet.getUser());
-            root = FXMLLoader.load(UserScreenController.class.getResource("fxml/user-screen.fxml"));
-        }
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }

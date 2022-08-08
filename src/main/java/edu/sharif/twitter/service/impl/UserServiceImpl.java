@@ -236,9 +236,10 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         return tweets;
     }
 
-    public void showStats(User user) {
+    public List<DateCount> showStats(User user) {
         List<DateCount> dateCounts = repository.getViewCountPerDay(user);
         dateCounts.forEach(System.out::println);
+        return dateCounts;
     }
 
     @Override
