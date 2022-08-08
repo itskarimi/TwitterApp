@@ -6,8 +6,13 @@
     -fx-border-radius: 5;
 }
 
-#usernameLabel {
+#usernameButton {
     -fx-text-fill: white;
+    -fx-border-width: 0;
+    -fx-background-color: #00000000;
+}
+#usernameButton:hover {
+    -fx-cursor: hand;
 }
 
 #tweetLabel, #commentLabel, #commentReplyLabel {

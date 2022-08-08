@@ -1,7 +1,6 @@
 package edu.sharif.twitter.service;
 
 import edu.sharif.twitter.base.service.BaseEntityService;
-import edu.sharif.twitter.entity.DateCount;
 import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.entity.dto.SearchUserDto;
@@ -35,7 +34,7 @@ public interface UserService extends BaseEntityService<User, Long> {
 
     List<Tweet> showFollowingsTweets(User user);
 
-    List<DateCount> showStats(User user);
+    void showStats(User user);
 
     void setProfileImage(User user, Image image) throws IOException;
 

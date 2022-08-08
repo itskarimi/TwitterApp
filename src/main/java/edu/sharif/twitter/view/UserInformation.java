@@ -22,7 +22,7 @@ public class UserInformation extends Menu {
     @FXML
     private Label usernameLabel, postsLabel, firstnameLabel, lastnameLabel, emailLabel, ageLabel, bioLabel;
     @FXML
-    private Button followersButton, followingButton, onBackButtonClicked;
+    private Button followersButton, followingButton;
     @FXML
     private ImageView profileImage;
 
