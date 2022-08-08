@@ -33,6 +33,22 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
     }
 
     @Override
+    public User login() {
+
+        String username = new Input("Enter your username :").getInputString();
+        String password = new Input("Enter your password :").getInputString();
+        User user = repository.existByUsername(username);
+        try{
+            if (user.getPassword().equals(password)){
+                return user;
+            }
+        } catch (NullPointerException ignored){
+
+        }
+        return null;
+    }
+
+    @Override
     public User login(TextField usernameField, PasswordField passwordField,
                       String css) {
 
@@ -56,6 +72,48 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         }
         return null;
     }
+
+    @Override
+    public void signUp() {
+        User user = new User();
+
+        user.getUserProfile().setFirstName(InputInformation.getFirstName());
+
+        user.getUserProfile().setLastName(InputInformation.getLastName());
+
+        String username = new Input("Enter your username").getInputString();
+
+        while (repository.existByUsername(username) != null) {
+            System.out.println("this username is token before");
+            username = new Input("Enter your username :").getInputString();
+        }
+
+        user.setUsername(username);
+
+        user.setPassword(new Input("Enter your password").getInputString());
+
+        user.setIsDeleted(false);
+
+        user.getUserProfile().setPhoneNumber(InputInformation.getPhoneNumber());
+
+        user.getUserProfile().setEmail(new Input("Enter your email :").getInputString());
+
+        user.getUserProfile().setAge(new Input("Enter your Age :").getInputInt());
+
+        user.getUserProfile().setBio(new Input("Enter your bio : ").getInputString());
+
+        user.setIsBusiness(new Input("Is business user? (false/true): ").getInputBoolean());
+
+        user.getUserProfile().setUser(user);
+
+        repository.getEntityManger().getTransaction().begin();
+        repository.save(user);
+        repository.getEntityManger().getTransaction().commit();
+
+        System.out.println("You are signup successfully...");
+
+    }
+
     @Override
     public boolean signUp(TextField usernameField, TextField passwordField, TextField confirmField, Image image, TextField passwordHintField,
                           TextField firstNameField, TextField lastNameField,
@@ -236,9 +294,10 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         return tweets;
     }
 
-    public void showStats(User user) {
+    public List<DateCount> showStats(User user) {
         List<DateCount> dateCounts = repository.getViewCountPerDay(user);
         dateCounts.forEach(System.out::println);
+        return dateCounts;
     }
 
     @Override

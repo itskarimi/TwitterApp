@@ -4,10 +4,7 @@ import edu.sharif.twitter.entity.Comment;
 import edu.sharif.twitter.entity.Like;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.utils.ApplicationContext;
-import edu.sharif.twitter.view.Home;
-import edu.sharif.twitter.view.LikeListScreenController;
-import edu.sharif.twitter.view.Profile;
-import edu.sharif.twitter.view.UserScreenController;
+import edu.sharif.twitter.view.*;
 import edu.sharif.twitter.view.data.DataManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +25,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class CommentView {
+
     Comment comment;
     @FXML
     private AnchorPane anchorPane;
@@ -38,6 +36,8 @@ public class CommentView {
     @FXML
     private ImageView profileImage;
     public ImageView likeButtonImage;
+    public Button editButton;
+    public Button deleteButton;
 
     @FXML
     public void reply() {
@@ -70,6 +70,9 @@ public class CommentView {
         profileImage.setClip(clipCircle);
 
         setLikeInfo();
+
+        deleteButton.setVisible(comment.getUser().equals(DataManager.getUser()));
+        editButton.setVisible(comment.getUser().equals(DataManager.getUser()));
     }
 
     private void setLikeInfo() {
@@ -126,6 +129,28 @@ public class CommentView {
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
+        scene.getStylesheets().addAll(DataManager.THEME);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void deleteComment(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(DeleteTweetScreenController.class.getResource("fxml/delete-comment-screen.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        DeleteCommentScreenController controller = loader.getController();
+        controller.setComment(comment);
+        scene.getStylesheets().addAll(DataManager.THEME);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void editComment(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(DeleteTweetScreenController.class.getResource("fxml/edit-comment-screen.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        EditCommentScreenController controller = loader.getController();
+        controller.setComment(comment);
         scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();

@@ -15,7 +15,7 @@
     -fx-cursor: hand;
 }
 
-#tweetLabel, #commentLabel, #commentReplyLabel,  #messageVbox {
+#tweetLabel, #commentLabel, #commentReplyLabel,  #messageVbox, #publicMessageLabel {
     -fx-text-fill: white;
     -fx-border-color:  #c18eda;
     -fx-border-radius: 5;

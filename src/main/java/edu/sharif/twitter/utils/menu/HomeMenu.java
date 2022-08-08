@@ -10,9 +10,7 @@ import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.input.Input;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class HomeMenu extends Menu{
     private final User user;
@@ -21,7 +19,7 @@ public class HomeMenu extends Menu{
     private static final TweetService tweetService = ApplicationContext.getTweetService();
     private static final CommentService commentService = ApplicationContext.getCommentService();
     public HomeMenu(User user) {
-        super(Arrays.asList("Profile","Tweet","Explore", "Chat", "Log out"));
+        super(Arrays.asList("Profile","Tweet","Explore", "Chat", "Home", "Log out"));
         this.user = user;
         System.out.println("Welcome to your work bench... \n"
                 +user.getUserProfile().getFirstName() +"  "
@@ -34,7 +32,9 @@ public class HomeMenu extends Menu{
             print();
             switch (chooseOperation()) {
                 case 1:
-                    new ProfileMenu(user, userService, tweetService).runMenu();
+                    if (new ProfileMenu(user, userService, tweetService).runMenu()) {
+                        return;
+                    }
                     break;
                 case 2:
                     new AddPostMenu<>(user, Tweet.class).runMenu();
@@ -48,6 +48,9 @@ public class HomeMenu extends Menu{
                     new ShowChatsMenu(user).runMenu();
                     break;
                 case 5:
+                    new SelectMenu<>(user, getHomeTweets()).runMenu();
+                    return;
+                case 6:
                     return;
             }
         }
@@ -63,5 +66,15 @@ public class HomeMenu extends Menu{
         else
             System.out.println(user);
         return user;
+    }
+
+    private List<Tweet> getHomeTweets() {
+        List<Tweet> tweets = new ArrayList<>(user.getTweets());
+        for (User u : user.getFollowings()) {
+            tweets.addAll(u.getTweets());
+        }
+        tweets.sort(Comparator.comparing(Tweet::getCreateDateTime));
+        Collections.reverse(tweets);
+        return tweets;
     }
 }

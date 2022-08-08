@@ -29,7 +29,7 @@ public class ProfileMenu extends Menu{
     }
 
 
-    public void runMenu() {
+    public boolean runMenu() {
         while (true){
             print();
             switch (chooseOperation()) {
@@ -49,10 +49,12 @@ public class ProfileMenu extends Menu{
                     new SelectMenu<>(user, user.getTweets()).runMenu();
                     break;
                 case 6:
-                    new DeleteAccountMenu(user , userService).runMenu();
+                    if (new DeleteAccountMenu(user , userService).runMenu()) {
+                        return true;
+                    }
                     break;
                 case 7:
-                    return;
+                    return false;
                 case 8:
                     userService.showStats(user);
                     break;
@@ -72,6 +74,4 @@ public class ProfileMenu extends Menu{
             System.out.println(user);
         return user;
     }
-
-
 }

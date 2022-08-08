@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.Profile">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.EditCommentScreenController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
@@ -69,59 +69,29 @@
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-         <children>
-            <Label fx:id="usernameLabel" layoutX="302.0" layoutY="14.0" text="username">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <Button fx:id="followersButton" layoutX="397.0" layoutY="68.0" mnemonicParsing="false" onAction="#onFollowersButtonClicked" text="Followers">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="followingButton" layoutX="537.0" layoutY="68.0" mnemonicParsing="false" onAction="#onFollowingButtonClicked" text="Followings">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Label fx:id="postsLabel" layoutX="302.0" layoutY="73.0" text="Posts">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <ScrollPane layoutX="290.0" layoutY="122.0" maxHeight="430.0" minHeight="0.0" prefWidth="370.0">
-               <content>
-                  <VBox fx:id="postVbox" prefWidth="350.0" />
-               </content>
-            </ScrollPane>
-            <Button fx:id="logoutButton" layoutX="800.0" layoutY="200.0" mnemonicParsing="false" onAction="#logout" prefHeight="30.0" prefWidth="126.0" text="Logout">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <ImageView fx:id="profileImage" fitHeight="115.0" fitWidth="115.0" layoutX="160.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="themeButton" layoutX="799.0" layoutY="119.0" mnemonicParsing="false" onAction="#changeTheme" prefHeight="30.0" prefWidth="126.0" text="Theme">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="informationButton" layoutX="799.0" layoutY="160.0" mnemonicParsing="false" onAction="#onInformationButtonClicked" prefHeight="30.0" prefWidth="126.0" text="Show more">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-             <Button fx:id="statButton" layoutX="800.0" layoutY="283.0" mnemonicParsing="false" onAction="#showStat" prefHeight="30.0" prefWidth="126.0" text="Show Stat">
-                 <font>
-                     <Font name="System Bold" size="14.0" />
-                 </font>
-             </Button>
-            <Button layoutX="801.0" layoutY="241.0" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="30.0" prefWidth="125.0" text="Delete Account">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-         </children>
+            <children>
+                <VBox layoutX="62.0" layoutY="40.0" prefWidth="350.0" />
+                <Button fx:id="editButton" layoutX="485.0" layoutY="395.0" mnemonicParsing="false" onAction="#editComment" text="Change">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Button>
+                <TextArea fx:id="commentArea" layoutX="330.0" layoutY="128.0" prefHeight="240.0" prefWidth="290.0">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </TextArea>
+                <Label fx:id="usernameLabel" layoutX="296.0" layoutY="48.0" text="Username">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Button fx:id="cancelButton" layoutX="382.0" layoutY="395.0" mnemonicParsing="false" onAction="#cancel" text="Cancel">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Button>
+            </children>
         </AnchorPane>
     </children>
 </GridPane>

@@ -1,6 +1,7 @@
 package edu.sharif.twitter.service;
 
 import edu.sharif.twitter.base.service.BaseEntityService;
+import edu.sharif.twitter.entity.DateCount;
 import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.entity.dto.SearchUserDto;
@@ -16,6 +17,10 @@ import java.util.List;
 
 public interface UserService extends BaseEntityService<User, Long> {
     User login(TextField usernameField, PasswordField passwordField, String css);
+
+    User login();
+
+    void signUp();
 
     boolean signUp(TextField usernameField, TextField passwordField, TextField confirmField, Image image, TextField passwordHintField,
                    TextField firstNameField, TextField lastNameField,
@@ -34,7 +39,7 @@ public interface UserService extends BaseEntityService<User, Long> {
 
     List<Tweet> showFollowingsTweets(User user);
 
-    void showStats(User user);
+    List<DateCount> showStats(User user);
 
     void setProfileImage(User user, Image image) throws IOException;
 

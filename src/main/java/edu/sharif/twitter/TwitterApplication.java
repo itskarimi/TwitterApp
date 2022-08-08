@@ -20,5 +20,7 @@ public class TwitterApplication extends Application{
         stage.setTitle("Sharif Twitter");
         stage.setScene(scene);
         stage.show();
+//        new ShowAndRunMenu().runMenu();
     }
+
 }

@@ -1,9 +1,6 @@
 package edu.sharif.twitter.service.impl;
 
-import edu.sharif.twitter.entity.Comment;
-import edu.sharif.twitter.entity.PublicMessage;
-import edu.sharif.twitter.entity.Tweet;
-import edu.sharif.twitter.entity.User;
+import edu.sharif.twitter.entity.*;
 import edu.sharif.twitter.repository.TweetRepository;
 import edu.sharif.twitter.service.TweetService;
 import edu.sharif.twitter.utils.ApplicationContext;
@@ -81,5 +78,24 @@ public class TweetServiceImpl extends PublicMessageServiceImpl<Tweet>
             comments.set(s, null);
         }
         return sorted;
+    }
+
+
+    @Override
+    public List<DateCount> getViewStat(PublicMessage publicMessage) {
+        return repository.getViewCountPerDay(publicMessage);
+    }
+
+    @Override
+    public List<DateCount> getLikeStat(PublicMessage publicMessage) {
+        return repository.getLikeCountPerDay(publicMessage);
+    }
+
+    @Override
+    public void delete(Tweet tweet) {
+        tweet.getUser().getTweets().remove(tweet);
+        transaction.begin();
+        repository.delete(tweet);
+        transaction.commit();
     }
 }

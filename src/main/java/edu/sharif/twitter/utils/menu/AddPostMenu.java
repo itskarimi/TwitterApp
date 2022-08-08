@@ -7,6 +7,7 @@ import edu.sharif.twitter.service.PublicMessageService;
 import edu.sharif.twitter.service.TweetService;
 import edu.sharif.twitter.service.UserService;
 import edu.sharif.twitter.utils.ApplicationContext;
+import edu.sharif.twitter.utils.input.Input;
 import javafx.scene.control.TextField;
 
 import java.lang.reflect.Type;
@@ -42,13 +43,21 @@ public class AddPostMenu<T extends PublicMessage> extends Menu{
     }
 
     public void runMenu() {
-        PublicMessage pm = publicMessageService.createPublicMessage(user, repliedTo, null);
+        PublicMessage pm = publicMessageService.createPublicMessage(user, repliedTo,
+                new Input(
+                    "Enter your text :",
+                    "Your text must be a maximum of 280 characters",
+                    "", null).getInputTextString());
 
         while (true) {
             print();
             switch (chooseOperation()) {
                 case 1:
-                    pm = publicMessageService.createPublicMessage(user, repliedTo, null);
+                    pm = publicMessageService.createPublicMessage(user, repliedTo,
+                            new Input(
+                                "Enter your text :",
+                                "Your text must be a maximum of 280 characters",
+                                "", null).getInputTextString());
                     break;
                 case 2:
                     publicMessageService.save(type.cast(pm));

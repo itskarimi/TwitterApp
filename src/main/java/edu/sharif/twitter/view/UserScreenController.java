@@ -40,6 +40,8 @@ public class UserScreenController extends Menu {
         followingButton.setText(user.getFollowings().size() + " Following");
         profileImage.setImage(ApplicationContext.getUserService().getProfileImage(user));
 
+        ApplicationContext.getViewProfileService().addViewProfile(DataManager.getUser(), user);
+
         Circle clipCircle = new Circle(57.5, 57.5, 57.5);
         profileImage.setClip(clipCircle);
 
@@ -62,8 +64,6 @@ public class UserScreenController extends Menu {
     @FXML
     public void onFollowButtonClick() throws IOException {
         ApplicationContext.getUserService().follow(DataManager.getUser(), user);
-//        ApplicationContext.getUserService().save(DataManager.getUser());
-//        ApplicationContext.getUserService().save(user);
         initLabels();
     }
 

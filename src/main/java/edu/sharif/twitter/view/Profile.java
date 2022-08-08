@@ -28,7 +28,7 @@ public class Profile extends Menu{
     @FXML
     private Label usernameLabel, postsLabel;
     @FXML
-    private Button followersButton, followingButton;
+    private Button followersButton, followingButton, statButton;
     @FXML
     private VBox postVbox;
     @FXML
@@ -40,6 +40,7 @@ public class Profile extends Menu{
         postsLabel.setText(user.getTweets().size() + " Posts");
         followersButton.setText(user.getFollowers().size() + " Followers");
         followingButton.setText(user.getFollowings().size() + " Following");
+        statButton.setVisible(user.getIsBusiness());
 
         Circle clipCircle = new Circle(57.5, 57.5, 57.5);
         profileImage.setClip(clipCircle);
@@ -84,7 +85,7 @@ public class Profile extends Menu{
     public void logout(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TwitterApplication.class.getResource("view/fxml/twitter-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(DataManager.THEME[0]);
+        scene.getStylesheets().addAll(DataManager.THEME);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Sharif Twitter");
         stage.setScene(scene);
@@ -111,5 +112,27 @@ public class Profile extends Menu{
         scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void showStat(ActionEvent event) throws IOException {
+        FXMLLoader profileStatLoader = new FXMLLoader(getClass().getResource("fxml/profile-stat-screen.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(profileStatLoader.load());
+        scene.getStylesheets().addAll(DataManager.THEME);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void deleteAccount(ActionEvent event) throws IOException {
+        ApplicationContext.getUserService().delete(DataManager.getUser());
+        FXMLLoader fxmlLoader = new FXMLLoader(TwitterApplication.class.getResource("view/fxml/twitter-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().addAll(DataManager.THEME);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Sharif Twitter");
+        stage.setScene(scene);
+        stage.show();
+
+        DataManager.clear();
     }
 }

@@ -27,6 +27,9 @@ public class Tweet extends PublicMessage {
     public String toString() {
         String dashLine = "----------";
         StringBuilder stringBuilder = new StringBuilder("@" + getUser().getUsername());
+        if (user.getIsBusiness()) {
+            stringBuilder.append("  *AD*");
+        }
         stringBuilder.append(dashLine).append(dashLine).append(dashLine);
 
         stringBuilder.append(text).append("\n\n");

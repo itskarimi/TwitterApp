@@ -67,4 +67,13 @@ public class CommentServiceImpl extends PublicMessageServiceImpl<Comment>
         comments.add(publicMessage);
         return comments;
     }
+
+    @Override
+    public void delete(Comment comment) {
+        comment.getUser().getComments().remove(comment);
+        comment.getRepliedTo().getComments().remove(comment);
+        repository.getEntityManger().getTransaction().begin();
+        repository.delete(comment);
+        repository.getEntityManger().getTransaction().commit();
+    }
 }

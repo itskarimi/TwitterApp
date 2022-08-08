@@ -4,10 +4,7 @@ import edu.sharif.twitter.entity.Like;
 import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.utils.ApplicationContext;
-import edu.sharif.twitter.view.Home;
-import edu.sharif.twitter.view.LikeListScreenController;
-import edu.sharif.twitter.view.Profile;
-import edu.sharif.twitter.view.UserScreenController;
+import edu.sharif.twitter.view.*;
 import edu.sharif.twitter.view.data.DataManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,14 +28,17 @@ import java.time.LocalDateTime;
 public class TweetView {
     private Tweet tweet;
     @FXML
-    private Label tweetLabel, publicDateLabel;
+    private Label tweetLabel, adLabel, publicDateLabel;
     @FXML
-    private Button likeButton, likesButton, commentButton, usernameButton;
+    private Button likeButton, likesButton, commentButton, usernameButton, statButton;
     @FXML
     private AnchorPane anchorPane;
     @FXML
     private ImageView profileImage;
     public ImageView likeButtonImage;
+
+    @FXML
+    private Button deleteButton, editButton;
 
     @FXML
     public void gotoComments(ActionEvent event) throws IOException {
@@ -60,14 +60,23 @@ public class TweetView {
         this.tweet = tweet;
         usernameButton.setText(tweet.getUser().getUsername());
         tweetLabel.setText(tweet.getText());
-
+        adLabel.setVisible(tweet.getUser().getIsBusiness());
         publicDateLabel.setText(tweet.getCreateDateTime().toLocalDate().toString());
 
         profileImage.setImage(ApplicationContext.getUserService().getProfileImage(tweet.getUser()));
         Circle clipCircle = new Circle(15, 15, 15);
         profileImage.setClip(clipCircle);
 
+        Boolean isCurrentUserTweet = tweet.getUser().equals(DataManager.getUser());
+        statButton.setVisible(isCurrentUserTweet && DataManager.getUser().getIsBusiness());
         setLikeInfo();
+
+        if (!isCurrentUserTweet) {
+            ApplicationContext.getViewService().addView(DataManager.getUser(), tweet);
+        }
+
+        editButton.setVisible(isCurrentUserTweet);
+        deleteButton.setVisible(isCurrentUserTweet);
     }
 
     private void setLikeInfo() {
@@ -123,6 +132,40 @@ public class TweetView {
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
+        scene.getStylesheets().addAll(DataManager.THEME);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
+    public void showStat(ActionEvent event) throws IOException {
+        FXMLLoader profileStatLoader = new FXMLLoader(TweetStatScreenController.class.getResource("fxml/tweet-stat-screen.fxml"));
+        Scene scene = new Scene(profileStatLoader.load());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        TweetStatScreenController tweetStatScreenController = profileStatLoader.getController();
+        tweetStatScreenController.setPublicMessage(tweet.getUser().getUsername(), tweet);
+        scene.getStylesheets().addAll(DataManager.THEME);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void deleteTweet(ActionEvent event) throws IOException {
+        FXMLLoader deleteTweetLoader = new FXMLLoader(DeleteTweetScreenController.class.getResource("fxml/delete-tweet-screen.fxml"));
+        Scene scene = new Scene(deleteTweetLoader.load());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        DeleteTweetScreenController deleteTweetLoaderController = deleteTweetLoader.getController();
+        deleteTweetLoaderController.setTweet(tweet);
+        scene.getStylesheets().addAll(DataManager.THEME);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void editTweet(ActionEvent event) throws IOException {
+        FXMLLoader editTweetLoader = new FXMLLoader(DeleteTweetScreenController.class.getResource("fxml/edit-tweet-screen.fxml"));
+        Scene scene = new Scene(editTweetLoader.load());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        EditTweetScreenController editTweetLoaderController = editTweetLoader.getController();
+        editTweetLoaderController.setTweet(tweet);
         scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();

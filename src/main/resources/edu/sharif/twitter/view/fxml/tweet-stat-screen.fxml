@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.Profile">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.TweetStatScreenController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
@@ -69,59 +71,41 @@
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-         <children>
-            <Label fx:id="usernameLabel" layoutX="302.0" layoutY="14.0" text="username">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <Button fx:id="followersButton" layoutX="397.0" layoutY="68.0" mnemonicParsing="false" onAction="#onFollowersButtonClicked" text="Followers">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="followingButton" layoutX="537.0" layoutY="68.0" mnemonicParsing="false" onAction="#onFollowingButtonClicked" text="Followings">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Label fx:id="postsLabel" layoutX="302.0" layoutY="73.0" text="Posts">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <ScrollPane layoutX="290.0" layoutY="122.0" maxHeight="430.0" minHeight="0.0" prefWidth="370.0">
-               <content>
-                  <VBox fx:id="postVbox" prefWidth="350.0" />
-               </content>
-            </ScrollPane>
-            <Button fx:id="logoutButton" layoutX="800.0" layoutY="200.0" mnemonicParsing="false" onAction="#logout" prefHeight="30.0" prefWidth="126.0" text="Logout">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <ImageView fx:id="profileImage" fitHeight="115.0" fitWidth="115.0" layoutX="160.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="themeButton" layoutX="799.0" layoutY="119.0" mnemonicParsing="false" onAction="#changeTheme" prefHeight="30.0" prefWidth="126.0" text="Theme">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="informationButton" layoutX="799.0" layoutY="160.0" mnemonicParsing="false" onAction="#onInformationButtonClicked" prefHeight="30.0" prefWidth="126.0" text="Show more">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-             <Button fx:id="statButton" layoutX="800.0" layoutY="283.0" mnemonicParsing="false" onAction="#showStat" prefHeight="30.0" prefWidth="126.0" text="Show Stat">
-                 <font>
-                     <Font name="System Bold" size="14.0" />
-                 </font>
-             </Button>
-            <Button layoutX="801.0" layoutY="241.0" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="30.0" prefWidth="125.0" text="Delete Account">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-         </children>
+            <children>
+                <VBox fx:id="postVbox" layoutX="62.0" layoutY="40.0" prefWidth="350.0">
+                    <children>
+                        <Label fx:id="usernameLabel" layoutX="14.0" layoutY="14.0" text="Username">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="publicMessageLabel" alignment="CENTER" layoutX="14.0" layoutY="40.0" maxHeight="200.0" minHeight="50.0" prefHeight="200.0" prefWidth="322.0" text="Tweet" textAlignment="CENTER">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </Label>
+                    </children>
+                </VBox>
+                <LineChart fx:id="viewChart" layoutX="521.0" layoutY="57.0" prefHeight="226.0" prefWidth="357.0" title="Tweet Views">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis side="LEFT" />
+                    </yAxis>
+                </LineChart>
+                <LineChart fx:id="likeChart" layoutX="529.0" layoutY="298.0" prefHeight="226.0" prefWidth="357.0" title="Tweet Likes">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis side="LEFT" />
+                    </yAxis>
+                </LineChart>
+            </children>
         </AnchorPane>
     </children>
 </GridPane>
