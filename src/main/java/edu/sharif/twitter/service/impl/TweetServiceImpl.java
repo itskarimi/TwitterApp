@@ -8,13 +8,17 @@ import edu.sharif.twitter.repository.TweetRepository;
 import edu.sharif.twitter.service.TweetService;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.utils.input.Input;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 
+import javax.imageio.ImageIO;
 import javax.persistence.EntityTransaction;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TweetServiceImpl extends PublicMessageServiceImpl<Tweet>
@@ -81,5 +85,57 @@ public class TweetServiceImpl extends PublicMessageServiceImpl<Tweet>
             comments.set(s, null);
         }
         return sorted;
+    }
+
+    @Override
+    public void setImage(Tweet tweet, Image image) {
+        tweet.setImage(image);
+        this.save(tweet);
+    }
+
+    @Override
+    public void deleteImage(Tweet tweet) {
+        Image image = getImage(tweet);
+        if (image == null)
+            return;
+        tweet.setImage(null);
+    }
+
+    @Override
+    public Image getImage(Tweet tweet) {
+        if (tweet.getImage() == null)
+            return null;
+
+        byte[] byteArray = tweet.getImage();
+
+        ByteArrayInputStream inStream = new ByteArrayInputStream(byteArray);
+
+        BufferedImage bufferedImage = null;
+        try {
+            bufferedImage = ImageIO.read(inStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return SwingFXUtils.toFXImage(bufferedImage, null);
+    }
+
+    public static BufferedImage resize(BufferedImage img, int newW, int newH) {
+        int h, w;
+        if ((double) newH/newW > (double) img.getHeight()/img.getWidth()) {
+            h = (int) ((double) img.getHeight()/img.getWidth()*newW);
+            w = newW;
+        } else {
+            w = (int) ((double) img.getWidth()/img.getHeight()*newH);
+            h = newH;
+        }
+        java.awt.Image tmp = img.getScaledInstance(h, w, java.awt.Image.SCALE_SMOOTH);
+        BufferedImage dimg = new BufferedImage(h, w, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g2d = dimg.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+
+        return dimg;
     }
 }

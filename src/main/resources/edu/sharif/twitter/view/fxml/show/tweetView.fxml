@@ -44,5 +44,6 @@
          </font>
       </Button>
       <Label fx:id="publicDateLabel" layoutX="175.0" layoutY="260.0" text="Date" />
+      <ImageView fx:id="tweetImage" fitHeight="220.0" fitWidth="322.0" layoutX="14.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

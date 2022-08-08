@@ -13,8 +13,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,7 +26,9 @@ import java.util.List;
 public class LikeListScreenController extends Menu{
 
     @FXML
-    private VBox likeVbox;
+    private VBox likeVbox, postVbox;
+    @FXML
+    private ImageView postImage;
     public Label usernameLabel;
     public Label publicMessageLabel;
 
@@ -35,6 +40,19 @@ public class LikeListScreenController extends Menu{
     public void setPublicMessage(String username, PublicMessage publicMessage) throws IOException {
         publicMessageLabel.setText(publicMessage.getText());
         usernameLabel.setText(username);
+
+        if (publicMessage instanceof Tweet) {
+            Tweet tweet = (Tweet) publicMessage;
+            if (tweet.getImage() != null) {
+                Image img = ApplicationContext.getTweetService().getImage(tweet);
+                postVbox.getChildren().remove(publicMessageLabel);
+                postImage.setFitWidth(img.getWidth());
+                postImage.setFitHeight(img.getHeight());
+                postImage.setImage(img);
+            }
+
+        }
+
         List<Like> likeList = publicMessage.getLikes();
         likeList.sort(Comparator.comparing(Like::getCreateDateTime));
         Collections.reverse(likeList);
