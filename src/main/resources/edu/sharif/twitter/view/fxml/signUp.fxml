@@ -72,7 +72,7 @@
             <Font size="16.0" />
          </font>
       </TextField>
-      <ToggleButton fx:id="businessToggle" layoutX="296.0" layoutY="447.0" mnemonicParsing="false" text="business">
+      <ToggleButton fx:id="businessToggle" layoutX="441.0" layoutY="454.0" mnemonicParsing="false" text="business">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -117,10 +117,20 @@
             <Image url="@../../images/default-image.png" />
          </image>
       </ImageView>
-      <Button fx:id="chooseButton1" layoutX="751.0" layoutY="447.0" mnemonicParsing="false" onAction="#selectPhoto" text="Choose">
+      <Button fx:id="chooseButton1" layoutX="751.0" layoutY="454.0" mnemonicParsing="false" onAction="#selectPhoto" text="Choose">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Button>
+      <TextField fx:id="hintField" layoutX="139.0" layoutY="454.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <Label layoutX="22.0" layoutY="459.0" text="Password Hint">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

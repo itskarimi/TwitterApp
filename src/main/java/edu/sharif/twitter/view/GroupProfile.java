@@ -79,14 +79,13 @@ public class GroupProfile extends Menu {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/add-member.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("css/theme1/home.css").toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }
 
     public void update() throws IOException {
-        if (DataManager.getGroup().getMembers().size() != members.size()) {
+        if (DataManager.getGroup() != null && DataManager.getGroup().getMembers().size() != members.size()) {
             memberVbox.getChildren().clear();
             members = new ArrayList<>(DataManager.getGroup().getMembers());
 

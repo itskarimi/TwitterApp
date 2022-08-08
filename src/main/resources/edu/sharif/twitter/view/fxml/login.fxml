@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="650.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.Login">
    <children>
       <ImageView fitHeight="451.0" fitWidth="684.0" layoutX="176.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true">
@@ -42,5 +41,10 @@
             <Font size="16.0" />
          </font>
       </PasswordField>
+      <Label fx:id="hintLabel" layoutX="468.0" layoutY="475.0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

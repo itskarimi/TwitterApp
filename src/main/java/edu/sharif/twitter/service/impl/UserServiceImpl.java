@@ -57,7 +57,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         return null;
     }
     @Override
-    public boolean signUp(TextField usernameField, TextField passwordField, TextField confirmField, Image image,
+    public boolean signUp(TextField usernameField, TextField passwordField, TextField confirmField, Image image, TextField passwordHintField,
                           TextField firstNameField, TextField lastNameField,
                           TextField emailField, TextField ageField, TextField bioField,
                           ToggleButton businessToggle, String css, Label warnings) throws IOException {
@@ -123,14 +123,38 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
             confirmField.getStylesheets().remove(css);
         }
 
+
         String email = emailField.getText();
-        user.getUserProfile().setEmail(email);
+        if (email != null) {
+            user.getUserProfile().setEmail(email);
+            emailField.getStylesheets().remove(css);
+        }
+        else
+            emailField.getStylesheets().add(css);
 
         String age = ageField.getText();
-        user.getUserProfile().setAge(Integer.parseInt(age));
+        if (age != null) {
+            user.getUserProfile().setAge(Integer.parseInt(age));
+            ageField.getStylesheets().remove(css);
+        }
+        else
+            ageField.getStylesheets().add(css);
 
         String bio = bioField.getText();
-        user.getUserProfile().setBio(bio);
+        if (bio != null) {
+            user.getUserProfile().setBio(bio);
+            bioField.getStylesheets().remove(css);
+        }
+        else
+            bioField.getStylesheets().add(css);
+
+        String passwordHint = passwordHintField.getText();
+        if (passwordHint != null) {
+            user.getUserProfile().setPasswordHint(passwordHint);
+            passwordHintField.getStylesheets().remove(css);
+        }
+        else
+            passwordHintField.getStylesheets().add(css);
 
         user.setIsBusiness(businessToggle.isSelected());
 

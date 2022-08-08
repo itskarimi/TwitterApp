@@ -27,7 +27,6 @@ public class UserView {
     @FXML
     public void switchToUserProfile(ActionEvent event) throws IOException {
         Parent root;
-        String css, tweetCss;
         if (user.equals(DataManager.getUser())) {
             root = FXMLLoader.load(Profile.class.getResource("fxml/profile.fxml"));
         } else {

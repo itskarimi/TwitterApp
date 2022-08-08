@@ -105,5 +105,17 @@ public class UserScreenController extends Menu {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    public void onInformationButtonClicked(ActionEvent event) throws IOException {
+        FXMLLoader userListLoader = new FXMLLoader(getClass().getResource("fxml/user-information.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(userListLoader.load());
+        UserInformation userInformation = userListLoader.getController();
+        userInformation.setUser(user);
+        scene.getStylesheets().addAll(DataManager.THEME);
+        stage.setScene(scene);
+        stage.show();
+    }
     
 }

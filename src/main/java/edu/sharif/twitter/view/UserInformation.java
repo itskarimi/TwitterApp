@@ -1,59 +1,49 @@
 package edu.sharif.twitter.view;
 
-import edu.sharif.twitter.TwitterApplication;
-import edu.sharif.twitter.entity.Tweet;
 import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.view.data.DataManager;
-import edu.sharif.twitter.view.show.TweetView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-public class Profile extends Menu{
-    private User user = DataManager.getUser();
+public class UserInformation extends Menu {
+    private User user;
     @FXML
-    private Label usernameLabel, postsLabel;
+    private Label usernameLabel, postsLabel, firstnameLabel, lastnameLabel, emailLabel, ageLabel, bioLabel;
     @FXML
-    private Button followersButton, followingButton;
-    @FXML
-    private VBox postVbox;
+    private Button followersButton, followingButton, onBackButtonClicked;
     @FXML
     private ImageView profileImage;
 
-    @FXML
-    public void initialize() throws IOException {
+    public void setUser(User user) throws IOException {
+        this.user = user;
         usernameLabel.setText(user.getUsername());
         postsLabel.setText(user.getTweets().size() + " Posts");
         followersButton.setText(user.getFollowers().size() + " Followers");
         followingButton.setText(user.getFollowings().size() + " Following");
 
+        firstnameLabel.setText("Firstname: " + user.getUserProfile().getFirstName());
+        lastnameLabel.setText("Lastname: " + user.getUserProfile().getLastName());
+        emailLabel.setText("Email: " + user.getUserProfile().getEmail());
+        ageLabel.setText("Age: " + user.getUserProfile().getAge().toString());
+        bioLabel.setText("Bio: " + user.getUserProfile().getBio());
+
+
         Circle clipCircle = new Circle(57.5, 57.5, 57.5);
         profileImage.setClip(clipCircle);
 
         profileImage.setImage(ApplicationContext.getUserService().getProfileImage(user));
-
-        for (int i = user.getTweets().size() - 1; i >= 0; i--) {
-            Tweet tweet = user.getTweets().get(i);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/show/tweetView.fxml"));
-            Node node = loader.load();
-            TweetView tweetView = loader.getController();
-            tweetView.setTweet(tweet);
-            postVbox.getChildren().add(node);
-        }
     }
 
     @FXML
@@ -75,39 +65,6 @@ public class Profile extends Menu{
         Scene scene = new Scene(userListLoader.load());
         UserListScreenController userListScreenController = userListLoader.getController();
         userListScreenController.setUsers(user.getFollowings());
-        scene.getStylesheets().addAll(DataManager.THEME);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    public void logout(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(TwitterApplication.class.getResource("view/fxml/twitter-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(DataManager.THEME[0]);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle("Sharif Twitter");
-        stage.setScene(scene);
-        stage.show();
-
-        DataManager.clear();
-    }
-
-    @FXML
-    public void changeTheme(ActionEvent event) {
-        DataManager.changeTheme();
-        Scene scene = ((Node) event.getSource()).getScene();
-        scene.getStylesheets().clear();
-        scene.getStylesheets().addAll(DataManager.THEME);
-    }
-
-    @FXML
-    public void onInformationButtonClicked(ActionEvent event) throws IOException {
-        FXMLLoader userListLoader = new FXMLLoader(getClass().getResource("fxml/user-information.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(userListLoader.load());
-        UserInformation userInformation = userListLoader.getController();
-        userInformation.setUser(user);
         scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();

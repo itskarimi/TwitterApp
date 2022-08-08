@@ -66,12 +66,18 @@ public class ChatScreen extends Menu {
 
         if (DataManager.getChat() != null)
             showChat(DataManager.getChat());
+        else {
+            sendButton.setDisable(true);
+            messageArea.setDisable(true);
+            profileButton.setText("");
+        }
 
         chatList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Chat>() {
             @Override
             public void changed(ObservableValue<? extends Chat> observableValue, Chat chat, Chat t1) {
                 try {
-                    showChat(chatList.getSelectionModel().getSelectedItem());
+                    if (chatList.getSelectionModel().getSelectedItem() != null)
+                        showChat(chatList.getSelectionModel().getSelectedItem());
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -84,6 +90,9 @@ public class ChatScreen extends Menu {
     }
 
     public void showChat(Chat chat) throws IOException {
+        sendButton.setDisable(false);
+        messageArea.setDisable(false);
+
         if (chat instanceof DM)
             profileImage.setImage(ApplicationContext.getUserService().
                     getProfileImage(chat.getMembers().get(0).equals(DataManager.getUser()) ? chat.getMembers().get(1) : chat.getMembers().get(0)));

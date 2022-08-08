@@ -6,14 +6,22 @@
     -fx-border-radius: 5;
 }
 
-#usernameLabel {
+#usernameButton {
     -fx-text-fill: white;
+    -fx-border-width: 0;
+    -fx-background-color: #00000000;
+}
+#usernameButton:hover {
+    -fx-cursor: hand;
 }
 
-#tweetLabel, #commentLabel, #commentReplyLabel {
+#tweetLabel, #commentLabel, #commentReplyLabel, #messageVbox {
     -fx-text-fill: white;
     -fx-border-color:  #1e90ff;
     -fx-border-radius: 5;
+}
+#messageVbox {
+    -fx-background-color: #1e90ff30;
 }
 
 #likeButton, #commentButton {

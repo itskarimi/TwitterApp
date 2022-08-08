@@ -23,7 +23,7 @@ import java.io.IOException;
 public class SignUp {
     private FileChooser fileChooser =  new FileChooser();
     @FXML
-    private TextField usernameField, firstNameField, lastNameField, emailField, ageField, bioField;
+    private TextField usernameField, firstNameField, lastNameField, emailField, ageField, bioField, hintField;
     @FXML
     private PasswordField passwordField, confirmPasswordField;
     @FXML
@@ -40,7 +40,7 @@ public class SignUp {
 
         String errorCss = this.getClass().getResource("css/labelError.css").toExternalForm();
 
-        if (!ApplicationContext.getUserService().signUp(usernameField, passwordField, confirmPasswordField, profileImage.getImage(),
+        if (!ApplicationContext.getUserService().signUp(usernameField, passwordField, confirmPasswordField, profileImage.getImage(), hintField,
                 firstNameField, lastNameField,
                 emailField, ageField, bioField,
                 businessToggle, errorCss, warningLabel))

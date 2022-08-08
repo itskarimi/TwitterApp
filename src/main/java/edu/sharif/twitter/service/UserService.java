@@ -17,7 +17,7 @@ import java.util.List;
 public interface UserService extends BaseEntityService<User, Long> {
     User login(TextField usernameField, PasswordField passwordField, String css);
 
-    boolean signUp(TextField usernameField, TextField passwordField, TextField confirmField, Image image,
+    boolean signUp(TextField usernameField, TextField passwordField, TextField confirmField, Image image, TextField passwordHintField,
                    TextField firstNameField, TextField lastNameField,
                    TextField emailField, TextField ageField, TextField bioField,
                    ToggleButton businessToggle, String css, Label warnings) throws IOException;

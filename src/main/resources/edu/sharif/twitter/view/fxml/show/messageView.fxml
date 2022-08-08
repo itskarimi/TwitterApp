@@ -1,37 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="messagePane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.show.MessageView">
+<HBox fx:id="messageHbox" prefWidth="540.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.sharif.twitter.view.show.MessageView">
    <children>
-      <Label fx:id="usernameLabel" layoutX="45.0" layoutY="14.0" text="Username">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="messageLabel" layoutX="12.0" layoutY="50.0" text="Message">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <MenuBar fx:id="optionBar" layoutX="120.0" layoutY="11.0">
-        <menus>
-          <Menu fx:id="menuOption" mnemonicParsing="false" text="!">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#reply" text="reply" />
-                  <MenuItem mnemonicParsing="false" onAction="#forward" text="forward" />
-                  <MenuItem mnemonicParsing="false" onAction="#edit" text="edit" />
-                  <MenuItem mnemonicParsing="false" onAction="#delete" text="delete" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <ImageView fx:id="profileImage" fitHeight="30.0" fitWidth="30.0" layoutX="12.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
+      <VBox fx:id="messageVbox" spacing="5.0">
+         <children>
+            <HBox style="-fx-spacing: 5;">
+               <children>
+                  <ImageView fx:id="profileImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="usernameLabel" text="Username">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <MenuBar fx:id="optionBar">
+                     <menus>
+                        <Menu fx:id="menuOption" mnemonicParsing="false" text="!">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#reply" text="reply" />
+                              <MenuItem mnemonicParsing="false" onAction="#forward" text="forward" />
+                              <MenuItem mnemonicParsing="false" onAction="#edit" text="edit" />
+                              <MenuItem mnemonicParsing="false" onAction="#delete" text="delete" />
+                           </items>
+                        </Menu>
+                     </menus>
+                  </MenuBar>
+               </children>
+            </HBox>
+            <Label fx:id="messageLabel" maxHeight="1.7976931348623157E308" text="Message" />
+            <Label fx:id="dateLabel" text="Date" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="4.0" />
+         </padding>
+      </VBox>
    </children>
-</AnchorPane>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="15.0" top="5.0" />
+   </padding>
+</HBox>

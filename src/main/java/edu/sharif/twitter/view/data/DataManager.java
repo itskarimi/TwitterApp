@@ -20,8 +20,10 @@ public class DataManager {
     private static final String[] THEME1 = {THEME1_LOGIN, THEME1_BASICS, THEME1_VIEWS};
     private static final String[] THEME2 = {THEME2_LOGIN, THEME2_BASICS, THEME2_VIEWS};
     private static final String[] THEME3 = {THEME3_LOGIN, THEME3_BASICS, THEME3_VIEWS};
+    private static final String[][] THEMES = {THEME1, THEME2, THEME3};
+    private static int themeNumber = 0;
 
-    public static String[] THEME = THEME3;
+    public static String[] THEME = THEMES[themeNumber];
     private static User user;
     private static Tweet tweet;
     private static Comment comment;
@@ -103,6 +105,10 @@ public class DataManager {
         message = null; chat = null;
         group = null; members.clear();
         mode = MessageMode.NULL;
+    }
+
+    public static void changeTheme() {
+        THEME = THEMES[themeNumber++ % THEMES.length];
     }
 
 }

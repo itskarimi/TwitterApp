@@ -6,6 +6,8 @@ import edu.sharif.twitter.entity.User;
 import edu.sharif.twitter.utils.ApplicationContext;
 import edu.sharif.twitter.view.Home;
 import edu.sharif.twitter.view.LikeListScreenController;
+import edu.sharif.twitter.view.Profile;
+import edu.sharif.twitter.view.UserScreenController;
 import edu.sharif.twitter.view.data.DataManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,15 +25,16 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class CommentView {
     Comment comment;
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private Label usernameLabel, commentLabel, commentReplyLabel;
+    private Label commentLabel, commentReplyLabel, publicDateLabel;
     @FXML
-    private Button likeButton, likesButton, replyButton;
+    private Button likeButton, likesButton, replyButton, usernameButton;
     @FXML
     private ImageView profileImage;
     public ImageView likeButtonImage;
@@ -48,7 +51,7 @@ public class CommentView {
 
     public void setComment(Comment comment) throws IOException {
         this.comment = comment;
-        usernameLabel.setText(comment.getUser().getUsername());
+        usernameButton.setText(comment.getUser().getUsername());
         commentLabel.setText(comment.getText());
         if (comment.getRepliedTo() == null)
             anchorPane.getChildren().remove(commentReplyLabel);
@@ -59,6 +62,8 @@ public class CommentView {
             }
             commentReplyLabel.setText(text);
         }
+
+        publicDateLabel.setText(comment.getCreateDateTime().toLocalDate().toString());
 
         profileImage.setImage(ApplicationContext.getUserService().getProfileImage(comment.getUser()));
         Circle clipCircle = new Circle(15, 15, 15);
@@ -105,6 +110,23 @@ public class CommentView {
         likeListScreenController.setPublicMessage(comment.getUser().getUsername(), comment);
         scene.getStylesheets().addAll(DataManager.THEME);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void gotoProfile(ActionEvent event) throws IOException {
+        Parent root;
+        if (comment.getUser().equals(DataManager.getUser())) {
+            root = FXMLLoader.load(Profile.class.getResource("fxml/profile.fxml"));
+        } else {
+            DataManager.setTargetUser(comment.getUser());
+            root = FXMLLoader.load(UserScreenController.class.getResource("fxml/user-screen.fxml"));
+        }
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().addAll(DataManager.THEME);
         stage.setScene(scene);
         stage.show();
     }

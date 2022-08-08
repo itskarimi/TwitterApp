@@ -38,6 +38,9 @@ public class UserProfile extends BaseEntity<Long> {
     @Lob
     private String bio;
 
+    @Column(name = "password_hint")
+    private String passwordHint;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = USER_ID, nullable = false)
     private User user;

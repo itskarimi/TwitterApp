@@ -108,6 +108,16 @@
                </font>
             </Button>
             <ImageView fx:id="profileImage" fitHeight="115.0" fitWidth="115.0" layoutX="160.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="themeButton" layoutX="861.0" layoutY="15.0" mnemonicParsing="false" onAction="#changeTheme" text="Theme">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="informationButton" layoutX="660.0" layoutY="68.0" mnemonicParsing="false" onAction="#onInformationButtonClicked" text="Show more">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
          </children>
         </AnchorPane>
     </children>
