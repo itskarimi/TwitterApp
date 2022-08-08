@@ -14,13 +14,13 @@ public class TwitterApplication extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(TwitterApplication.class.getResource("view/fxml/twitter-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(DataManager.THEME[0]);
-        stage.setTitle("Sharif Twitter");
-        stage.setScene(scene);
-        stage.show();
-//        new ShowAndRunMenu().runMenu();
+//        FXMLLoader fxmlLoader = new FXMLLoader(TwitterApplication.class.getResource("view/fxml/twitter-view.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load());
+//        scene.getStylesheets().add(DataManager.THEME[0]);
+//        stage.setTitle("Sharif Twitter");
+//        stage.setScene(scene);
+//        stage.show();
+        new ShowAndRunMenu().runMenu();
     }
 
 }
